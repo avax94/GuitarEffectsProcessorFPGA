@@ -1,0 +1,12 @@
+	component audio_clock_gen is
+		port (
+			CLOCK_50    : in  std_logic := 'X'; -- clk
+			reset       : in  std_logic := 'X'; -- reset
+			sys_clk     : out std_logic;        -- clk
+			sys_reset_n : out std_logic;        -- reset_n
+			SDRAM_CLK   : out std_logic;        -- clk
+			CLOCK_27    : in  std_logic := 'X'; -- clk
+			AUD_CLK     : out std_logic         -- clk
+		);
+	end component audio_clock_gen;
+

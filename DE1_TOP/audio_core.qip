@@ -1,0 +1,13 @@
+set_global_assignment -entity "audio_core" -library "audio_core" -name IP_TOOL_NAME "altera_up_avalon_audio"
+set_global_assignment -entity "audio_core" -library "audio_core" -name IP_TOOL_VERSION "13.0sp1"
+set_global_assignment -entity "audio_core" -library "audio_core" -name IP_TOOL_ENV "mwpim"
+set_global_assignment -library "audio_core" -name MISC_FILE [file join $::quartus(qip_path) "audio_core.cmp"]
+set_global_assignment -name SYNTHESIS_ONLY_QIP ON
+
+set_global_assignment -library "audio_core" -name VERILOG_FILE [file join $::quartus(qip_path) "audio_core.v"]
+set_global_assignment -library "audio_core" -name VERILOG_FILE [file join $::quartus(qip_path) "audio_core/altera_up_audio_bit_counter.v"]
+set_global_assignment -library "audio_core" -name VERILOG_FILE [file join $::quartus(qip_path) "audio_core/altera_up_audio_in_deserializer.v"]
+set_global_assignment -library "audio_core" -name VERILOG_FILE [file join $::quartus(qip_path) "audio_core/altera_up_audio_out_serializer.v"]
+set_global_assignment -library "audio_core" -name VERILOG_FILE [file join $::quartus(qip_path) "audio_core/altera_up_clock_edge.v"]
+set_global_assignment -library "audio_core" -name VERILOG_FILE [file join $::quartus(qip_path) "audio_core/altera_up_sync_fifo.v"]
+set_global_assignment -library "audio_core" -name VERILOG_FILE [file join $::quartus(qip_path) "audio_core/audio_core_0002.v"]

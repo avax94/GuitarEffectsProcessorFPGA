@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simPackage>
+ <file path="audio_clock_gen_sim/audio_clock_gen.v" type="VERILOG" />
+ <topLevel name="audio_clock_gen" />
+ <deviceFamily name="cycloneii" />
+</simPackage>

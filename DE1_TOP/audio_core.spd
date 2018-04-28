@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simPackage>
+ <file path="audio_core_sim/altera_up_audio_bit_counter.v" type="VERILOG" />
+ <file
+   path="audio_core_sim/altera_up_audio_in_deserializer.v"
+   type="VERILOG" />
+ <file path="audio_core_sim/altera_up_audio_out_serializer.v" type="VERILOG" />
+ <file path="audio_core_sim/altera_up_clock_edge.v" type="VERILOG" />
+ <file path="audio_core_sim/altera_up_sync_fifo.v" type="VERILOG" />
+ <file path="audio_core_sim/audio_core.v" type="VERILOG" />
+ <topLevel name="audio_core" />
+ <deviceFamily name="cycloneii" />
+</simPackage>

@@ -1,0 +1,8 @@
+set_global_assignment -entity "audio_clock_gen" -library "audio_clock_gen" -name IP_TOOL_NAME "altera_up_clocks"
+set_global_assignment -entity "audio_clock_gen" -library "audio_clock_gen" -name IP_TOOL_VERSION "13.0sp1"
+set_global_assignment -entity "audio_clock_gen" -library "audio_clock_gen" -name IP_TOOL_ENV "mwpim"
+set_global_assignment -library "audio_clock_gen" -name MISC_FILE [file join $::quartus(qip_path) "audio_clock_gen.cmp"]
+set_global_assignment -name SYNTHESIS_ONLY_QIP ON
+
+set_global_assignment -library "audio_clock_gen" -name VERILOG_FILE [file join $::quartus(qip_path) "audio_clock_gen.v"]
+set_global_assignment -library "audio_clock_gen" -name VERILOG_FILE [file join $::quartus(qip_path) "audio_clock_gen/audio_clock_gen_0002.v"]

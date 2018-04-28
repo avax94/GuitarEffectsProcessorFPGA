@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simPackage>
+ <file
+   path="av_config_sim/altera_up_av_config_serial_bus_controller.v"
+   type="VERILOG" />
+ <file path="av_config_sim/altera_up_slow_clock_generator.v" type="VERILOG" />
+ <file path="av_config_sim/altera_up_av_config_auto_init.v" type="VERILOG" />
+ <file
+   path="av_config_sim/altera_up_av_config_auto_init_dc2.v"
+   type="VERILOG" />
+ <file
+   path="av_config_sim/altera_up_av_config_auto_init_d5m.v"
+   type="VERILOG" />
+ <file
+   path="av_config_sim/altera_up_av_config_auto_init_lcm.v"
+   type="VERILOG" />
+ <file
+   path="av_config_sim/altera_up_av_config_auto_init_ltm.v"
+   type="VERILOG" />
+ <file
+   path="av_config_sim/altera_up_av_config_auto_init_ob_de2_35.v"
+   type="VERILOG" />
+ <file
+   path="av_config_sim/altera_up_av_config_auto_init_ob_adv7181.v"
+   type="VERILOG" />
+ <file
+   path="av_config_sim/altera_up_av_config_auto_init_ob_de2_70.v"
+   type="VERILOG" />
+ <file
+   path="av_config_sim/altera_up_av_config_auto_init_ob_de2_115.v"
+   type="VERILOG" />
+ <file
+   path="av_config_sim/altera_up_av_config_auto_init_ob_audio.v"
+   type="VERILOG" />
+ <file
+   path="av_config_sim/altera_up_av_config_auto_init_ob_adv7180.v"
+   type="VERILOG" />
+ <file path="av_config_sim/av_config.v" type="VERILOG" />
+ <topLevel name="av_config" />
+ <deviceFamily name="cycloneii" />
+</simPackage>
