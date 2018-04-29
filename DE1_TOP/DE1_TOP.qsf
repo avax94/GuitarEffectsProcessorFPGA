@@ -481,15 +481,35 @@ set_global_assignment -name STRATIX_CONFIGURATION_DEVICE EPCS4
 set_global_assignment -name RESERVE_ASDO_AFTER_CONFIGURATION "AS INPUT TRI-STATED"
 set_global_assignment -name USER_LIBRARIES "C:/altera/megacore/line_buffer_compiler-v1.0.0/lib;"
 set_location_assignment PIN_AB15 -to FL_CE_N
-set_global_assignment -name VERILOG_FILE noise_fitler.v
-set_global_assignment -name VERILOG_FILE DE1_TOP.v
 set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
 set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_global_assignment -name VERILOG_FILE fpUnit.v
+set_global_assignment -name VERILOG_FILE ram.v
+set_global_assignment -name VERILOG_FILE noise_fitler.v
+set_global_assignment -name VERILOG_FILE DE1_TOP.v
 set_global_assignment -name QIP_FILE audio_core.qip
 set_global_assignment -name SIP_FILE audio_core.sip
 set_global_assignment -name QIP_FILE av_config.qip
 set_global_assignment -name SIP_FILE av_config.sip
 set_global_assignment -name QIP_FILE audio_clock_gen.qip
 set_global_assignment -name SIP_FILE audio_clock_gen.sip
+set_global_assignment -name VERILOG_FILE smart_ram.v
+set_global_assignment -name VERILOG_FILE Tests/test_smart_ram.v
+set_global_assignment -name QIP_FILE ram.qip
+set_global_assignment -name VERILOG_FILE echo.v
+set_global_assignment -name VERILOG_FILE Tests/test_echo.v
+set_global_assignment -name QIP_FILE sinus.qip
+set_global_assignment -name VERILOG_FILE sin.v
+set_global_assignment -name VERILOG_FILE vibrato.v
+set_global_assignment -name QIP_FILE fpAdd.qip
+set_global_assignment -name QIP_FILE fpInt2Float.qip
+set_global_assignment -name QIP_FILE fpFloat2Int.qip
+set_global_assignment -name QIP_FILE fpMult.qip
+set_global_assignment -name QIP_FILE fpDiv.qip
+set_global_assignment -name VERILOG_FILE Tests/vibrato.v
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
