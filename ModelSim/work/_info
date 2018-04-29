@@ -1,0 +1,139 @@
+m255
+K3
+13
+cModel Technology
+Z0 dG:\Projects\DiplomskiVLSI
+vecho
+Z1 !s10a 1524934654
+Z2 ITkO5=Hm^hn`F]>jf7N>JW2
+Z3 VJS8gW0Gdc<<L3k?HYDG;<1
+Z4 dG:\Projects\FPGAGuitarProcessor\ModelSim
+Z5 w1524934654
+Z6 8G:/Projects/FPGAGuitarProcessor/DE1_TOP/echo.v
+Z7 FG:/Projects/FPGAGuitarProcessor/DE1_TOP/echo.v
+L0 3
+Z8 OV;L;10.1d;51
+r1
+31
+Z9 o-work work -O0
+Z10 !s100 ]eXbklR>HJ=8Q6FYH[gGo2
+Z11 !s108 1524934728.757000
+Z12 !s107 G:/Projects/FPGAGuitarProcessor/DE1_TOP/echo.v|
+Z13 !s90 -reportprogress|300|-work|work|G:/Projects/FPGAGuitarProcessor/DE1_TOP/echo.v|
+!i10b 1
+!s85 0
+!s101 -O0
+vnoise_filter
+Z14 !s100 II<?8QY[TO]4FVb:jBCm23
+Z15 IS=b?E^CbQ2^IXQ^2M8HU;2
+Z16 VQiNU?ef94AaZ8Y^L2;IZ]3
+R4
+Z17 w1524326477
+Z18 8G:/Projects/FPGAGuitarProcessor/DE1_TOP/noise_fitler.v
+Z19 FG:/Projects/FPGAGuitarProcessor/DE1_TOP/noise_fitler.v
+L0 1
+R8
+r1
+31
+Z20 !s90 -reportprogress|300|-work|work|G:/Projects/FPGAGuitarProcessor/DE1_TOP/noise_fitler.v|
+R9
+Z21 !s108 1524935753.054000
+Z22 !s107 G:/Projects/FPGAGuitarProcessor/DE1_TOP/noise_fitler.v|
+!i10b 1
+!s85 0
+!s101 -O0
+vram
+Z23 !s100 dNc4DgnNccZ`QmJY@z:N11
+Z24 IBOD3UMDI@]V[_OM@2YCJ60
+Z25 VMYiid62HCDi1jmPU:HIRV3
+R4
+Z26 w1524915409
+Z27 8G:/Projects/FPGAGuitarProcessor/DE1_TOP/ram.v
+Z28 FG:/Projects/FPGAGuitarProcessor/DE1_TOP/ram.v
+L0 39
+R8
+r1
+31
+Z29 !s90 -reportprogress|300|-work|work|G:/Projects/FPGAGuitarProcessor/DE1_TOP/ram.v|
+R9
+Z30 !s108 1524935753.177000
+Z31 !s107 G:/Projects/FPGAGuitarProcessor/DE1_TOP/ram.v|
+!i10b 1
+!s85 0
+!s101 -O0
+vsmart_ram
+Z32 !s100 ;;h6TD@aVo4FR5mnagI@93
+Z33 I4HNzDk8JSGz9@0YVZjN9n0
+Z34 V_:9THl3mc@hETa[6L>8D72
+R4
+Z35 w1524929828
+Z36 8G:/Projects/FPGAGuitarProcessor/DE1_TOP/smart_ram.v
+Z37 FG:/Projects/FPGAGuitarProcessor/DE1_TOP/smart_ram.v
+L0 1
+R8
+r1
+31
+Z38 !s90 -reportprogress|300|-work|work|G:/Projects/FPGAGuitarProcessor/DE1_TOP/smart_ram.v|
+R9
+Z39 !s108 1524935753.296000
+Z40 !s107 G:/Projects/FPGAGuitarProcessor/DE1_TOP/smart_ram.v|
+!i10b 1
+!s85 0
+!s101 -O0
+vtest_echo
+Z41 !s100 fc:J:5]65=m?2MKUZPCP41
+Z42 IkmnHN@?`R3<D<XO:@45gg0
+Z43 VQzWNZVZ;K1>fIedO8P0d[2
+R4
+Z44 w1524934342
+Z45 8G:/Projects/FPGAGuitarProcessor/DE1_TOP/Tests/test_echo.v
+Z46 FG:/Projects/FPGAGuitarProcessor/DE1_TOP/Tests/test_echo.v
+L0 3
+R8
+r1
+31
+Z47 !s90 -reportprogress|300|-work|work|G:/Projects/FPGAGuitarProcessor/DE1_TOP/Tests/test_echo.v|
+R9
+Z48 !s108 1524935753.403000
+Z49 !s107 G:/Projects/FPGAGuitarProcessor/DE1_TOP/Tests/test_echo.v|
+!i10b 1
+!s85 0
+!s101 -O0
+vtest_noise_filter
+Z50 !s100 nL9U4J<Bij`QIQjoGKdIA2
+Z51 I7SPE=k7HM2Qa_AUAKW_`_2
+Z52 VD`VVGP:kb>1m26?H>]kHZ3
+R4
+Z53 w1524913936
+Z54 8G:/Projects/FPGAGuitarProcessor/DE1_TOP/Tests/test_noise_filter.v
+Z55 FG:/Projects/FPGAGuitarProcessor/DE1_TOP/Tests/test_noise_filter.v
+L0 28
+R8
+r1
+31
+Z56 !s90 -reportprogress|300|-work|work|G:/Projects/FPGAGuitarProcessor/DE1_TOP/Tests/test_noise_filter.v|
+R9
+Z57 !s108 1524935752.811000
+Z58 !s107 G:/Projects/FPGAGuitarProcessor/DE1_TOP/Tests/test_noise_filter.v|
+!i10b 1
+!s85 0
+!s101 -O0
+vtest_smart_ram
+Z59 !s100 LaLUMNUU?g<`a]lg4L>hO0
+Z60 Ihii;nl5^XST^biDkX>m6i0
+Z61 VNE2II<<M;45LCY2=zM1GA0
+R4
+Z62 w1524925655
+Z63 8G:/Projects/FPGAGuitarProcessor/DE1_TOP/Tests/test_smart_ram.v
+Z64 FG:/Projects/FPGAGuitarProcessor/DE1_TOP/Tests/test_smart_ram.v
+L0 28
+R8
+r1
+31
+Z65 !s90 -reportprogress|300|-work|work|G:/Projects/FPGAGuitarProcessor/DE1_TOP/Tests/test_smart_ram.v|
+R9
+Z66 !s108 1524935752.899000
+Z67 !s107 G:/Projects/FPGAGuitarProcessor/DE1_TOP/Tests/test_smart_ram.v|
+!i10b 1
+!s85 0
+!s101 -O0

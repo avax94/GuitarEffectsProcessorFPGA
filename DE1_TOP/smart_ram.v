@@ -1,0 +1,139 @@
+module smart_ram
+
+#(
+	// Parameter Declarations
+	parameter ADDR_WIDTH = 12,
+	parameter DATA_WIDTH = 16
+)
+(
+	// Input Ports
+	input [DATA_WIDTH-1:0] data_in,
+	input [ADDR_WIDTH-1:0] offset,
+	input wr,
+	input rd,
+
+	input clk,
+	input rst,
+
+	output [DATA_WIDTH-1:0] data_out,
+	output write_finish,
+	output read_finish,
+	output available
+);
+
+	reg [2:0] state, state_next;
+	reg wrfinish, wrfinish_next, rdfinish, rdfinish_next;
+	wire [ADDR_WIDTH-1:0] address;
+	wire [DATA_WIDTH-1:0] q;
+	reg wrreg;
+	reg wrreg_next;
+	reg[ADDR_WIDTH-1:0] curr_address;
+	reg[ADDR_WIDTH-1:0] curr_address_next;
+	reg [DATA_WIDTH-1:0] data_out_reg;
+	reg [DATA_WIDTH-1:0] data_out_reg_next;
+	reg [ADDR_WIDTH-1:0] offset_reg, offset_reg_next;
+	localparam INIT = 0, READ = 1, WRITE = 2, DONE = 3, WAITING = 4, WAITING2 = 5;
+	initial
+	begin
+		curr_address = 0;
+		wrreg = 0;
+		state_next = INIT;
+		data_out_reg = 0;
+		data_out_reg_next = 0;
+		wrreg_next = 0;
+		curr_address_next = 0;
+		wrfinish_next = 0;
+		rdfinish_next = 0;
+		state = INIT;
+		wrfinish = 0;
+		rdfinish = 0;
+	end
+
+	reg [DATA_WIDTH-1:0] data_ram;
+	reg [DATA_WIDTH-1:0] data_ram_next;
+	wire [DATA_WIDTH-1:0] data_ram_out;
+	
+	ram
+	r (
+	   .address(address),
+	   .clock(clk),
+	   .q(data_ram_out),
+	   .data(data_ram),
+	   .wren(wrreg)
+	);
+
+	always @(*)
+	begin
+		wrfinish_next <= 0;
+		rdfinish_next <= 0;
+		state_next <= state;
+		wrreg_next <= wrreg;
+		data_ram_next <= data_ram;
+		data_out_reg_next <= data_out_reg;
+		curr_address_next <= curr_address;
+		offset_reg_next <= offset_reg;
+
+		if(state == INIT)
+		begin
+			if(wr == 1)
+			begin
+			  offset_reg_next <= offset;
+				wrreg_next <= 1;
+				state_next <= WRITE;
+				data_ram_next <= data_in;
+			end
+			else if(rd == 1)
+			begin
+			   offset_reg_next <= offset + 1;
+				 state_next <= WAITING;
+			end
+		end
+		else if (state == WAITING)
+		begin
+		    state_next <= WAITING2;
+		end
+		else if (state == WAITING2)
+		begin
+		    state_next <= READ;
+		end
+		else if(state == READ)
+		begin
+			data_out_reg_next <= data_ram_out;
+			state_next <= DONE;
+		end
+		else if(state == WRITE)
+		begin
+			state_next <= DONE;
+			wrreg_next <= 0;
+
+			if (offset_reg == 0)
+			begin
+				curr_address_next <= curr_address + 1'b1;
+			end
+		end
+		else if(state == DONE)
+		begin
+			state_next <= INIT;
+			rdfinish_next <= 1;
+			wrfinish_next <= 1;
+		end
+	end
+
+	always @(posedge clk)
+	begin
+		state <= state_next;
+		offset_reg <= offset_reg_next;
+		data_ram <= data_ram_next;
+		wrreg <= wrreg_next;
+		data_out_reg <= data_out_reg_next;
+		curr_address <= curr_address_next;
+		rdfinish <= rdfinish_next;
+		wrfinish <= wrfinish_next;
+	end
+
+	assign write_finish = wrfinish;
+	assign read_finish = rdfinish;
+        assign data_out = data_out_reg;
+	assign address = curr_address - offset_reg;
+	assign available = state == INIT;
+endmodule

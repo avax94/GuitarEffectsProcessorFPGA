@@ -1,0 +1,107 @@
+	// Copyright (C) 1991-2013 Altera Corporation
+	// Your use of Altera Corporation's design tools, logic functions
+	// and other software and tools, and its AMPP partner logic
+	// functions, and any output files from any of the foregoing
+	// (including device programming or simulation files), and any
+	// associated documentation or information are expressly subject
+	// to the terms and conditions of the Altera Program License
+	// Subscription Agreement, Altera MegaCore Function License
+	// Agreement, or other applicable license agreement, including,
+	// without limitation, that your use is for the sole purpose of
+	// programming logic devices manufactured by Altera and sold by
+	// Altera or its authorized distributors.  Please refer to the
+	// applicable agreement for further details.
+
+	// *****************************************************************************
+	// This file contains a Verilog test bench template that is freely editable to
+	// suit user's needs .Comments are provided in each section to help the user
+	// fill out necessary details.
+	// *****************************************************************************
+	// Generated on "04/24/2017 13:13:01"
+
+	// Verilog Test Bench template for design : ram
+	//
+	// Simulation tool : ModelSim-Altera (Verilog)
+	//
+
+	`timescale 1 us/ 1 us
+	module test_smart_ram();
+		wire [15:0] data_out;
+		wire        available;
+		reg [15:0]  data_in;
+		reg [11:0]  offset;
+		reg         wr;
+		reg         rd;
+		wire        read_finish;
+		wire        write_finish;
+		reg         clk;
+		reg         rst;
+		integer     i;
+
+		smart_ram smv1 (
+							 // port map - connection between master ports and signals/registers
+					  .data_in(data_in),
+					  .offset(offset),
+					  .wr(wr),
+					  .rd(rd),
+					  .read_finish(read_finish),
+					  .write_finish(write_finish),
+					  .data_out(data_out),
+					  .available(available),
+					  .clk(clk),
+					  .rst(rst)
+							 );
+
+		initial begin
+			rst = 1;
+			#30;
+			rst = 0;
+			clk = 0;
+		end
+
+		always begin
+			clk <= ~clk;
+			#2.5;
+		end
+
+		always begin
+			wr <= 1;
+			offset <= 0;
+			// write couple of numbers
+			for(i=0; i<2**12; i=i+1) begin
+				data_in <= i;
+				 @(posedge write_finish);
+			end
+
+			wr <= 1;
+			offset <= 0;
+			data_in <= 33;
+			@(posedge write_finish);
+			data_in <= 37;
+			@(posedge write_finish);
+			data_in <= 15;
+			@(posedge write_finish);
+			wr <= 0;
+			rd <= 1;
+			@(posedge read_finish);
+			offset <= 1;
+			@(posedge read_finish);
+			offset <= 2;
+			@(posedge read_finish);
+			offset <= 3;
+			@(posedge read_finish);
+			rd <= 0;
+			wr <= 1;
+				offset <= 10;
+			  data_in <= 16;
+			  @(posedge write_finish)
+			  	offset <= 122;
+			  data_in <= 10;
+			  @(posedge write_finish)
+			  offset <= 9;
+			  wr <= 0;
+			  rd <= 1;
+			  @(posedge read_finish)
+			$stop;
+		end
+	endmodule

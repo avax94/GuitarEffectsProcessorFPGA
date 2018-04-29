@@ -1,0 +1,4 @@
+Info (10281): Verilog HDL Declaration information at fpUnit.v(11): object "I2F" differs only in case from object "i2f" in the same scope
+Warning (10268): Verilog HDL information at noise_fitler.v(32): always construct contains both blocking and non-blocking assignments
+Info (10281): Verilog HDL Declaration information at echo.v(27): object "done" differs only in case from object "DONE" in the same scope
+Info (10281): Verilog HDL Declaration information at vibrato.v(31): object "done" differs only in case from object "DONE" in the same scope
