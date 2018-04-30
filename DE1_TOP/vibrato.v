@@ -8,8 +8,8 @@
 
 module vibrato
 #(
-	parameter DATA_WIDTH=24,
-	parameter ADDR_WIDTH = 12,
+	parameter DATA_WIDTH=16,
+	parameter ADDR_WIDTH = 13,
 	parameter SAMPLERATE = 48000, //Hz
 	parameter CLOCK_FREQ = 50, // MHz	parameter MODFREQ = 5, //Hz
 	parameter DELAY = 5
@@ -51,7 +51,7 @@ module vibrato
 
 	reg [31:0] dataa;
 	reg [31:0] datab;
-	reg [7:0] operation;
+	reg [2:0] operation;
 	reg startFA = 0;
 	reg clk_enFA = 0;
 	wire doneFA;
@@ -106,6 +106,15 @@ module vibrato
 	integer counter, counter_next;
 	integer sin_arg = 1, sin_arg_next = 1;
 	reg [31:0] result_vibrato;
+
+        initial begin
+           state = CALCULATE_ANGLE;
+           state_next = CALCULATE_ANGLE;
+           substate_next = PASSIVE;
+           substate = PASSIVE;
+        end
+
+
 	always @(posedge clk)
 	begin
 		state <= state_next;
@@ -155,7 +164,7 @@ module vibrato
 
 	reg [31:0] first_delay, second_delay, one_f;
 	reg sram_rd_reg, sram_rd_reg_next;
-	reg sram_offset_reg, sram_offset_reg_next;
+	reg [ADDR_WIDTH-1:0] sram_offset_reg, sram_offset_reg_next;
 
 	always @(posedge clk)
 	begin
@@ -408,6 +417,6 @@ module vibrato
 
 	assign sram_rd = sram_rd_reg;
 	assign sram_offset = sram_offset_reg;
-	assign data_out = result_vibrato;
+	assign data_out = result_vibrato[DATA_WIDTH-1:0];
 	assign done = state == DONE;
 endmodule

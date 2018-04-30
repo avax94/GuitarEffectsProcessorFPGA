@@ -2,7 +2,7 @@ library verilog;
 use verilog.vl_types.all;
 entity smart_ram is
     generic(
-        ADDR_WIDTH      : integer := 12;
+        ADDR_WIDTH      : integer := 13;
         DATA_WIDTH      : integer := 16
     );
     port(

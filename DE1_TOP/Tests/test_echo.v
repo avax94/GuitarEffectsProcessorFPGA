@@ -24,7 +24,7 @@ module test_echo();
    reg         manual_sram_wr;
    reg         manual_sram_rd;
    reg [15:0]  manual_sram_data_out;
-   wire [15:0]  echo_sram_data_out;
+   wire [15:0] echo_sram_data_out;
    reg         echo_sram_read_finish;
    wire        echo_sram_wr;
    wire        echo_sram_rd;
@@ -34,7 +34,7 @@ module test_echo();
    assign sram_offset = manual ? manual_sram_offset : echo_sram_offset;
    assign sram_wr = manual ? manual_sram_wr : echo_sram_wr;
    assign sram_rd = manual ? manual_sram_rd : echo_sram_rd;
-   
+
    smart_ram smv1 (
                    // port map - connectisim:/test_echo/sram_data_inon between master ports and signals/registers
 	           .data_in(sram_data_in),
@@ -109,7 +109,7 @@ module test_echo();
       echo_data_in = 200;
       echo_should_save = 1;
       @(posedge echo_done)
-      
+
       $stop;
    end
 

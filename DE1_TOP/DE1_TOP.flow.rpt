@@ -1,5 +1,5 @@
 Flow report for DE1_TOP
-Sun Apr 29 22:50:29 2018
+Mon Apr 30 14:13:19 2018
 Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
 
 
@@ -40,20 +40,20 @@ applicable agreement for further details.
 +--------------------------------------------------------------------------------------+
 ; Flow Summary                                                                         ;
 +------------------------------------+-------------------------------------------------+
-; Flow Status                        ; Successful - Sun Apr 29 22:50:24 2018           ;
+; Flow Status                        ; Successful - Mon Apr 30 14:13:14 2018           ;
 ; Quartus II 64-Bit Version          ; 13.0.1 Build 232 06/12/2013 SP 1 SJ Web Edition ;
 ; Revision Name                      ; DE1_TOP                                         ;
 ; Top-level Entity Name              ; DE1_TOP                                         ;
 ; Family                             ; Cyclone II                                      ;
 ; Device                             ; EP2C20F484C7                                    ;
 ; Timing Models                      ; Final                                           ;
-; Total logic elements               ; 11,253 / 18,752 ( 60 % )                        ;
-;     Total combinational functions  ; 10,332 / 18,752 ( 55 % )                        ;
-;     Dedicated logic registers      ; 5,413 / 18,752 ( 29 % )                         ;
-; Total registers                    ; 5413                                            ;
+; Total logic elements               ; 11,552 / 18,752 ( 62 % )                        ;
+;     Total combinational functions  ; 10,577 / 18,752 ( 56 % )                        ;
+;     Dedicated logic registers      ; 5,331 / 18,752 ( 28 % )                         ;
+; Total registers                    ; 5331                                            ;
 ; Total pins                         ; 283 / 315 ( 90 % )                              ;
 ; Total virtual pins                 ; 0                                               ;
-; Total memory bits                  ; 143,647 / 239,616 ( 60 % )                      ;
+; Total memory bits                  ; 143,573 / 239,616 ( 60 % )                      ;
 ; Embedded Multiplier 9-bit elements ; 51 / 52 ( 98 % )                                ;
 ; Total PLLs                         ; 1 / 4 ( 25 % )                                  ;
 +------------------------------------+-------------------------------------------------+
@@ -64,7 +64,7 @@ applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 04/29/2018 22:48:00 ;
+; Start date & time ; 04/30/2018 14:10:54 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; DE1_TOP             ;
 +-------------------+---------------------+
@@ -75,7 +75,7 @@ applicable agreement for further details.
 +-------------------------------------+-----------------------------------------------------------+---------------+-----------------+------------+
 ; Assignment Name                     ; Value                                                     ; Default Value ; Entity Name     ; Section Id ;
 +-------------------------------------+-----------------------------------------------------------+---------------+-----------------+------------+
-; COMPILER_SIGNATURE_ID               ; 30902514607939.152503487910900                            ; --            ; --              ; --         ;
+; COMPILER_SIGNATURE_ID               ; 30902514607939.152509025401100                            ; --            ; --              ; --         ;
 ; IP_TOOL_ENV                         ; mwpim                                                     ; --            ; audio_clock_gen ; --         ;
 ; IP_TOOL_ENV                         ; mwpim                                                     ; --            ; audio_clock_gen ; --         ;
 ; IP_TOOL_ENV                         ; mwpim                                                     ; --            ; audio_core      ; --         ;
@@ -159,11 +159,11 @@ applicable agreement for further details.
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name               ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis      ; 00:01:25     ; 1.0                     ; 1308 MB             ; 00:01:24                           ;
-; Fitter                    ; 00:00:52     ; 1.6                     ; 1306 MB             ; 00:01:35                           ;
-; Assembler                 ; 00:00:01     ; 1.0                     ; 540 MB              ; 00:00:02                           ;
-; TimeQuest Timing Analyzer ; 00:00:04     ; 1.0                     ; 704 MB              ; 00:00:04                           ;
-; Total                     ; 00:02:22     ; --                      ; --                  ; 00:03:05                           ;
+; Analysis & Synthesis      ; 00:01:23     ; 1.0                     ; 1295 MB             ; 00:01:23                           ;
+; Fitter                    ; 00:00:49     ; 1.8                     ; 1309 MB             ; 00:01:30                           ;
+; Assembler                 ; 00:00:01     ; 1.0                     ; 536 MB              ; 00:00:02                           ;
+; TimeQuest Timing Analyzer ; 00:00:04     ; 1.0                     ; 717 MB              ; 00:00:04                           ;
+; Total                     ; 00:02:17     ; --                      ; --                  ; 00:02:59                           ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 

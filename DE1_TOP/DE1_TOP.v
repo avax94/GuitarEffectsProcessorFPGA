@@ -245,7 +245,6 @@ module DE1_TOP
    wire                  valid_left;
    wire                  valid_right;
    wire                  sram_available;
-   wire [DATA_WIDTH-1:0] what_i_read;
    wire [DATA_WIDTH-1:0] sram_data_in;
    reg [DATA_WIDTH-1:0]  sram_data_in_reg, sram_data_in_reg_next;
    wire [ADDR_WIDTH-1:0] sram_offset;
@@ -271,13 +270,38 @@ module DE1_TOP
    wire                  vibrato_sram_rd;
    wire                  vibrato_done;
    wire [ADDR_WIDTH-1:0] vibrato_sram_offset;
-	wire [DATA_WIDTH-1:0] vibrato_data_out;
-   
+   wire [DATA_WIDTH-1:0] vibrato_data_out;
+   wire                  chorus_sram_rd;
+   wire                  chorus_done;
+   wire [ADDR_WIDTH-1:0] chorus_sram_offset;
+   wire [DATA_WIDTH-1:0] chorus_data_out;
+
+
+   chorus #(
+            .DATA_WIDTH(DATA_WIDTH),
+            .ADDR_WIDTH(ADDR_WIDTH),
+            .SAMPLERATE(48000),
+            .N(10)
+            )
+   ch (
+       .sram_data_in(sram_data_out),
+       .sram_read_finish(sram_read_finish),
+       .sram_rd(chorus_sram_rd),
+       .sram_offset(chorus_sram_offset),
+       .cs(1),
+       .my_turn(state_left_prev == VIBRATO && state_left == CHORUS),
+       .data_in(data_left),
+       .done(done),
+       .data_out(chorus_data_out),
+       .clk(CLOCK_50),
+       .rst(0)
+       );
+
 
    vibrato #(.DATA_WIDTH(DATA_WIDTH),
              .ADDR_WIDTH(ADDR_WIDTH),
              .SAMPLERATE(48000), //Hz
-		     .DELAY(5))
+	     .DELAY(5))
    vib (.sram_data_in(sram_data_out),
         .sram_read_finish(sram_read_finish),
         .sram_rd(vibrato_sram_rd),
@@ -286,7 +310,7 @@ module DE1_TOP
         .rst(reset),
         .cs(1),
         .modfreq(32'b00111000110110100111010000001110),
-        .my_turn(state_left_prev == SAVING && state_left==PROCESSING),
+        .my_turn(state_left_prev == SAVING && state_left==VIBRATO),
         .done(vibrato_done),
         .data_out(vibrato_data_out));
 
@@ -315,7 +339,6 @@ module DE1_TOP
         .sram_rd(echo_sram_rd),
         .sram_data_out(echo_sram_data_out),
         .sram_offset(echo_sram_offset),
-        .what_i_read(what_i_read),
         .should_save(SW[0]),
         .clk(CLOCK_50),
         .rst(reset),
@@ -366,27 +389,27 @@ module DE1_TOP
    localparam DATA_WIDTH = 16;
    localparam ADDR_WIDTH = 13;
    localparam N = 4;
-   localparam READING = 0, SAVING = 1, PROCESSING = 2, WRITING = 3, DONE = 4;
-   reg [2:0]                   state_left, state_right, state_left_next, state_right_next, state_left_prev;
-   reg [DATA_WIDTH-1:0]        data_left, data_left_r, data_right, data_right_r;
-   reg                         ready_left_r, ready_right_r;
-   reg                         ready_left, ready_right;
-   reg                         valid_output_left_r, valid_output_left;
-   reg                         valid_output_right_r, valid_output_right;
-   reg [DATA_WIDTH-1:0]        data_out, data_out_next;
-   integer                     counter_left, counter_left_next;
-   integer                     counter_right, counter_right_next;
-   initial
-     begin
-	state_left = READING;
-	state_right = READING;
-	valid_output_left = 0;
-	valid_output_right = 0;
-	data_left = 0;
-	data_right = 0;
-	counter_right = 0;
-	sram_offset_reg = 0;
-     end
+   localparam READING = 0, SAVING = 1, PROCESSING = 2, WRITING = 3, DONE = 4, FILTER_NOISE = 5, VIBRATO = 6, CHORUS = 7;
+   reg [4:0]             state_left, state_right, state_left_next, state_right_next, state_left_prev;
+   reg [DATA_WIDTH-1:0]  data_left, data_left_r, data_right, data_right_r;
+   reg                   ready_left_r, ready_right_r;
+   reg                   ready_left, ready_right;
+   reg                   valid_output_left_r, valid_output_left;
+   reg                   valid_output_right_r, valid_output_right;
+   reg [DATA_WIDTH-1:0]  data_out, data_out_next;
+   integer               counter_left, counter_left_next;
+   integer               counter_right, counter_right_next;
+
+   initial  begin
+      state_left = READING;
+      state_right = READING;
+      valid_output_left = 0;
+      valid_output_right = 0;
+      data_left = 0;
+      data_right = 0;
+      counter_right = 0;
+      sram_offset_reg = 0;
+   end
 
    wire done_filter;
    wire [DATA_WIDTH-1:0] filterd_data;
@@ -394,7 +417,7 @@ module DE1_TOP
    nf
      (
       .clock(CLOCK_50),
-      .write(state_left_prev == SAVING && state_left==PROCESSING),
+      .write(state_left_prev == READING && state_left == FILTER_NOISE),
       .data_in(data_left),
       .done(done_filter),
       .sum(filterd_data)
@@ -422,105 +445,126 @@ module DE1_TOP
 	sram_data_in_reg_next <= sram_data_in_reg;
 
 	// Kada iz audio kontrolera dobijamo izlazni signal VALID i kada smo READY da primimo signal menjamo stanje i citamo signal sa izlaza
-	if (ready_left_adc == 1 && valid_left == 1 && state_left == READING)
-	  begin
-	     state_left_next <= SAVING;
-	     // data_left <= { 1'b0, readdata_left[(DATA_WIDTH-1):1] }; // ### PROBLEMATICAN  ### red
-	     data_left <= readdata_left; // ### Ovo radi ####
-	  end
-
-	if (ready_right_adc == 1 && valid_right == 1 && state_right == READING)
-	  begin
-	     state_right_next <= PROCESSING;
-	     // data_right <= { 1'b0, readdata_right[(DATA_WIDTH-1):1] }; // ### PROBLEMATICAN  ### red
-
-	     data_right <= readdata_right; // ### Ovo radi ####
-	  end
-
-	if (state_left == SAVING) begin
-	     if (sram_available) begin
-				sram_wr_reg_next <= 1;
-				sram_offset_reg_next <= 0;
-				sram_data_in_reg_next <= data_left_r;
-	     end
-
-	     if (sram_write_finish) begin
-				state_left_next <= PROCESSING;
-	     end
+	if (ready_left_adc == 1 && valid_left == 1 && state_left == READING) begin
+	   state_left_next <= FILTER_NOISE;
+	   // data_left <= { 1'b0, readdata_left[(DATA_WIDTH-1):1] }; // ### PROBLEMATICAN  ### red
+	   data_left <= readdata_left; // ### Ovo radi ####
 	end
 
-	if (state_left == PROCESSING) begin
-		  if (vibrato_done) begin
-				state_left_next <= WRITING;
-				data_left <= vibrato_data_out;
-	     end
+	if (ready_right_adc == 1 && valid_right == 1 && state_right == READING) begin
+	   state_right_next <= PROCESSING;
+	   // data_right <= { 1'b0, readdata_right[(DATA_WIDTH-1):1] }; // ### PROBLEMATICAN  ### red
+
+	   data_right <= readdata_right; // ### Ovo radi ####
+	end
+
+	if (state_left == FILTER_NOISE) begin
+	   if (SW[1] == 0) begin
+	      state_left_next <= SAVING;
+	   end
+	   else if (done_filter) begin
+	      data_left <= filterd_data;
+	      state_left_next <= SAVING;
+	   end
+	end
+
+	if (state_left == SAVING) begin
+	   if (sram_available) begin
+	      sram_wr_reg_next <= 1;
+	      sram_offset_reg_next <= 0;
+	      sram_data_in_reg_next <= {{1{data_left[DATA_WIDTH-1]}}, data_left[DATA_WIDTH-1:1]};
+	      // sram_data_in_reg_next <= data_left_r;
+	   end
+
+	   if (sram_write_finish) begin
+	      state_left_next <= VIBRATO;
+	   end
+	end
+
+	if (state_left == VIBRATO) begin
+	   if (SW[2] == 0) begin
+	      state_left_next <= CHORUS;
+	   end
+
+	   if (vibrato_done) begin
+	      state_left_next <= CHORUS;
+	      data_left <= vibrato_data_out;
+	   end
+	end
+
+	if (state_left == CHORUS) begin
+	   if (SW[3] == 0) begin
+	      state_left_next <= WRITING;
+	   end
+
+	   if (chorus_done) begin
+	      state_left_next <= WRITING;
+	      data_left <= chorus_data_out;
+	   end
 	end
 
 	// We only use one channel - so just wait for LEFT channel to go to WRITING or DONE
 	if (state_right == PROCESSING) begin
-	     if (state_left == WRITING || state_left == DONE) begin
-				data_right <= data_left_r;
-				state_right_next <= WRITING;
-	     end
+	   if (state_left == WRITING || state_left == DONE) begin
+	      data_right <= data_left_r;
+	      state_right_next <= WRITING;
+	   end
 	end
 
 	// Kada dodjemo do stanja WRITING vec imamo spreman signal za izlaz
 	if (state_left == WRITING) begin
-	     valid_output_left <= 1;
+	   valid_output_left <= 1;
 	end
 
 	if (state_right == WRITING) begin
-	     valid_output_right <= 1;
+	   valid_output_right <= 1;
 	end
 
 	// Kada dobijemo signal READY iz AUDIO kontrolera i setovali smo VALID spremni smo za upis
 	// i menjamo stanje u DONE
 	if (valid_output_left_r == 1 && ready_w_left == 1) begin
-	     state_left_next <= DONE;
-	     valid_output_left <= 0;
+	   state_left_next <= DONE;
+	   valid_output_left <= 0;
 	end
 
 	if (valid_output_right_r == 1 && ready_w_right == 1) begin
-	     state_right_next <= DONE;
-	     valid_output_right <= 0;
+	   state_right_next <= DONE;
+	   valid_output_right <= 0;
 	end
 
 
-	if (state_right == DONE && state_left == DONE)
-	  begin
-	     state_left_next <= READING;
-	     state_right_next <= READING;
-	  end
+	if (state_right == DONE && state_left == DONE) begin
+	   state_left_next <= READING;
+	   state_right_next <= READING;
+	end
      end
 
-   always @(posedge CLOCK_50)
-     begin
-	state_left_prev <= state_left;
-	state_left <= state_left_next;
-	state_right <= state_right_next;
-	valid_output_left_r <= valid_output_left;
-	valid_output_right_r <= valid_output_right;
-	data_left_r <= data_left;
-	data_right_r <= data_left;
-	writedata_left <= data_left;
-	writedata_right <= data_left;
-	sram_data_in_reg <= sram_data_in_reg_next;
-	sram_wr_reg <= sram_wr_reg_next;
-	sram_rd_reg <= sram_rd_reg_next;
-	sram_offset_reg <= sram_offset_reg_next;
-     end
+   always @(posedge CLOCK_50) begin
+      state_left_prev <= state_left;
+      state_left <= state_left_next;
+      state_right <= state_right_next;
+      valid_output_left_r <= valid_output_left;
+      valid_output_right_r <= valid_output_right;
+      data_left_r <= data_left;
+      data_right_r <= data_left;
+      writedata_left <= data_left;
+      writedata_right <= data_left;
+      sram_data_in_reg <= sram_data_in_reg_next;
+      sram_wr_reg <= sram_wr_reg_next;
+      sram_rd_reg <= sram_rd_reg_next;
+      sram_offset_reg <= sram_offset_reg_next;
+   end
 
 
    assign LEDG[7:0] = vibrato_data_out[7:0];
-   assign LEDR[6	:0] = echo_sram_data_out[7:0];
-	assign LEDR[7] = echo_available;
-	assign LEDR[8] = sram_wr;
-	assign LEDR[9] = sram_rd;
+   assign LEDR[9:0] = writedata_left[9:0];
 
    assign sram_data_in = state_left == PROCESSING ? echo_sram_data_out : sram_data_in_reg;
-   assign sram_offset =  state_left == PROCESSING ? vibrato_sram_offset : sram_offset_reg;
+
+   assign sram_offset =  state_left == VIBRATO ? vibrato_sram_offset : (state_left == CHORUS ? chorus_sram_offset : sram_offset_reg);
    assign sram_wr = state_left == PROCESSING ? echo_sram_wr : sram_wr_reg;
-   assign sram_rd = state_left == PROCESSING ? vibrato_sram_rd : sram_rd_reg;
+   assign sram_rd = state_left == VIBRATO ? vibrato_sram_rd : (state_left == CHORUS ? chorus_sram_rd : sram_rd_reg);
+
    assign ready_left_adc = state_left == READING; // Kad god je stanje reading spremni smo za citanje
    assign ready_right_adc = state_right == READING; // Kad god je stanje reading spremni smo za citanje
    assign valid_w_right = valid_output_right_r;

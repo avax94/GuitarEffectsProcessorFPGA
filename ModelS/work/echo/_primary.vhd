@@ -4,7 +4,8 @@ entity echo is
     generic(
         DATA_WIDTH      : integer := 16;
         ADDR_WIDTH      : integer := 12;
-        OFFSET          : integer := 2048
+        OFFSET          : integer := 2048;
+        N               : integer := 3
     );
     port(
         sram_data_in    : in     vl_logic_vector;
@@ -21,10 +22,12 @@ entity echo is
         my_turn         : in     vl_logic;
         data_in         : in     vl_logic_vector;
         done            : out    vl_logic;
+        available       : out    vl_logic;
         data_out        : out    vl_logic_vector
     );
     attribute mti_svvh_generic_type : integer;
     attribute mti_svvh_generic_type of DATA_WIDTH : constant is 1;
     attribute mti_svvh_generic_type of ADDR_WIDTH : constant is 1;
     attribute mti_svvh_generic_type of OFFSET : constant is 1;
+    attribute mti_svvh_generic_type of N : constant is 1;
 end echo;

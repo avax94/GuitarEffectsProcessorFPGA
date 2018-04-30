@@ -2,7 +2,7 @@ module smart_ram
 
 #(
 	// Parameter Declarations
-	parameter ADDR_WIDTH = 12,
+	parameter ADDR_WIDTH = 13,
 	parameter DATA_WIDTH = 16
 )
 (

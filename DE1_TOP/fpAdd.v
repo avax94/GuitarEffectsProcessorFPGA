@@ -33,7 +33,7 @@
 //applicable agreement for further details.
 
 
-//altfp_add_sub CBX_AUTO_BLACKBOX="ALL" DENORMAL_SUPPORT="NO" DEVICE_FAMILY="Cyclone II" DIRECTION="VARIABLE" OPTIMIZE="SPEED" PIPELINE=14 REDUCED_FUNCTIONALITY="NO" WIDTH_EXP=8 WIDTH_MAN=23 add_sub clk_en clock dataa datab result
+//altfp_add_sub CBX_AUTO_BLACKBOX="ALL" DENORMAL_SUPPORT="NO" DEVICE_FAMILY="Cyclone II" DIRECTION="VARIABLE" OPTIMIZE="SPEED" PIPELINE=7 REDUCED_FUNCTIONALITY="NO" WIDTH_EXP=8 WIDTH_MAN=23 add_sub clk_en clock dataa datab result
 //VERSION_BEGIN 13.0 cbx_altbarrel_shift 2013:06:12:18:03:43:SJ cbx_altfp_add_sub 2013:06:12:18:03:43:SJ cbx_altpriority_encoder 2013:06:12:18:03:43:SJ cbx_cycloneii 2013:06:12:18:03:43:SJ cbx_lpm_add_sub 2013:06:12:18:03:43:SJ cbx_lpm_compare 2013:06:12:18:03:43:SJ cbx_mgl 2013:06:12:18:05:10:SJ cbx_stratix 2013:06:12:18:03:43:SJ cbx_stratixii 2013:06:12:18:03:43:SJ  VERSION_END
 // synthesis VERILOG_INPUT_VERSION VERILOG_2001
 // altera message_off 10463
@@ -105,41 +105,22 @@ module  fpAdd_altbarrel_shift_h0e
 endmodule //fpAdd_altbarrel_shift_h0e
 
 
-//altbarrel_shift CBX_AUTO_BLACKBOX="ALL" DEVICE_FAMILY="Cyclone II" PIPELINE=1 REGISTER_OUTPUT="NO" SHIFTDIR="RIGHT" WIDTH=26 WIDTHDIST=5 aclr clk_en clock data distance result
+//altbarrel_shift CBX_AUTO_BLACKBOX="ALL" DEVICE_FAMILY="Cyclone II" SHIFTDIR="RIGHT" WIDTH=26 WIDTHDIST=5 data distance result
 //VERSION_BEGIN 13.0 cbx_altbarrel_shift 2013:06:12:18:03:43:SJ cbx_mgl 2013:06:12:18:05:10:SJ  VERSION_END
 
-//synthesis_resources = reg 29 
+//synthesis_resources = 
 //synopsys translate_off
 `timescale 1 ps / 1 ps
 //synopsys translate_on
-module  fpAdd_altbarrel_shift_n3g
+module  fpAdd_altbarrel_shift_6hb
 	( 
-	aclr,
-	clk_en,
-	clock,
 	data,
 	distance,
 	result) ;
-	input   aclr;
-	input   clk_en;
-	input   clock;
 	input   [25:0]  data;
 	input   [4:0]  distance;
 	output   [25:0]  result;
-`ifndef ALTERA_RESERVED_QIS
-// synopsys translate_off
-`endif
-	tri0   aclr;
-	tri1   clk_en;
-	tri0   clock;
-`ifndef ALTERA_RESERVED_QIS
-// synopsys translate_on
-`endif
 
-	reg	[0:0]	dir_pipe;
-	reg	[25:0]	sbit_piper1d;
-	reg	sel_pipec3r1d;
-	reg	sel_pipec4r1d;
 	wire  [5:0]  dir_w;
 	wire  direction_w;
 	wire  [15:0]  pad_w;
@@ -147,50 +128,22 @@ module  fpAdd_altbarrel_shift_n3g
 	wire  [4:0]  sel_w;
 	wire  [129:0]  smux_w;
 
-	// synopsys translate_off
-	initial
-		dir_pipe = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) dir_pipe <= 1'b0;
-		else if  (clk_en == 1'b1)   dir_pipe <= {dir_w[2]};
-	// synopsys translate_off
-	initial
-		sbit_piper1d = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) sbit_piper1d <= 26'b0;
-		else if  (clk_en == 1'b1)   sbit_piper1d <= smux_w[77:52];
-	// synopsys translate_off
-	initial
-		sel_pipec3r1d = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) sel_pipec3r1d <= 1'b0;
-		else if  (clk_en == 1'b1)   sel_pipec3r1d <= distance[3];
-	// synopsys translate_off
-	initial
-		sel_pipec4r1d = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) sel_pipec4r1d <= 1'b0;
-		else if  (clk_en == 1'b1)   sel_pipec4r1d <= distance[4];
 	assign
-		dir_w = {dir_w[4:3], dir_pipe[0], dir_w[1:0], direction_w},
+		dir_w = {dir_w[4:0], direction_w},
 		direction_w = 1'b1,
 		pad_w = {16{1'b0}},
 		result = sbit_w[155:130],
-		sbit_w = {smux_w[129:78], sbit_piper1d, smux_w[51:0], data},
-		sel_w = {sel_pipec4r1d, sel_pipec3r1d, distance[2:0]},
+		sbit_w = {smux_w[129:0], data},
+		sel_w = {distance[4:0]},
 		smux_w = {((({26{(sel_w[4] & (~ dir_w[4]))}} & {sbit_w[113:104], pad_w[15:0]}) | ({26{(sel_w[4] & dir_w[4])}} & {pad_w[15:0], sbit_w[129:120]})) | ({26{(~ sel_w[4])}} & sbit_w[129:104])), ((({26{(sel_w[3] & (~ dir_w[3]))}} & {sbit_w[95:78], pad_w[7:0]}) | ({26{(sel_w[3] & dir_w[3])}} & {pad_w[7:0], sbit_w[103:86]})) | ({26{(~ sel_w[3])}} & sbit_w[103:78])), ((({26{(sel_w[2] & (~ dir_w[2]))}} & {sbit_w[73:52], pad_w[3:0]}) | ({26{(sel_w[2] & dir_w[2])}} & {pad_w[3:0], sbit_w[77:56]})) | ({26{(~ sel_w[2])}} & sbit_w[77:52])), ((({26{(sel_w[1] & (~ dir_w[1]))}} & {sbit_w[49:26], pad_w[1:0]}) | ({26{(sel_w[1] & dir_w[1])}} & {pad_w[1:0], sbit_w[51:28]})) | ({26{(~ sel_w[1])}} & sbit_w[51:26])), ((({26{(sel_w[0] & (~ dir_w[0]))}} & {sbit_w[24:0], pad_w[0]}) | ({26{(sel_w[0] & dir_w[0])}} & {pad_w[0], sbit_w[25:1]})) | ({26{(~ sel_w[0])}} & sbit_w[25:0]))};
-endmodule //fpAdd_altbarrel_shift_n3g
+endmodule //fpAdd_altbarrel_shift_6hb
 
 
-//altpriority_encoder CBX_AUTO_BLACKBOX="ALL" PIPELINE=1 WIDTH=32 WIDTHAD=5 aclr clk_en clock data q
+//altpriority_encoder CBX_AUTO_BLACKBOX="ALL" WIDTH=32 WIDTHAD=5 data q
 //VERSION_BEGIN 13.0 cbx_altpriority_encoder 2013:06:12:18:03:43:SJ cbx_mgl 2013:06:12:18:05:10:SJ  VERSION_END
 
 
-//altpriority_encoder CBX_AUTO_BLACKBOX="ALL" LSB_PRIORITY="NO" PIPELINE=0 WIDTH=16 WIDTHAD=4 data q
+//altpriority_encoder CBX_AUTO_BLACKBOX="ALL" LSB_PRIORITY="NO" WIDTH=16 WIDTHAD=4 data q
 //VERSION_BEGIN 13.0 cbx_altpriority_encoder 2013:06:12:18:03:43:SJ cbx_mgl 2013:06:12:18:05:10:SJ  VERSION_END
 
 
@@ -378,7 +331,7 @@ endmodule //fpAdd_altpriority_encoder_bv7
 //synopsys translate_off
 `timescale 1 ps / 1 ps
 //synopsys translate_on
-module  fpAdd_altpriority_encoder_uv8
+module  fpAdd_altpriority_encoder_r08
 	( 
 	data,
 	q) ;
@@ -400,17 +353,17 @@ module  fpAdd_altpriority_encoder_uv8
 	.q(wire_altpriority_encoder9_q));
 	assign
 		q = {(~ wire_altpriority_encoder10_zero), (({3{wire_altpriority_encoder10_zero}} & wire_altpriority_encoder9_q) | ({3{(~ wire_altpriority_encoder10_zero)}} & wire_altpriority_encoder10_q))};
-endmodule //fpAdd_altpriority_encoder_uv8
+endmodule //fpAdd_altpriority_encoder_r08
 
 
-//altpriority_encoder CBX_AUTO_BLACKBOX="ALL" LSB_PRIORITY="NO" PIPELINE=0 WIDTH=16 WIDTHAD=4 data q zero
+//altpriority_encoder CBX_AUTO_BLACKBOX="ALL" LSB_PRIORITY="NO" WIDTH=16 WIDTHAD=4 data q zero
 //VERSION_BEGIN 13.0 cbx_altpriority_encoder 2013:06:12:18:03:43:SJ cbx_mgl 2013:06:12:18:05:10:SJ  VERSION_END
 
 //synthesis_resources = 
 //synopsys translate_off
 `timescale 1 ps / 1 ps
 //synopsys translate_on
-module  fpAdd_altpriority_encoder_ue9
+module  fpAdd_altpriority_encoder_rf8
 	( 
 	data,
 	q,
@@ -437,67 +390,42 @@ module  fpAdd_altpriority_encoder_ue9
 	assign
 		q = {(~ wire_altpriority_encoder20_zero), (({3{wire_altpriority_encoder20_zero}} & wire_altpriority_encoder19_q) | ({3{(~ wire_altpriority_encoder20_zero)}} & wire_altpriority_encoder20_q))},
 		zero = (wire_altpriority_encoder19_zero & wire_altpriority_encoder20_zero);
-endmodule //fpAdd_altpriority_encoder_ue9
+endmodule //fpAdd_altpriority_encoder_rf8
 
-//synthesis_resources = reg 5 
+//synthesis_resources = 
 //synopsys translate_off
 `timescale 1 ps / 1 ps
 //synopsys translate_on
-module  fpAdd_altpriority_encoder_ou8
+module  fpAdd_altpriority_encoder_qb6
 	( 
-	aclr,
-	clk_en,
-	clock,
 	data,
 	q) ;
-	input   aclr;
-	input   clk_en;
-	input   clock;
 	input   [31:0]  data;
 	output   [4:0]  q;
-`ifndef ALTERA_RESERVED_QIS
-// synopsys translate_off
-`endif
-	tri0   aclr;
-	tri1   clk_en;
-	tri0   clock;
-`ifndef ALTERA_RESERVED_QIS
-// synopsys translate_on
-`endif
 
 	wire  [3:0]   wire_altpriority_encoder7_q;
 	wire  [3:0]   wire_altpriority_encoder8_q;
 	wire  wire_altpriority_encoder8_zero;
-	reg	[4:0]	pipeline_q_dffe;
-	wire  [4:0]  tmp_q_wire;
 
-	fpAdd_altpriority_encoder_uv8   altpriority_encoder7
+	fpAdd_altpriority_encoder_r08   altpriority_encoder7
 	( 
 	.data(data[15:0]),
 	.q(wire_altpriority_encoder7_q));
-	fpAdd_altpriority_encoder_ue9   altpriority_encoder8
+	fpAdd_altpriority_encoder_rf8   altpriority_encoder8
 	( 
 	.data(data[31:16]),
 	.q(wire_altpriority_encoder8_q),
 	.zero(wire_altpriority_encoder8_zero));
-	// synopsys translate_off
-	initial
-		pipeline_q_dffe = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) pipeline_q_dffe <= 5'b0;
-		else if  (clk_en == 1'b1)   pipeline_q_dffe <= tmp_q_wire;
 	assign
-		q = pipeline_q_dffe,
-		tmp_q_wire = {(~ wire_altpriority_encoder8_zero), (({4{wire_altpriority_encoder8_zero}} & wire_altpriority_encoder7_q) | ({4{(~ wire_altpriority_encoder8_zero)}} & wire_altpriority_encoder8_q))};
-endmodule //fpAdd_altpriority_encoder_ou8
+		q = {(~ wire_altpriority_encoder8_zero), (({4{wire_altpriority_encoder8_zero}} & wire_altpriority_encoder7_q) | ({4{(~ wire_altpriority_encoder8_zero)}} & wire_altpriority_encoder8_q))};
+endmodule //fpAdd_altpriority_encoder_qb6
 
 
-//altpriority_encoder CBX_AUTO_BLACKBOX="ALL" LSB_PRIORITY="YES" PIPELINE=1 WIDTH=32 WIDTHAD=5 aclr clk_en clock data q
+//altpriority_encoder CBX_AUTO_BLACKBOX="ALL" LSB_PRIORITY="YES" WIDTH=32 WIDTHAD=5 data q
 //VERSION_BEGIN 13.0 cbx_altpriority_encoder 2013:06:12:18:03:43:SJ cbx_mgl 2013:06:12:18:05:10:SJ  VERSION_END
 
 
-//altpriority_encoder CBX_AUTO_BLACKBOX="ALL" LSB_PRIORITY="YES" PIPELINE=0 WIDTH=16 WIDTHAD=4 data q zero
+//altpriority_encoder CBX_AUTO_BLACKBOX="ALL" LSB_PRIORITY="YES" WIDTH=16 WIDTHAD=4 data q zero
 //VERSION_BEGIN 13.0 cbx_altpriority_encoder 2013:06:12:18:03:43:SJ cbx_mgl 2013:06:12:18:05:10:SJ  VERSION_END
 
 
@@ -601,7 +529,7 @@ endmodule //fpAdd_altpriority_encoder_vh8
 //synopsys translate_off
 `timescale 1 ps / 1 ps
 //synopsys translate_on
-module  fpAdd_altpriority_encoder_ii9
+module  fpAdd_altpriority_encoder_fj8
 	( 
 	data,
 	q,
@@ -628,10 +556,10 @@ module  fpAdd_altpriority_encoder_ii9
 	assign
 		q = {wire_altpriority_encoder23_zero, (({3{wire_altpriority_encoder23_zero}} & wire_altpriority_encoder24_q) | ({3{(~ wire_altpriority_encoder23_zero)}} & wire_altpriority_encoder23_q))},
 		zero = (wire_altpriority_encoder23_zero & wire_altpriority_encoder24_zero);
-endmodule //fpAdd_altpriority_encoder_ii9
+endmodule //fpAdd_altpriority_encoder_fj8
 
 
-//altpriority_encoder CBX_AUTO_BLACKBOX="ALL" LSB_PRIORITY="YES" PIPELINE=0 WIDTH=16 WIDTHAD=4 data q
+//altpriority_encoder CBX_AUTO_BLACKBOX="ALL" LSB_PRIORITY="YES" WIDTH=16 WIDTHAD=4 data q
 //VERSION_BEGIN 13.0 cbx_altpriority_encoder 2013:06:12:18:03:43:SJ cbx_mgl 2013:06:12:18:05:10:SJ  VERSION_END
 
 
@@ -722,7 +650,7 @@ endmodule //fpAdd_altpriority_encoder_v28
 //synopsys translate_off
 `timescale 1 ps / 1 ps
 //synopsys translate_on
-module  fpAdd_altpriority_encoder_i39
+module  fpAdd_altpriority_encoder_f48
 	( 
 	data,
 	q) ;
@@ -744,66 +672,41 @@ module  fpAdd_altpriority_encoder_i39
 	.q(wire_altpriority_encoder30_q));
 	assign
 		q = {wire_altpriority_encoder29_zero, (({3{wire_altpriority_encoder29_zero}} & wire_altpriority_encoder30_q) | ({3{(~ wire_altpriority_encoder29_zero)}} & wire_altpriority_encoder29_q))};
-endmodule //fpAdd_altpriority_encoder_i39
+endmodule //fpAdd_altpriority_encoder_f48
 
-//synthesis_resources = reg 5 
+//synthesis_resources = 
 //synopsys translate_off
 `timescale 1 ps / 1 ps
 //synopsys translate_on
-module  fpAdd_altpriority_encoder_cna
+module  fpAdd_altpriority_encoder_e48
 	( 
-	aclr,
-	clk_en,
-	clock,
 	data,
 	q) ;
-	input   aclr;
-	input   clk_en;
-	input   clock;
 	input   [31:0]  data;
 	output   [4:0]  q;
-`ifndef ALTERA_RESERVED_QIS
-// synopsys translate_off
-`endif
-	tri0   aclr;
-	tri1   clk_en;
-	tri0   clock;
-`ifndef ALTERA_RESERVED_QIS
-// synopsys translate_on
-`endif
 
 	wire  [3:0]   wire_altpriority_encoder21_q;
 	wire  wire_altpriority_encoder21_zero;
 	wire  [3:0]   wire_altpriority_encoder22_q;
-	reg	[4:0]	pipeline_q_dffe;
-	wire  [4:0]  tmp_q_wire;
 
-	fpAdd_altpriority_encoder_ii9   altpriority_encoder21
+	fpAdd_altpriority_encoder_fj8   altpriority_encoder21
 	( 
 	.data(data[15:0]),
 	.q(wire_altpriority_encoder21_q),
 	.zero(wire_altpriority_encoder21_zero));
-	fpAdd_altpriority_encoder_i39   altpriority_encoder22
+	fpAdd_altpriority_encoder_f48   altpriority_encoder22
 	( 
 	.data(data[31:16]),
 	.q(wire_altpriority_encoder22_q));
-	// synopsys translate_off
-	initial
-		pipeline_q_dffe = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) pipeline_q_dffe <= 5'b0;
-		else if  (clk_en == 1'b1)   pipeline_q_dffe <= (~ tmp_q_wire);
 	assign
-		q = (~ pipeline_q_dffe),
-		tmp_q_wire = {wire_altpriority_encoder21_zero, (({4{wire_altpriority_encoder21_zero}} & wire_altpriority_encoder22_q) | ({4{(~ wire_altpriority_encoder21_zero)}} & wire_altpriority_encoder21_q))};
-endmodule //fpAdd_altpriority_encoder_cna
+		q = {wire_altpriority_encoder21_zero, (({4{wire_altpriority_encoder21_zero}} & wire_altpriority_encoder22_q) | ({4{(~ wire_altpriority_encoder21_zero)}} & wire_altpriority_encoder21_q))};
+endmodule //fpAdd_altpriority_encoder_e48
 
-//synthesis_resources = lpm_add_sub 14 lpm_compare 1 reg 720 
+//synthesis_resources = lpm_add_sub 14 lpm_compare 1 reg 283 
 //synopsys translate_off
 `timescale 1 ps / 1 ps
 //synopsys translate_on
-module  fpAdd_altfp_add_sub_suk
+module  fpAdd_altfp_add_sub_etk
 	( 
 	add_sub,
 	clk_en,
@@ -831,109 +734,47 @@ module  fpAdd_altfp_add_sub_suk
 	wire  [4:0]   wire_leading_zeroes_cnt_q;
 	wire  [4:0]   wire_trailing_zeros_cnt_q;
 	reg	add_sub_dffe1;
-	reg	add_sub_dffe12;
-	reg	add_sub_dffe13;
-	reg	add_sub_dffe14;
-	reg	add_sub_dffe25;
-	reg	[8:0]	aligned_dataa_exp_dffe12;
-	reg	[8:0]	aligned_dataa_exp_dffe13;
-	reg	[8:0]	aligned_dataa_exp_dffe14;
-	reg	[23:0]	aligned_dataa_man_dffe12;
-	reg	[23:0]	aligned_dataa_man_dffe13;
-	reg	[23:0]	aligned_dataa_man_dffe14;
-	reg	aligned_dataa_sign_dffe12;
-	reg	aligned_dataa_sign_dffe13;
-	reg	aligned_dataa_sign_dffe14;
-	reg	[8:0]	aligned_datab_exp_dffe12;
-	reg	[8:0]	aligned_datab_exp_dffe13;
-	reg	[8:0]	aligned_datab_exp_dffe14;
-	reg	[23:0]	aligned_datab_man_dffe12;
-	reg	[23:0]	aligned_datab_man_dffe13;
-	reg	[23:0]	aligned_datab_man_dffe14;
-	reg	aligned_datab_sign_dffe12;
-	reg	aligned_datab_sign_dffe13;
-	reg	aligned_datab_sign_dffe14;
 	reg	both_inputs_are_infinite_dffe1;
-	reg	both_inputs_are_infinite_dffe25;
 	reg	[7:0]	data_exp_dffe1;
 	reg	[25:0]	dataa_man_dffe1;
 	reg	dataa_sign_dffe1;
-	reg	dataa_sign_dffe25;
 	reg	[25:0]	datab_man_dffe1;
 	reg	datab_sign_dffe1;
 	reg	denormal_res_dffe3;
 	reg	denormal_res_dffe4;
-	reg	denormal_res_dffe41;
 	reg	[1:0]	exp_adj_dffe21;
-	reg	[1:0]	exp_adj_dffe23;
-	reg	exp_amb_mux_dffe13;
-	reg	exp_amb_mux_dffe14;
-	reg	[7:0]	exp_intermediate_res_dffe41;
 	reg	[7:0]	exp_out_dffe5;
 	reg	[7:0]	exp_res_dffe2;
 	reg	[7:0]	exp_res_dffe21;
-	reg	[7:0]	exp_res_dffe23;
-	reg	[7:0]	exp_res_dffe25;
-	reg	[7:0]	exp_res_dffe27;
 	reg	[7:0]	exp_res_dffe3;
 	reg	[7:0]	exp_res_dffe4;
 	reg	infinite_output_sign_dffe1;
 	reg	infinite_output_sign_dffe2;
 	reg	infinite_output_sign_dffe21;
-	reg	infinite_output_sign_dffe23;
-	reg	infinite_output_sign_dffe25;
-	reg	infinite_output_sign_dffe27;
 	reg	infinite_output_sign_dffe3;
 	reg	infinite_output_sign_dffe31;
 	reg	infinite_output_sign_dffe4;
-	reg	infinite_output_sign_dffe41;
 	reg	infinite_res_dffe3;
 	reg	infinite_res_dffe4;
-	reg	infinite_res_dffe41;
 	reg	infinity_magnitude_sub_dffe2;
 	reg	infinity_magnitude_sub_dffe21;
-	reg	infinity_magnitude_sub_dffe23;
-	reg	infinity_magnitude_sub_dffe27;
 	reg	infinity_magnitude_sub_dffe3;
 	reg	infinity_magnitude_sub_dffe31;
 	reg	infinity_magnitude_sub_dffe4;
-	reg	infinity_magnitude_sub_dffe41;
-	reg	input_dataa_infinite_dffe12;
-	reg	input_dataa_infinite_dffe13;
-	reg	input_dataa_infinite_dffe14;
-	reg	input_dataa_nan_dffe12;
-	reg	input_datab_infinite_dffe12;
-	reg	input_datab_infinite_dffe13;
-	reg	input_datab_infinite_dffe14;
-	reg	input_datab_nan_dffe12;
 	reg	input_is_infinite_dffe1;
 	reg	input_is_infinite_dffe2;
 	reg	input_is_infinite_dffe21;
-	reg	input_is_infinite_dffe23;
-	reg	input_is_infinite_dffe25;
-	reg	input_is_infinite_dffe27;
 	reg	input_is_infinite_dffe3;
 	reg	input_is_infinite_dffe31;
 	reg	input_is_infinite_dffe4;
-	reg	input_is_infinite_dffe41;
 	reg	input_is_nan_dffe1;
-	reg	input_is_nan_dffe13;
-	reg	input_is_nan_dffe14;
 	reg	input_is_nan_dffe2;
 	reg	input_is_nan_dffe21;
-	reg	input_is_nan_dffe23;
-	reg	input_is_nan_dffe25;
-	reg	input_is_nan_dffe27;
 	reg	input_is_nan_dffe3;
 	reg	input_is_nan_dffe31;
 	reg	input_is_nan_dffe4;
-	reg	input_is_nan_dffe41;
 	reg	[25:0]	man_add_sub_res_mag_dffe21;
-	reg	[25:0]	man_add_sub_res_mag_dffe23;
-	reg	[27:0]	man_add_sub_res_mag_dffe27;
 	reg	man_add_sub_res_sign_dffe21;
-	reg	man_add_sub_res_sign_dffe23;
-	reg	man_add_sub_res_sign_dffe27;
 	reg	[25:0]	man_dffe31;
 	reg	[4:0]	man_leading_zeros_dffe31;
 	reg	[22:0]	man_out_dffe5;
@@ -941,35 +782,22 @@ module  fpAdd_altfp_add_sub_suk
 	reg	man_res_is_not_zero_dffe3;
 	reg	man_res_is_not_zero_dffe31;
 	reg	man_res_is_not_zero_dffe4;
-	reg	man_res_is_not_zero_dffe41;
-	reg	man_res_not_zero_dffe23;
-	reg	[25:0]	man_res_rounding_add_sub_result_reg;
-	reg	[23:0]	man_smaller_dffe13;
 	reg	need_complement_dffe2;
 	reg	round_bit_dffe21;
-	reg	round_bit_dffe23;
 	reg	round_bit_dffe3;
 	reg	round_bit_dffe31;
 	reg	rounded_res_infinity_dffe4;
-	reg	[4:0]	rshift_distance_dffe13;
-	reg	[4:0]	rshift_distance_dffe14;
 	reg	sign_dffe31;
 	reg	sign_out_dffe5;
 	reg	sign_res_dffe3;
 	reg	sign_res_dffe4;
-	reg	sign_res_dffe41;
 	reg	sticky_bit_dffe1;
 	reg	sticky_bit_dffe2;
 	reg	sticky_bit_dffe21;
-	reg	sticky_bit_dffe23;
-	reg	sticky_bit_dffe25;
-	reg	sticky_bit_dffe27;
 	reg	sticky_bit_dffe3;
 	reg	sticky_bit_dffe31;
 	reg	zero_man_sign_dffe2;
 	reg	zero_man_sign_dffe21;
-	reg	zero_man_sign_dffe23;
-	reg	zero_man_sign_dffe27;
 	wire  [8:0]   wire_add_sub1_result;
 	wire  [8:0]   wire_add_sub2_result;
 	wire  [5:0]   wire_add_sub3_result;
@@ -1509,26 +1337,17 @@ module  fpAdd_altfp_add_sub_suk
 	.data(man_dffe31_wo),
 	.distance(man_leading_zeros_cnt_w),
 	.result(wire_lbarrel_shift_result));
-	fpAdd_altbarrel_shift_n3g   rbarrel_shift
+	fpAdd_altbarrel_shift_6hb   rbarrel_shift
 	( 
-	.aclr(aclr),
-	.clk_en(clk_en),
-	.clock(clock),
 	.data({man_smaller_dffe13_wo, {2{1'b0}}}),
 	.distance(rshift_distance_dffe13_wo),
 	.result(wire_rbarrel_shift_result));
-	fpAdd_altpriority_encoder_ou8   leading_zeroes_cnt
+	fpAdd_altpriority_encoder_qb6   leading_zeroes_cnt
 	( 
-	.aclr(aclr),
-	.clk_en(clk_en),
-	.clock(clock),
 	.data({man_add_sub_res_mag_dffe21_wo[25:1], 1'b1, {6{1'b0}}}),
 	.q(wire_leading_zeroes_cnt_q));
-	fpAdd_altpriority_encoder_cna   trailing_zeros_cnt
+	fpAdd_altpriority_encoder_e48   trailing_zeros_cnt
 	( 
-	.aclr(aclr),
-	.clk_en(clk_en),
-	.clock(clock),
 	.data({{9{1'b1}}, man_smaller_dffe13_wo[22:0]}),
 	.q(wire_trailing_zeros_cnt_q));
 	// synopsys translate_off
@@ -1540,172 +1359,11 @@ module  fpAdd_altfp_add_sub_suk
 		else if  (clk_en == 1'b1)   add_sub_dffe1 <= add_sub_dffe1_wi;
 	// synopsys translate_off
 	initial
-		add_sub_dffe12 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) add_sub_dffe12 <= 1'b0;
-		else if  (clk_en == 1'b1)   add_sub_dffe12 <= add_sub_dffe12_wi;
-	// synopsys translate_off
-	initial
-		add_sub_dffe13 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) add_sub_dffe13 <= 1'b0;
-		else if  (clk_en == 1'b1)   add_sub_dffe13 <= add_sub_dffe13_wi;
-	// synopsys translate_off
-	initial
-		add_sub_dffe14 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) add_sub_dffe14 <= 1'b0;
-		else if  (clk_en == 1'b1)   add_sub_dffe14 <= add_sub_dffe14_wi;
-	// synopsys translate_off
-	initial
-		add_sub_dffe25 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) add_sub_dffe25 <= 1'b0;
-		else if  (clk_en == 1'b1)   add_sub_dffe25 <= add_sub_dffe25_wi;
-	// synopsys translate_off
-	initial
-		aligned_dataa_exp_dffe12 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) aligned_dataa_exp_dffe12 <= 9'b0;
-		else if  (clk_en == 1'b1)   aligned_dataa_exp_dffe12 <= aligned_dataa_exp_dffe12_wi;
-	// synopsys translate_off
-	initial
-		aligned_dataa_exp_dffe13 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) aligned_dataa_exp_dffe13 <= 9'b0;
-		else if  (clk_en == 1'b1)   aligned_dataa_exp_dffe13 <= aligned_dataa_exp_dffe13_wi;
-	// synopsys translate_off
-	initial
-		aligned_dataa_exp_dffe14 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) aligned_dataa_exp_dffe14 <= 9'b0;
-		else if  (clk_en == 1'b1)   aligned_dataa_exp_dffe14 <= aligned_dataa_exp_dffe14_wi;
-	// synopsys translate_off
-	initial
-		aligned_dataa_man_dffe12 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) aligned_dataa_man_dffe12 <= 24'b0;
-		else if  (clk_en == 1'b1)   aligned_dataa_man_dffe12 <= aligned_dataa_man_dffe12_wi;
-	// synopsys translate_off
-	initial
-		aligned_dataa_man_dffe13 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) aligned_dataa_man_dffe13 <= 24'b0;
-		else if  (clk_en == 1'b1)   aligned_dataa_man_dffe13 <= aligned_dataa_man_dffe13_wi;
-	// synopsys translate_off
-	initial
-		aligned_dataa_man_dffe14 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) aligned_dataa_man_dffe14 <= 24'b0;
-		else if  (clk_en == 1'b1)   aligned_dataa_man_dffe14 <= aligned_dataa_man_dffe14_wi;
-	// synopsys translate_off
-	initial
-		aligned_dataa_sign_dffe12 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) aligned_dataa_sign_dffe12 <= 1'b0;
-		else if  (clk_en == 1'b1)   aligned_dataa_sign_dffe12 <= aligned_dataa_sign_dffe12_wi;
-	// synopsys translate_off
-	initial
-		aligned_dataa_sign_dffe13 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) aligned_dataa_sign_dffe13 <= 1'b0;
-		else if  (clk_en == 1'b1)   aligned_dataa_sign_dffe13 <= aligned_dataa_sign_dffe13_wi;
-	// synopsys translate_off
-	initial
-		aligned_dataa_sign_dffe14 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) aligned_dataa_sign_dffe14 <= 1'b0;
-		else if  (clk_en == 1'b1)   aligned_dataa_sign_dffe14 <= aligned_dataa_sign_dffe14_wi;
-	// synopsys translate_off
-	initial
-		aligned_datab_exp_dffe12 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) aligned_datab_exp_dffe12 <= 9'b0;
-		else if  (clk_en == 1'b1)   aligned_datab_exp_dffe12 <= aligned_datab_exp_dffe12_wi;
-	// synopsys translate_off
-	initial
-		aligned_datab_exp_dffe13 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) aligned_datab_exp_dffe13 <= 9'b0;
-		else if  (clk_en == 1'b1)   aligned_datab_exp_dffe13 <= aligned_datab_exp_dffe13_wi;
-	// synopsys translate_off
-	initial
-		aligned_datab_exp_dffe14 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) aligned_datab_exp_dffe14 <= 9'b0;
-		else if  (clk_en == 1'b1)   aligned_datab_exp_dffe14 <= aligned_datab_exp_dffe14_wi;
-	// synopsys translate_off
-	initial
-		aligned_datab_man_dffe12 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) aligned_datab_man_dffe12 <= 24'b0;
-		else if  (clk_en == 1'b1)   aligned_datab_man_dffe12 <= aligned_datab_man_dffe12_wi;
-	// synopsys translate_off
-	initial
-		aligned_datab_man_dffe13 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) aligned_datab_man_dffe13 <= 24'b0;
-		else if  (clk_en == 1'b1)   aligned_datab_man_dffe13 <= aligned_datab_man_dffe13_wi;
-	// synopsys translate_off
-	initial
-		aligned_datab_man_dffe14 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) aligned_datab_man_dffe14 <= 24'b0;
-		else if  (clk_en == 1'b1)   aligned_datab_man_dffe14 <= aligned_datab_man_dffe14_wi;
-	// synopsys translate_off
-	initial
-		aligned_datab_sign_dffe12 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) aligned_datab_sign_dffe12 <= 1'b0;
-		else if  (clk_en == 1'b1)   aligned_datab_sign_dffe12 <= aligned_datab_sign_dffe12_wi;
-	// synopsys translate_off
-	initial
-		aligned_datab_sign_dffe13 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) aligned_datab_sign_dffe13 <= 1'b0;
-		else if  (clk_en == 1'b1)   aligned_datab_sign_dffe13 <= aligned_datab_sign_dffe13_wi;
-	// synopsys translate_off
-	initial
-		aligned_datab_sign_dffe14 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) aligned_datab_sign_dffe14 <= 1'b0;
-		else if  (clk_en == 1'b1)   aligned_datab_sign_dffe14 <= aligned_datab_sign_dffe14_wi;
-	// synopsys translate_off
-	initial
 		both_inputs_are_infinite_dffe1 = 0;
 	// synopsys translate_on
 	always @ ( posedge clock or  posedge aclr)
 		if (aclr == 1'b1) both_inputs_are_infinite_dffe1 <= 1'b0;
 		else if  (clk_en == 1'b1)   both_inputs_are_infinite_dffe1 <= both_inputs_are_infinite_dffe1_wi;
-	// synopsys translate_off
-	initial
-		both_inputs_are_infinite_dffe25 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) both_inputs_are_infinite_dffe25 <= 1'b0;
-		else if  (clk_en == 1'b1)   both_inputs_are_infinite_dffe25 <= both_inputs_are_infinite_dffe25_wi;
 	// synopsys translate_off
 	initial
 		data_exp_dffe1 = 0;
@@ -1727,13 +1385,6 @@ module  fpAdd_altfp_add_sub_suk
 	always @ ( posedge clock or  posedge aclr)
 		if (aclr == 1'b1) dataa_sign_dffe1 <= 1'b0;
 		else if  (clk_en == 1'b1)   dataa_sign_dffe1 <= dataa_sign_dffe1_wi;
-	// synopsys translate_off
-	initial
-		dataa_sign_dffe25 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) dataa_sign_dffe25 <= 1'b0;
-		else if  (clk_en == 1'b1)   dataa_sign_dffe25 <= dataa_sign_dffe25_wi;
 	// synopsys translate_off
 	initial
 		datab_man_dffe1 = 0;
@@ -1764,46 +1415,11 @@ module  fpAdd_altfp_add_sub_suk
 		else if  (clk_en == 1'b1)   denormal_res_dffe4 <= denormal_res_dffe4_wi;
 	// synopsys translate_off
 	initial
-		denormal_res_dffe41 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) denormal_res_dffe41 <= 1'b0;
-		else if  (clk_en == 1'b1)   denormal_res_dffe41 <= denormal_res_dffe41_wi;
-	// synopsys translate_off
-	initial
 		exp_adj_dffe21 = 0;
 	// synopsys translate_on
 	always @ ( posedge clock or  posedge aclr)
 		if (aclr == 1'b1) exp_adj_dffe21 <= 2'b0;
 		else if  (clk_en == 1'b1)   exp_adj_dffe21 <= exp_adj_dffe21_wi;
-	// synopsys translate_off
-	initial
-		exp_adj_dffe23 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) exp_adj_dffe23 <= 2'b0;
-		else if  (clk_en == 1'b1)   exp_adj_dffe23 <= exp_adj_dffe23_wi;
-	// synopsys translate_off
-	initial
-		exp_amb_mux_dffe13 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) exp_amb_mux_dffe13 <= 1'b0;
-		else if  (clk_en == 1'b1)   exp_amb_mux_dffe13 <= exp_amb_mux_dffe13_wi;
-	// synopsys translate_off
-	initial
-		exp_amb_mux_dffe14 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) exp_amb_mux_dffe14 <= 1'b0;
-		else if  (clk_en == 1'b1)   exp_amb_mux_dffe14 <= exp_amb_mux_dffe14_wi;
-	// synopsys translate_off
-	initial
-		exp_intermediate_res_dffe41 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) exp_intermediate_res_dffe41 <= 8'b0;
-		else if  (clk_en == 1'b1)   exp_intermediate_res_dffe41 <= exp_intermediate_res_dffe41_wi;
 	// synopsys translate_off
 	initial
 		exp_out_dffe5 = 0;
@@ -1825,27 +1441,6 @@ module  fpAdd_altfp_add_sub_suk
 	always @ ( posedge clock or  posedge aclr)
 		if (aclr == 1'b1) exp_res_dffe21 <= 8'b0;
 		else if  (clk_en == 1'b1)   exp_res_dffe21 <= exp_res_dffe21_wi;
-	// synopsys translate_off
-	initial
-		exp_res_dffe23 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) exp_res_dffe23 <= 8'b0;
-		else if  (clk_en == 1'b1)   exp_res_dffe23 <= exp_res_dffe23_wi;
-	// synopsys translate_off
-	initial
-		exp_res_dffe25 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) exp_res_dffe25 <= 8'b0;
-		else if  (clk_en == 1'b1)   exp_res_dffe25 <= exp_res_dffe25_wi;
-	// synopsys translate_off
-	initial
-		exp_res_dffe27 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) exp_res_dffe27 <= 8'b0;
-		else if  (clk_en == 1'b1)   exp_res_dffe27 <= exp_res_dffe27_wi;
 	// synopsys translate_off
 	initial
 		exp_res_dffe3 = 0;
@@ -1883,27 +1478,6 @@ module  fpAdd_altfp_add_sub_suk
 		else if  (clk_en == 1'b1)   infinite_output_sign_dffe21 <= infinite_output_sign_dffe21_wi;
 	// synopsys translate_off
 	initial
-		infinite_output_sign_dffe23 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) infinite_output_sign_dffe23 <= 1'b0;
-		else if  (clk_en == 1'b1)   infinite_output_sign_dffe23 <= infinite_output_sign_dffe23_wi;
-	// synopsys translate_off
-	initial
-		infinite_output_sign_dffe25 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) infinite_output_sign_dffe25 <= 1'b0;
-		else if  (clk_en == 1'b1)   infinite_output_sign_dffe25 <= infinite_output_sign_dffe25_wi;
-	// synopsys translate_off
-	initial
-		infinite_output_sign_dffe27 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) infinite_output_sign_dffe27 <= 1'b0;
-		else if  (clk_en == 1'b1)   infinite_output_sign_dffe27 <= infinite_output_sign_dffe27_wi;
-	// synopsys translate_off
-	initial
 		infinite_output_sign_dffe3 = 0;
 	// synopsys translate_on
 	always @ ( posedge clock or  posedge aclr)
@@ -1925,13 +1499,6 @@ module  fpAdd_altfp_add_sub_suk
 		else if  (clk_en == 1'b1)   infinite_output_sign_dffe4 <= infinite_output_sign_dffe4_wi;
 	// synopsys translate_off
 	initial
-		infinite_output_sign_dffe41 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) infinite_output_sign_dffe41 <= 1'b0;
-		else if  (clk_en == 1'b1)   infinite_output_sign_dffe41 <= infinite_output_sign_dffe41_wi;
-	// synopsys translate_off
-	initial
 		infinite_res_dffe3 = 0;
 	// synopsys translate_on
 	always @ ( posedge clock or  posedge aclr)
@@ -1946,13 +1513,6 @@ module  fpAdd_altfp_add_sub_suk
 		else if  (clk_en == 1'b1)   infinite_res_dffe4 <= infinite_res_dffe4_wi;
 	// synopsys translate_off
 	initial
-		infinite_res_dffe41 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) infinite_res_dffe41 <= 1'b0;
-		else if  (clk_en == 1'b1)   infinite_res_dffe41 <= infinite_res_dffe41_wi;
-	// synopsys translate_off
-	initial
 		infinity_magnitude_sub_dffe2 = 0;
 	// synopsys translate_on
 	always @ ( posedge clock or  posedge aclr)
@@ -1965,20 +1525,6 @@ module  fpAdd_altfp_add_sub_suk
 	always @ ( posedge clock or  posedge aclr)
 		if (aclr == 1'b1) infinity_magnitude_sub_dffe21 <= 1'b0;
 		else if  (clk_en == 1'b1)   infinity_magnitude_sub_dffe21 <= infinity_magnitude_sub_dffe21_wi;
-	// synopsys translate_off
-	initial
-		infinity_magnitude_sub_dffe23 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) infinity_magnitude_sub_dffe23 <= 1'b0;
-		else if  (clk_en == 1'b1)   infinity_magnitude_sub_dffe23 <= infinity_magnitude_sub_dffe23_wi;
-	// synopsys translate_off
-	initial
-		infinity_magnitude_sub_dffe27 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) infinity_magnitude_sub_dffe27 <= 1'b0;
-		else if  (clk_en == 1'b1)   infinity_magnitude_sub_dffe27 <= infinity_magnitude_sub_dffe27_wi;
 	// synopsys translate_off
 	initial
 		infinity_magnitude_sub_dffe3 = 0;
@@ -2002,69 +1548,6 @@ module  fpAdd_altfp_add_sub_suk
 		else if  (clk_en == 1'b1)   infinity_magnitude_sub_dffe4 <= infinity_magnitude_sub_dffe4_wi;
 	// synopsys translate_off
 	initial
-		infinity_magnitude_sub_dffe41 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) infinity_magnitude_sub_dffe41 <= 1'b0;
-		else if  (clk_en == 1'b1)   infinity_magnitude_sub_dffe41 <= infinity_magnitude_sub_dffe41_wi;
-	// synopsys translate_off
-	initial
-		input_dataa_infinite_dffe12 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) input_dataa_infinite_dffe12 <= 1'b0;
-		else if  (clk_en == 1'b1)   input_dataa_infinite_dffe12 <= input_dataa_infinite_dffe12_wi;
-	// synopsys translate_off
-	initial
-		input_dataa_infinite_dffe13 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) input_dataa_infinite_dffe13 <= 1'b0;
-		else if  (clk_en == 1'b1)   input_dataa_infinite_dffe13 <= input_dataa_infinite_dffe13_wi;
-	// synopsys translate_off
-	initial
-		input_dataa_infinite_dffe14 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) input_dataa_infinite_dffe14 <= 1'b0;
-		else if  (clk_en == 1'b1)   input_dataa_infinite_dffe14 <= input_dataa_infinite_dffe14_wi;
-	// synopsys translate_off
-	initial
-		input_dataa_nan_dffe12 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) input_dataa_nan_dffe12 <= 1'b0;
-		else if  (clk_en == 1'b1)   input_dataa_nan_dffe12 <= input_dataa_nan_dffe12_wi;
-	// synopsys translate_off
-	initial
-		input_datab_infinite_dffe12 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) input_datab_infinite_dffe12 <= 1'b0;
-		else if  (clk_en == 1'b1)   input_datab_infinite_dffe12 <= input_datab_infinite_dffe12_wi;
-	// synopsys translate_off
-	initial
-		input_datab_infinite_dffe13 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) input_datab_infinite_dffe13 <= 1'b0;
-		else if  (clk_en == 1'b1)   input_datab_infinite_dffe13 <= input_datab_infinite_dffe13_wi;
-	// synopsys translate_off
-	initial
-		input_datab_infinite_dffe14 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) input_datab_infinite_dffe14 <= 1'b0;
-		else if  (clk_en == 1'b1)   input_datab_infinite_dffe14 <= input_datab_infinite_dffe14_wi;
-	// synopsys translate_off
-	initial
-		input_datab_nan_dffe12 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) input_datab_nan_dffe12 <= 1'b0;
-		else if  (clk_en == 1'b1)   input_datab_nan_dffe12 <= input_datab_nan_dffe12_wi;
-	// synopsys translate_off
-	initial
 		input_is_infinite_dffe1 = 0;
 	// synopsys translate_on
 	always @ ( posedge clock or  posedge aclr)
@@ -2084,27 +1567,6 @@ module  fpAdd_altfp_add_sub_suk
 	always @ ( posedge clock or  posedge aclr)
 		if (aclr == 1'b1) input_is_infinite_dffe21 <= 1'b0;
 		else if  (clk_en == 1'b1)   input_is_infinite_dffe21 <= input_is_infinite_dffe21_wi;
-	// synopsys translate_off
-	initial
-		input_is_infinite_dffe23 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) input_is_infinite_dffe23 <= 1'b0;
-		else if  (clk_en == 1'b1)   input_is_infinite_dffe23 <= input_is_infinite_dffe23_wi;
-	// synopsys translate_off
-	initial
-		input_is_infinite_dffe25 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) input_is_infinite_dffe25 <= 1'b0;
-		else if  (clk_en == 1'b1)   input_is_infinite_dffe25 <= input_is_infinite_dffe25_wi;
-	// synopsys translate_off
-	initial
-		input_is_infinite_dffe27 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) input_is_infinite_dffe27 <= 1'b0;
-		else if  (clk_en == 1'b1)   input_is_infinite_dffe27 <= input_is_infinite_dffe27_wi;
 	// synopsys translate_off
 	initial
 		input_is_infinite_dffe3 = 0;
@@ -2128,32 +1590,11 @@ module  fpAdd_altfp_add_sub_suk
 		else if  (clk_en == 1'b1)   input_is_infinite_dffe4 <= input_is_infinite_dffe4_wi;
 	// synopsys translate_off
 	initial
-		input_is_infinite_dffe41 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) input_is_infinite_dffe41 <= 1'b0;
-		else if  (clk_en == 1'b1)   input_is_infinite_dffe41 <= input_is_infinite_dffe41_wi;
-	// synopsys translate_off
-	initial
 		input_is_nan_dffe1 = 0;
 	// synopsys translate_on
 	always @ ( posedge clock or  posedge aclr)
 		if (aclr == 1'b1) input_is_nan_dffe1 <= 1'b0;
 		else if  (clk_en == 1'b1)   input_is_nan_dffe1 <= input_is_nan_dffe1_wi;
-	// synopsys translate_off
-	initial
-		input_is_nan_dffe13 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) input_is_nan_dffe13 <= 1'b0;
-		else if  (clk_en == 1'b1)   input_is_nan_dffe13 <= input_is_nan_dffe13_wi;
-	// synopsys translate_off
-	initial
-		input_is_nan_dffe14 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) input_is_nan_dffe14 <= 1'b0;
-		else if  (clk_en == 1'b1)   input_is_nan_dffe14 <= input_is_nan_dffe14_wi;
 	// synopsys translate_off
 	initial
 		input_is_nan_dffe2 = 0;
@@ -2168,27 +1609,6 @@ module  fpAdd_altfp_add_sub_suk
 	always @ ( posedge clock or  posedge aclr)
 		if (aclr == 1'b1) input_is_nan_dffe21 <= 1'b0;
 		else if  (clk_en == 1'b1)   input_is_nan_dffe21 <= input_is_nan_dffe21_wi;
-	// synopsys translate_off
-	initial
-		input_is_nan_dffe23 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) input_is_nan_dffe23 <= 1'b0;
-		else if  (clk_en == 1'b1)   input_is_nan_dffe23 <= input_is_nan_dffe23_wi;
-	// synopsys translate_off
-	initial
-		input_is_nan_dffe25 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) input_is_nan_dffe25 <= 1'b0;
-		else if  (clk_en == 1'b1)   input_is_nan_dffe25 <= input_is_nan_dffe25_wi;
-	// synopsys translate_off
-	initial
-		input_is_nan_dffe27 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) input_is_nan_dffe27 <= 1'b0;
-		else if  (clk_en == 1'b1)   input_is_nan_dffe27 <= input_is_nan_dffe27_wi;
 	// synopsys translate_off
 	initial
 		input_is_nan_dffe3 = 0;
@@ -2212,13 +1632,6 @@ module  fpAdd_altfp_add_sub_suk
 		else if  (clk_en == 1'b1)   input_is_nan_dffe4 <= input_is_nan_dffe4_wi;
 	// synopsys translate_off
 	initial
-		input_is_nan_dffe41 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) input_is_nan_dffe41 <= 1'b0;
-		else if  (clk_en == 1'b1)   input_is_nan_dffe41 <= input_is_nan_dffe41_wi;
-	// synopsys translate_off
-	initial
 		man_add_sub_res_mag_dffe21 = 0;
 	// synopsys translate_on
 	always @ ( posedge clock or  posedge aclr)
@@ -2226,39 +1639,11 @@ module  fpAdd_altfp_add_sub_suk
 		else if  (clk_en == 1'b1)   man_add_sub_res_mag_dffe21 <= man_add_sub_res_mag_dffe21_wi;
 	// synopsys translate_off
 	initial
-		man_add_sub_res_mag_dffe23 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) man_add_sub_res_mag_dffe23 <= 26'b0;
-		else if  (clk_en == 1'b1)   man_add_sub_res_mag_dffe23 <= man_add_sub_res_mag_dffe23_wi;
-	// synopsys translate_off
-	initial
-		man_add_sub_res_mag_dffe27 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) man_add_sub_res_mag_dffe27 <= 28'b0;
-		else if  (clk_en == 1'b1)   man_add_sub_res_mag_dffe27 <= man_add_sub_res_mag_dffe27_wi;
-	// synopsys translate_off
-	initial
 		man_add_sub_res_sign_dffe21 = 0;
 	// synopsys translate_on
 	always @ ( posedge clock or  posedge aclr)
 		if (aclr == 1'b1) man_add_sub_res_sign_dffe21 <= 1'b0;
 		else if  (clk_en == 1'b1)   man_add_sub_res_sign_dffe21 <= man_add_sub_res_sign_dffe27_wo;
-	// synopsys translate_off
-	initial
-		man_add_sub_res_sign_dffe23 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) man_add_sub_res_sign_dffe23 <= 1'b0;
-		else if  (clk_en == 1'b1)   man_add_sub_res_sign_dffe23 <= man_add_sub_res_sign_dffe23_wi;
-	// synopsys translate_off
-	initial
-		man_add_sub_res_sign_dffe27 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) man_add_sub_res_sign_dffe27 <= 1'b0;
-		else if  (clk_en == 1'b1)   man_add_sub_res_sign_dffe27 <= man_add_sub_res_sign_dffe27_wi;
 	// synopsys translate_off
 	initial
 		man_dffe31 = 0;
@@ -2310,34 +1695,6 @@ module  fpAdd_altfp_add_sub_suk
 		else if  (clk_en == 1'b1)   man_res_is_not_zero_dffe4 <= man_res_is_not_zero_dffe4_wi;
 	// synopsys translate_off
 	initial
-		man_res_is_not_zero_dffe41 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) man_res_is_not_zero_dffe41 <= 1'b0;
-		else if  (clk_en == 1'b1)   man_res_is_not_zero_dffe41 <= man_res_is_not_zero_dffe41_wi;
-	// synopsys translate_off
-	initial
-		man_res_not_zero_dffe23 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) man_res_not_zero_dffe23 <= 1'b0;
-		else if  (clk_en == 1'b1)   man_res_not_zero_dffe23 <= man_res_not_zero_dffe23_wi;
-	// synopsys translate_off
-	initial
-		man_res_rounding_add_sub_result_reg = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) man_res_rounding_add_sub_result_reg <= 26'b0;
-		else if  (clk_en == 1'b1)   man_res_rounding_add_sub_result_reg <= {(({13{(~ wire_man_res_rounding_add_sub_lower_cout)}} & adder_upper_w) | ({13{wire_man_res_rounding_add_sub_lower_cout}} & wire_man_res_rounding_add_sub_upper1_result)), wire_man_res_rounding_add_sub_lower_result};
-	// synopsys translate_off
-	initial
-		man_smaller_dffe13 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) man_smaller_dffe13 <= 24'b0;
-		else if  (clk_en == 1'b1)   man_smaller_dffe13 <= man_smaller_dffe13_wi;
-	// synopsys translate_off
-	initial
 		need_complement_dffe2 = 0;
 	// synopsys translate_on
 	always @ ( posedge clock or  posedge aclr)
@@ -2350,13 +1707,6 @@ module  fpAdd_altfp_add_sub_suk
 	always @ ( posedge clock or  posedge aclr)
 		if (aclr == 1'b1) round_bit_dffe21 <= 1'b0;
 		else if  (clk_en == 1'b1)   round_bit_dffe21 <= round_bit_dffe21_wi;
-	// synopsys translate_off
-	initial
-		round_bit_dffe23 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) round_bit_dffe23 <= 1'b0;
-		else if  (clk_en == 1'b1)   round_bit_dffe23 <= round_bit_dffe23_wi;
 	// synopsys translate_off
 	initial
 		round_bit_dffe3 = 0;
@@ -2378,20 +1728,6 @@ module  fpAdd_altfp_add_sub_suk
 	always @ ( posedge clock or  posedge aclr)
 		if (aclr == 1'b1) rounded_res_infinity_dffe4 <= 1'b0;
 		else if  (clk_en == 1'b1)   rounded_res_infinity_dffe4 <= rounded_res_infinity_dffe4_wi;
-	// synopsys translate_off
-	initial
-		rshift_distance_dffe13 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) rshift_distance_dffe13 <= 5'b0;
-		else if  (clk_en == 1'b1)   rshift_distance_dffe13 <= rshift_distance_dffe13_wi;
-	// synopsys translate_off
-	initial
-		rshift_distance_dffe14 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) rshift_distance_dffe14 <= 5'b0;
-		else if  (clk_en == 1'b1)   rshift_distance_dffe14 <= rshift_distance_dffe14_wi;
 	// synopsys translate_off
 	initial
 		sign_dffe31 = 0;
@@ -2422,13 +1758,6 @@ module  fpAdd_altfp_add_sub_suk
 		else if  (clk_en == 1'b1)   sign_res_dffe4 <= sign_res_dffe4_wi;
 	// synopsys translate_off
 	initial
-		sign_res_dffe41 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) sign_res_dffe41 <= 1'b0;
-		else if  (clk_en == 1'b1)   sign_res_dffe41 <= sign_res_dffe41_wi;
-	// synopsys translate_off
-	initial
 		sticky_bit_dffe1 = 0;
 	// synopsys translate_on
 	always @ ( posedge clock or  posedge aclr)
@@ -2448,27 +1777,6 @@ module  fpAdd_altfp_add_sub_suk
 	always @ ( posedge clock or  posedge aclr)
 		if (aclr == 1'b1) sticky_bit_dffe21 <= 1'b0;
 		else if  (clk_en == 1'b1)   sticky_bit_dffe21 <= sticky_bit_dffe21_wi;
-	// synopsys translate_off
-	initial
-		sticky_bit_dffe23 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) sticky_bit_dffe23 <= 1'b0;
-		else if  (clk_en == 1'b1)   sticky_bit_dffe23 <= sticky_bit_dffe23_wi;
-	// synopsys translate_off
-	initial
-		sticky_bit_dffe25 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) sticky_bit_dffe25 <= 1'b0;
-		else if  (clk_en == 1'b1)   sticky_bit_dffe25 <= sticky_bit_dffe25_wi;
-	// synopsys translate_off
-	initial
-		sticky_bit_dffe27 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) sticky_bit_dffe27 <= 1'b0;
-		else if  (clk_en == 1'b1)   sticky_bit_dffe27 <= sticky_bit_dffe27_wi;
 	// synopsys translate_off
 	initial
 		sticky_bit_dffe3 = 0;
@@ -2497,25 +1805,8 @@ module  fpAdd_altfp_add_sub_suk
 	always @ ( posedge clock or  posedge aclr)
 		if (aclr == 1'b1) zero_man_sign_dffe21 <= 1'b0;
 		else if  (clk_en == 1'b1)   zero_man_sign_dffe21 <= zero_man_sign_dffe21_wi;
-	// synopsys translate_off
-	initial
-		zero_man_sign_dffe23 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) zero_man_sign_dffe23 <= 1'b0;
-		else if  (clk_en == 1'b1)   zero_man_sign_dffe23 <= zero_man_sign_dffe23_wi;
-	// synopsys translate_off
-	initial
-		zero_man_sign_dffe27 = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) zero_man_sign_dffe27 <= 1'b0;
-		else if  (clk_en == 1'b1)   zero_man_sign_dffe27 <= zero_man_sign_dffe27_wi;
 	lpm_add_sub   add_sub1
 	( 
-	.aclr(aclr),
-	.clken(clk_en),
-	.clock(clock),
 	.cout(),
 	.dataa(aligned_dataa_exp_w),
 	.datab(aligned_datab_exp_w),
@@ -2525,24 +1816,22 @@ module  fpAdd_altfp_add_sub_suk
 	// synopsys translate_off
 	`endif
 	,
+	.aclr(1'b0),
 	.add_sub(1'b1),
-	.cin()
+	.cin(),
+	.clken(1'b1),
+	.clock(1'b0)
 	`ifndef FORMAL_VERIFICATION
 	// synopsys translate_on
 	`endif
 	);
 	defparam
 		add_sub1.lpm_direction = "SUB",
-		add_sub1.lpm_pipeline = 1,
 		add_sub1.lpm_representation = "SIGNED",
 		add_sub1.lpm_width = 9,
-		add_sub1.lpm_type = "lpm_add_sub",
-		add_sub1.lpm_hint = "USE_WYS=ON";
+		add_sub1.lpm_type = "lpm_add_sub";
 	lpm_add_sub   add_sub2
 	( 
-	.aclr(aclr),
-	.clken(clk_en),
-	.clock(clock),
 	.cout(),
 	.dataa(aligned_datab_exp_w),
 	.datab(aligned_dataa_exp_w),
@@ -2552,19 +1841,20 @@ module  fpAdd_altfp_add_sub_suk
 	// synopsys translate_off
 	`endif
 	,
+	.aclr(1'b0),
 	.add_sub(1'b1),
-	.cin()
+	.cin(),
+	.clken(1'b1),
+	.clock(1'b0)
 	`ifndef FORMAL_VERIFICATION
 	// synopsys translate_on
 	`endif
 	);
 	defparam
 		add_sub2.lpm_direction = "SUB",
-		add_sub2.lpm_pipeline = 1,
 		add_sub2.lpm_representation = "SIGNED",
 		add_sub2.lpm_width = 9,
-		add_sub2.lpm_type = "lpm_add_sub",
-		add_sub2.lpm_hint = "USE_WYS=ON";
+		add_sub2.lpm_type = "lpm_add_sub";
 	lpm_add_sub   add_sub3
 	( 
 	.cout(),
@@ -2680,7 +1970,7 @@ module  fpAdd_altfp_add_sub_suk
 	.overflow(),
 	.result(wire_man_2comp_res_lower_result));
 	defparam
-		man_2comp_res_lower.lpm_pipeline = 2,
+		man_2comp_res_lower.lpm_pipeline = 1,
 		man_2comp_res_lower.lpm_representation = "SIGNED",
 		man_2comp_res_lower.lpm_width = 14,
 		man_2comp_res_lower.lpm_type = "lpm_add_sub",
@@ -2698,7 +1988,7 @@ module  fpAdd_altfp_add_sub_suk
 	.overflow(),
 	.result(wire_man_2comp_res_upper0_result));
 	defparam
-		man_2comp_res_upper0.lpm_pipeline = 2,
+		man_2comp_res_upper0.lpm_pipeline = 1,
 		man_2comp_res_upper0.lpm_representation = "SIGNED",
 		man_2comp_res_upper0.lpm_width = 14,
 		man_2comp_res_upper0.lpm_type = "lpm_add_sub",
@@ -2716,7 +2006,7 @@ module  fpAdd_altfp_add_sub_suk
 	.overflow(),
 	.result(wire_man_2comp_res_upper1_result));
 	defparam
-		man_2comp_res_upper1.lpm_pipeline = 2,
+		man_2comp_res_upper1.lpm_pipeline = 1,
 		man_2comp_res_upper1.lpm_representation = "SIGNED",
 		man_2comp_res_upper1.lpm_width = 14,
 		man_2comp_res_upper1.lpm_type = "lpm_add_sub",
@@ -2734,7 +2024,7 @@ module  fpAdd_altfp_add_sub_suk
 	.overflow(),
 	.result(wire_man_add_sub_lower_result));
 	defparam
-		man_add_sub_lower.lpm_pipeline = 2,
+		man_add_sub_lower.lpm_pipeline = 1,
 		man_add_sub_lower.lpm_representation = "SIGNED",
 		man_add_sub_lower.lpm_width = 14,
 		man_add_sub_lower.lpm_type = "lpm_add_sub",
@@ -2752,7 +2042,7 @@ module  fpAdd_altfp_add_sub_suk
 	.overflow(),
 	.result(wire_man_add_sub_upper0_result));
 	defparam
-		man_add_sub_upper0.lpm_pipeline = 2,
+		man_add_sub_upper0.lpm_pipeline = 1,
 		man_add_sub_upper0.lpm_representation = "SIGNED",
 		man_add_sub_upper0.lpm_width = 14,
 		man_add_sub_upper0.lpm_type = "lpm_add_sub",
@@ -2770,7 +2060,7 @@ module  fpAdd_altfp_add_sub_suk
 	.overflow(),
 	.result(wire_man_add_sub_upper1_result));
 	defparam
-		man_add_sub_upper1.lpm_pipeline = 2,
+		man_add_sub_upper1.lpm_pipeline = 1,
 		man_add_sub_upper1.lpm_representation = "SIGNED",
 		man_add_sub_upper1.lpm_width = 14,
 		man_add_sub_upper1.lpm_type = "lpm_add_sub",
@@ -2855,72 +2145,72 @@ module  fpAdd_altfp_add_sub_suk
 		add_sub_dffe11_wi = add_sub,
 		add_sub_dffe11_wo = add_sub_dffe11_wi,
 		add_sub_dffe12_wi = add_sub_dffe11_wo,
-		add_sub_dffe12_wo = add_sub_dffe12,
+		add_sub_dffe12_wo = add_sub_dffe12_wi,
 		add_sub_dffe13_wi = add_sub_dffe12_wo,
-		add_sub_dffe13_wo = add_sub_dffe13,
+		add_sub_dffe13_wo = add_sub_dffe13_wi,
 		add_sub_dffe14_wi = add_sub_dffe13_wo,
-		add_sub_dffe14_wo = add_sub_dffe14,
+		add_sub_dffe14_wo = add_sub_dffe14_wi,
 		add_sub_dffe15_wi = add_sub_dffe14_wo,
 		add_sub_dffe15_wo = add_sub_dffe15_wi,
 		add_sub_dffe1_wi = add_sub_dffe15_wo,
 		add_sub_dffe1_wo = add_sub_dffe1,
 		add_sub_dffe25_wi = add_sub_w2,
-		add_sub_dffe25_wo = add_sub_dffe25,
+		add_sub_dffe25_wo = add_sub_dffe25_wi,
 		add_sub_w2 = (((((dataa_sign_dffe1_wo & (~ datab_sign_dffe1_wo)) & (~ add_sub_dffe1_wo)) | (((~ dataa_sign_dffe1_wo) & (~ datab_sign_dffe1_wo)) & add_sub_dffe1_wo)) | (((~ dataa_sign_dffe1_wo) & datab_sign_dffe1_wo) & (~ add_sub_dffe1_wo))) | ((dataa_sign_dffe1_wo & datab_sign_dffe1_wo) & add_sub_dffe1_wo)),
 		adder_upper_w = man_intermediate_res_w[25:13],
 		aligned_dataa_exp_dffe12_wi = aligned_dataa_exp_w,
-		aligned_dataa_exp_dffe12_wo = aligned_dataa_exp_dffe12,
+		aligned_dataa_exp_dffe12_wo = aligned_dataa_exp_dffe12_wi,
 		aligned_dataa_exp_dffe13_wi = aligned_dataa_exp_dffe12_wo,
-		aligned_dataa_exp_dffe13_wo = aligned_dataa_exp_dffe13,
+		aligned_dataa_exp_dffe13_wo = aligned_dataa_exp_dffe13_wi,
 		aligned_dataa_exp_dffe14_wi = aligned_dataa_exp_dffe13_wo,
-		aligned_dataa_exp_dffe14_wo = aligned_dataa_exp_dffe14,
+		aligned_dataa_exp_dffe14_wo = aligned_dataa_exp_dffe14_wi,
 		aligned_dataa_exp_dffe15_wi = aligned_dataa_exp_dffe14_wo,
 		aligned_dataa_exp_dffe15_wo = aligned_dataa_exp_dffe15_wi,
 		aligned_dataa_exp_w = {1'b0, ({8{(~ input_dataa_denormal_dffe11_wo)}} & dataa_dffe11_wo[30:23])},
 		aligned_dataa_man_dffe12_wi = aligned_dataa_man_w[25:2],
-		aligned_dataa_man_dffe12_wo = aligned_dataa_man_dffe12,
+		aligned_dataa_man_dffe12_wo = aligned_dataa_man_dffe12_wi,
 		aligned_dataa_man_dffe13_wi = aligned_dataa_man_dffe12_wo,
-		aligned_dataa_man_dffe13_wo = aligned_dataa_man_dffe13,
+		aligned_dataa_man_dffe13_wo = aligned_dataa_man_dffe13_wi,
 		aligned_dataa_man_dffe14_wi = aligned_dataa_man_dffe13_wo,
-		aligned_dataa_man_dffe14_wo = aligned_dataa_man_dffe14,
+		aligned_dataa_man_dffe14_wo = aligned_dataa_man_dffe14_wi,
 		aligned_dataa_man_dffe15_w = {aligned_dataa_man_dffe15_wo, {2{1'b0}}},
 		aligned_dataa_man_dffe15_wi = aligned_dataa_man_dffe14_wo,
 		aligned_dataa_man_dffe15_wo = aligned_dataa_man_dffe15_wi,
 		aligned_dataa_man_w = {(((~ input_dataa_infinite_dffe11_wo) & (~ input_dataa_denormal_dffe11_wo)) & (~ input_dataa_zero_dffe11_wo)), ({23{(~ input_dataa_denormal_dffe11_wo)}} & dataa_dffe11_wo[22:0]), {2{1'b0}}},
 		aligned_dataa_sign_dffe12_wi = aligned_dataa_sign_w,
-		aligned_dataa_sign_dffe12_wo = aligned_dataa_sign_dffe12,
+		aligned_dataa_sign_dffe12_wo = aligned_dataa_sign_dffe12_wi,
 		aligned_dataa_sign_dffe13_wi = aligned_dataa_sign_dffe12_wo,
-		aligned_dataa_sign_dffe13_wo = aligned_dataa_sign_dffe13,
+		aligned_dataa_sign_dffe13_wo = aligned_dataa_sign_dffe13_wi,
 		aligned_dataa_sign_dffe14_wi = aligned_dataa_sign_dffe13_wo,
-		aligned_dataa_sign_dffe14_wo = aligned_dataa_sign_dffe14,
+		aligned_dataa_sign_dffe14_wo = aligned_dataa_sign_dffe14_wi,
 		aligned_dataa_sign_dffe15_wi = aligned_dataa_sign_dffe14_wo,
 		aligned_dataa_sign_dffe15_wo = aligned_dataa_sign_dffe15_wi,
 		aligned_dataa_sign_w = dataa_dffe11_wo[31],
 		aligned_datab_exp_dffe12_wi = aligned_datab_exp_w,
-		aligned_datab_exp_dffe12_wo = aligned_datab_exp_dffe12,
+		aligned_datab_exp_dffe12_wo = aligned_datab_exp_dffe12_wi,
 		aligned_datab_exp_dffe13_wi = aligned_datab_exp_dffe12_wo,
-		aligned_datab_exp_dffe13_wo = aligned_datab_exp_dffe13,
+		aligned_datab_exp_dffe13_wo = aligned_datab_exp_dffe13_wi,
 		aligned_datab_exp_dffe14_wi = aligned_datab_exp_dffe13_wo,
-		aligned_datab_exp_dffe14_wo = aligned_datab_exp_dffe14,
+		aligned_datab_exp_dffe14_wo = aligned_datab_exp_dffe14_wi,
 		aligned_datab_exp_dffe15_wi = aligned_datab_exp_dffe14_wo,
 		aligned_datab_exp_dffe15_wo = aligned_datab_exp_dffe15_wi,
 		aligned_datab_exp_w = {1'b0, ({8{(~ input_datab_denormal_dffe11_wo)}} & datab_dffe11_wo[30:23])},
 		aligned_datab_man_dffe12_wi = aligned_datab_man_w[25:2],
-		aligned_datab_man_dffe12_wo = aligned_datab_man_dffe12,
+		aligned_datab_man_dffe12_wo = aligned_datab_man_dffe12_wi,
 		aligned_datab_man_dffe13_wi = aligned_datab_man_dffe12_wo,
-		aligned_datab_man_dffe13_wo = aligned_datab_man_dffe13,
+		aligned_datab_man_dffe13_wo = aligned_datab_man_dffe13_wi,
 		aligned_datab_man_dffe14_wi = aligned_datab_man_dffe13_wo,
-		aligned_datab_man_dffe14_wo = aligned_datab_man_dffe14,
+		aligned_datab_man_dffe14_wo = aligned_datab_man_dffe14_wi,
 		aligned_datab_man_dffe15_w = {aligned_datab_man_dffe15_wo, {2{1'b0}}},
 		aligned_datab_man_dffe15_wi = aligned_datab_man_dffe14_wo,
 		aligned_datab_man_dffe15_wo = aligned_datab_man_dffe15_wi,
 		aligned_datab_man_w = {(((~ input_datab_infinite_dffe11_wo) & (~ input_datab_denormal_dffe11_wo)) & (~ input_datab_zero_dffe11_wo)), ({23{(~ input_datab_denormal_dffe11_wo)}} & datab_dffe11_wo[22:0]), {2{1'b0}}},
 		aligned_datab_sign_dffe12_wi = aligned_datab_sign_w,
-		aligned_datab_sign_dffe12_wo = aligned_datab_sign_dffe12,
+		aligned_datab_sign_dffe12_wo = aligned_datab_sign_dffe12_wi,
 		aligned_datab_sign_dffe13_wi = aligned_datab_sign_dffe12_wo,
-		aligned_datab_sign_dffe13_wo = aligned_datab_sign_dffe13,
+		aligned_datab_sign_dffe13_wo = aligned_datab_sign_dffe13_wi,
 		aligned_datab_sign_dffe14_wi = aligned_datab_sign_dffe13_wo,
-		aligned_datab_sign_dffe14_wo = aligned_datab_sign_dffe14,
+		aligned_datab_sign_dffe14_wo = aligned_datab_sign_dffe14_wi,
 		aligned_datab_sign_dffe15_wi = aligned_datab_sign_dffe14_wo,
 		aligned_datab_sign_dffe15_wo = aligned_datab_sign_dffe15_wi,
 		aligned_datab_sign_w = datab_dffe11_wo[31],
@@ -2928,7 +2218,7 @@ module  fpAdd_altfp_add_sub_suk
 		both_inputs_are_infinite_dffe1_wi = (input_dataa_infinite_dffe15_wo & input_datab_infinite_dffe15_wo),
 		both_inputs_are_infinite_dffe1_wo = both_inputs_are_infinite_dffe1,
 		both_inputs_are_infinite_dffe25_wi = both_inputs_are_infinite_dffe1_wo,
-		both_inputs_are_infinite_dffe25_wo = both_inputs_are_infinite_dffe25,
+		both_inputs_are_infinite_dffe25_wo = both_inputs_are_infinite_dffe25_wi,
 		data_exp_dffe1_wi = (({8{(~ exp_amb_mux_dffe15_wo)}} & aligned_dataa_exp_dffe15_wo[7:0]) | ({8{exp_amb_mux_dffe15_wo}} & aligned_datab_exp_dffe15_wo[7:0])),
 		data_exp_dffe1_wo = data_exp_dffe1,
 		dataa_dffe11_wi = dataa,
@@ -2938,7 +2228,7 @@ module  fpAdd_altfp_add_sub_suk
 		dataa_sign_dffe1_wi = aligned_dataa_sign_dffe15_wo,
 		dataa_sign_dffe1_wo = dataa_sign_dffe1,
 		dataa_sign_dffe25_wi = dataa_sign_dffe1_wo,
-		dataa_sign_dffe25_wo = dataa_sign_dffe25,
+		dataa_sign_dffe25_wo = dataa_sign_dffe25_wi,
 		datab_dffe11_wi = datab,
 		datab_dffe11_wo = datab_dffe11_wi,
 		datab_man_dffe1_wi = (({26{(~ exp_amb_mux_dffe15_wo)}} & wire_rbarrel_shift_result) | ({26{exp_amb_mux_dffe15_wo}} & aligned_datab_man_dffe15_w)),
@@ -2953,7 +2243,7 @@ module  fpAdd_altfp_add_sub_suk
 		denormal_res_dffe3_wi = denormal_res_dffe33_wo,
 		denormal_res_dffe3_wo = denormal_res_dffe3,
 		denormal_res_dffe41_wi = denormal_res_dffe42_wo,
-		denormal_res_dffe41_wo = denormal_res_dffe41,
+		denormal_res_dffe41_wo = denormal_res_dffe41_wi,
 		denormal_res_dffe42_wi = denormal_res_dffe3_wo,
 		denormal_res_dffe42_wo = denormal_res_dffe42_wi,
 		denormal_res_dffe4_wi = denormal_res_dffe41_wo,
@@ -2965,7 +2255,7 @@ module  fpAdd_altfp_add_sub_suk
 		exp_adj_dffe21_wi = (({2{man_add_sub_res_mag_dffe27_wo[26]}} & exp_adjust_by_add2) | ({2{(~ man_add_sub_res_mag_dffe27_wo[26])}} & exp_adjust_by_add1)),
 		exp_adj_dffe21_wo = exp_adj_dffe21,
 		exp_adj_dffe23_wi = exp_adj_dffe21_wo,
-		exp_adj_dffe23_wo = exp_adj_dffe23,
+		exp_adj_dffe23_wo = exp_adj_dffe23_wi,
 		exp_adj_dffe26_wi = exp_adj_dffe23_wo,
 		exp_adj_dffe26_wo = exp_adj_dffe26_wi,
 		exp_adjust_by_add1 = 2'b01,
@@ -2979,9 +2269,9 @@ module  fpAdd_altfp_add_sub_suk
 		exp_all_ones_w = {8{1'b1}},
 		exp_all_zeros_w = {8{1'b0}},
 		exp_amb_mux_dffe13_wi = exp_amb_mux_w,
-		exp_amb_mux_dffe13_wo = exp_amb_mux_dffe13,
+		exp_amb_mux_dffe13_wo = exp_amb_mux_dffe13_wi,
 		exp_amb_mux_dffe14_wi = exp_amb_mux_dffe13_wo,
-		exp_amb_mux_dffe14_wo = exp_amb_mux_dffe14,
+		exp_amb_mux_dffe14_wo = exp_amb_mux_dffe14_wi,
 		exp_amb_mux_dffe15_wi = exp_amb_mux_dffe14_wo,
 		exp_amb_mux_dffe15_wo = exp_amb_mux_dffe15_wi,
 		exp_amb_mux_w = exp_amb_w[8],
@@ -2993,7 +2283,7 @@ module  fpAdd_altfp_add_sub_suk
 		exp_diff_abs_max_w = {5{1'b1}},
 		exp_diff_abs_w = (({8{(~ exp_amb_mux_w)}} & exp_amb_w[7:0]) | ({8{exp_amb_mux_w}} & exp_bma_w[7:0])),
 		exp_intermediate_res_dffe41_wi = exp_intermediate_res_dffe42_wo,
-		exp_intermediate_res_dffe41_wo = exp_intermediate_res_dffe41,
+		exp_intermediate_res_dffe41_wo = exp_intermediate_res_dffe41_wi,
 		exp_intermediate_res_dffe42_wi = exp_intermediate_res_w,
 		exp_intermediate_res_dffe42_wo = exp_intermediate_res_dffe42_wi,
 		exp_intermediate_res_w = exp_res_dffe3_wo,
@@ -3004,13 +2294,13 @@ module  fpAdd_altfp_add_sub_suk
 		exp_res_dffe22_wi = exp_res_dffe2_wo,
 		exp_res_dffe22_wo = exp_res_dffe22_wi,
 		exp_res_dffe23_wi = exp_res_dffe21_wo,
-		exp_res_dffe23_wo = exp_res_dffe23,
+		exp_res_dffe23_wo = exp_res_dffe23_wi,
 		exp_res_dffe25_wi = data_exp_dffe1_wo,
-		exp_res_dffe25_wo = exp_res_dffe25,
+		exp_res_dffe25_wo = exp_res_dffe25_wi,
 		exp_res_dffe26_wi = exp_res_dffe23_wo,
 		exp_res_dffe26_wo = exp_res_dffe26_wi,
 		exp_res_dffe27_wi = exp_res_dffe22_wo,
-		exp_res_dffe27_wo = exp_res_dffe27,
+		exp_res_dffe27_wo = exp_res_dffe27_wi,
 		exp_res_dffe2_wi = exp_res_dffe25_wo,
 		exp_res_dffe2_wo = exp_res_dffe2,
 		exp_res_dffe32_wi = ({8{(~ denormal_result_w)}} & exp_adjustment2_add_sub_w[7:0]),
@@ -3041,13 +2331,13 @@ module  fpAdd_altfp_add_sub_suk
 		infinite_output_sign_dffe22_wi = infinite_output_sign_dffe2_wo,
 		infinite_output_sign_dffe22_wo = infinite_output_sign_dffe22_wi,
 		infinite_output_sign_dffe23_wi = infinite_output_sign_dffe21_wo,
-		infinite_output_sign_dffe23_wo = infinite_output_sign_dffe23,
+		infinite_output_sign_dffe23_wo = infinite_output_sign_dffe23_wi,
 		infinite_output_sign_dffe25_wi = infinite_output_sign_dffe1_wo,
-		infinite_output_sign_dffe25_wo = infinite_output_sign_dffe25,
+		infinite_output_sign_dffe25_wo = infinite_output_sign_dffe25_wi,
 		infinite_output_sign_dffe26_wi = infinite_output_sign_dffe23_wo,
 		infinite_output_sign_dffe26_wo = infinite_output_sign_dffe26_wi,
 		infinite_output_sign_dffe27_wi = infinite_output_sign_dffe22_wo,
-		infinite_output_sign_dffe27_wo = infinite_output_sign_dffe27,
+		infinite_output_sign_dffe27_wo = infinite_output_sign_dffe27_wi,
 		infinite_output_sign_dffe2_wi = infinite_output_sign_dffe25_wo,
 		infinite_output_sign_dffe2_wo = infinite_output_sign_dffe2,
 		infinite_output_sign_dffe31_wi = infinite_output_sign_dffe26_wo,
@@ -3059,7 +2349,7 @@ module  fpAdd_altfp_add_sub_suk
 		infinite_output_sign_dffe3_wi = infinite_output_sign_dffe33_wo,
 		infinite_output_sign_dffe3_wo = infinite_output_sign_dffe3,
 		infinite_output_sign_dffe41_wi = infinite_output_sign_dffe42_wo,
-		infinite_output_sign_dffe41_wo = infinite_output_sign_dffe41,
+		infinite_output_sign_dffe41_wo = infinite_output_sign_dffe41_wi,
 		infinite_output_sign_dffe42_wi = infinite_output_sign_dffe3_wo,
 		infinite_output_sign_dffe42_wo = infinite_output_sign_dffe42_wi,
 		infinite_output_sign_dffe4_wi = infinite_output_sign_dffe41_wo,
@@ -3071,7 +2361,7 @@ module  fpAdd_altfp_add_sub_suk
 		infinite_res_dffe3_wi = infinite_res_dff33_wo,
 		infinite_res_dffe3_wo = infinite_res_dffe3,
 		infinite_res_dffe41_wi = infinite_res_dffe42_wo,
-		infinite_res_dffe41_wo = infinite_res_dffe41,
+		infinite_res_dffe41_wo = infinite_res_dffe41_wi,
 		infinite_res_dffe42_wi = infinite_res_dffe3_wo,
 		infinite_res_dffe42_wo = infinite_res_dffe42_wi,
 		infinite_res_dffe4_wi = infinite_res_dffe41_wo,
@@ -3081,11 +2371,11 @@ module  fpAdd_altfp_add_sub_suk
 		infinity_magnitude_sub_dffe22_wi = infinity_magnitude_sub_dffe2_wo,
 		infinity_magnitude_sub_dffe22_wo = infinity_magnitude_sub_dffe22_wi,
 		infinity_magnitude_sub_dffe23_wi = infinity_magnitude_sub_dffe21_wo,
-		infinity_magnitude_sub_dffe23_wo = infinity_magnitude_sub_dffe23,
+		infinity_magnitude_sub_dffe23_wo = infinity_magnitude_sub_dffe23_wi,
 		infinity_magnitude_sub_dffe26_wi = infinity_magnitude_sub_dffe23_wo,
 		infinity_magnitude_sub_dffe26_wo = infinity_magnitude_sub_dffe26_wi,
 		infinity_magnitude_sub_dffe27_wi = infinity_magnitude_sub_dffe22_wo,
-		infinity_magnitude_sub_dffe27_wo = infinity_magnitude_sub_dffe27,
+		infinity_magnitude_sub_dffe27_wo = infinity_magnitude_sub_dffe27_wi,
 		infinity_magnitude_sub_dffe2_wi = ((~ add_sub_dffe25_wo) & both_inputs_are_infinite_dffe25_wo),
 		infinity_magnitude_sub_dffe2_wo = infinity_magnitude_sub_dffe2,
 		infinity_magnitude_sub_dffe31_wi = infinity_magnitude_sub_dffe26_wo,
@@ -3097,7 +2387,7 @@ module  fpAdd_altfp_add_sub_suk
 		infinity_magnitude_sub_dffe3_wi = infinity_magnitude_sub_dffe33_wo,
 		infinity_magnitude_sub_dffe3_wo = infinity_magnitude_sub_dffe3,
 		infinity_magnitude_sub_dffe41_wi = infinity_magnitude_sub_dffe42_wo,
-		infinity_magnitude_sub_dffe41_wo = infinity_magnitude_sub_dffe41,
+		infinity_magnitude_sub_dffe41_wo = infinity_magnitude_sub_dffe41_wi,
 		infinity_magnitude_sub_dffe42_wi = infinity_magnitude_sub_dffe3_wo,
 		infinity_magnitude_sub_dffe42_wo = infinity_magnitude_sub_dffe42_wi,
 		infinity_magnitude_sub_dffe4_wi = infinity_magnitude_sub_dffe41_wo,
@@ -3108,18 +2398,18 @@ module  fpAdd_altfp_add_sub_suk
 		input_dataa_infinite_dffe11_wi = input_dataa_infinite_w,
 		input_dataa_infinite_dffe11_wo = input_dataa_infinite_dffe11_wi,
 		input_dataa_infinite_dffe12_wi = input_dataa_infinite_dffe11_wo,
-		input_dataa_infinite_dffe12_wo = input_dataa_infinite_dffe12,
+		input_dataa_infinite_dffe12_wo = input_dataa_infinite_dffe12_wi,
 		input_dataa_infinite_dffe13_wi = input_dataa_infinite_dffe12_wo,
-		input_dataa_infinite_dffe13_wo = input_dataa_infinite_dffe13,
+		input_dataa_infinite_dffe13_wo = input_dataa_infinite_dffe13_wi,
 		input_dataa_infinite_dffe14_wi = input_dataa_infinite_dffe13_wo,
-		input_dataa_infinite_dffe14_wo = input_dataa_infinite_dffe14,
+		input_dataa_infinite_dffe14_wo = input_dataa_infinite_dffe14_wi,
 		input_dataa_infinite_dffe15_wi = input_dataa_infinite_dffe14_wo,
 		input_dataa_infinite_dffe15_wo = input_dataa_infinite_dffe15_wi,
 		input_dataa_infinite_w = (exp_a_all_one_w[7] & (~ man_a_not_zero_w[22])),
 		input_dataa_nan_dffe11_wi = input_dataa_nan_w,
 		input_dataa_nan_dffe11_wo = input_dataa_nan_dffe11_wi,
 		input_dataa_nan_dffe12_wi = input_dataa_nan_dffe11_wo,
-		input_dataa_nan_dffe12_wo = input_dataa_nan_dffe12,
+		input_dataa_nan_dffe12_wo = input_dataa_nan_dffe12_wi,
 		input_dataa_nan_w = (exp_a_all_one_w[7] & man_a_not_zero_w[22]),
 		input_dataa_zero_dffe11_wi = input_dataa_zero_w,
 		input_dataa_zero_dffe11_wo = input_dataa_zero_dffe11_wi,
@@ -3130,18 +2420,18 @@ module  fpAdd_altfp_add_sub_suk
 		input_datab_infinite_dffe11_wi = input_datab_infinite_w,
 		input_datab_infinite_dffe11_wo = input_datab_infinite_dffe11_wi,
 		input_datab_infinite_dffe12_wi = input_datab_infinite_dffe11_wo,
-		input_datab_infinite_dffe12_wo = input_datab_infinite_dffe12,
+		input_datab_infinite_dffe12_wo = input_datab_infinite_dffe12_wi,
 		input_datab_infinite_dffe13_wi = input_datab_infinite_dffe12_wo,
-		input_datab_infinite_dffe13_wo = input_datab_infinite_dffe13,
+		input_datab_infinite_dffe13_wo = input_datab_infinite_dffe13_wi,
 		input_datab_infinite_dffe14_wi = input_datab_infinite_dffe13_wo,
-		input_datab_infinite_dffe14_wo = input_datab_infinite_dffe14,
+		input_datab_infinite_dffe14_wo = input_datab_infinite_dffe14_wi,
 		input_datab_infinite_dffe15_wi = input_datab_infinite_dffe14_wo,
 		input_datab_infinite_dffe15_wo = input_datab_infinite_dffe15_wi,
 		input_datab_infinite_w = (exp_b_all_one_w[7] & (~ man_b_not_zero_w[22])),
 		input_datab_nan_dffe11_wi = input_datab_nan_w,
 		input_datab_nan_dffe11_wo = input_datab_nan_dffe11_wi,
 		input_datab_nan_dffe12_wi = input_datab_nan_dffe11_wo,
-		input_datab_nan_dffe12_wo = input_datab_nan_dffe12,
+		input_datab_nan_dffe12_wo = input_datab_nan_dffe12_wi,
 		input_datab_nan_w = (exp_b_all_one_w[7] & man_b_not_zero_w[22]),
 		input_datab_zero_dffe11_wi = input_datab_zero_w,
 		input_datab_zero_dffe11_wo = input_datab_zero_dffe11_wi,
@@ -3153,13 +2443,13 @@ module  fpAdd_altfp_add_sub_suk
 		input_is_infinite_dffe22_wi = input_is_infinite_dffe2_wo,
 		input_is_infinite_dffe22_wo = input_is_infinite_dffe22_wi,
 		input_is_infinite_dffe23_wi = input_is_infinite_dffe21_wo,
-		input_is_infinite_dffe23_wo = input_is_infinite_dffe23,
+		input_is_infinite_dffe23_wo = input_is_infinite_dffe23_wi,
 		input_is_infinite_dffe25_wi = input_is_infinite_dffe1_wo,
-		input_is_infinite_dffe25_wo = input_is_infinite_dffe25,
+		input_is_infinite_dffe25_wo = input_is_infinite_dffe25_wi,
 		input_is_infinite_dffe26_wi = input_is_infinite_dffe23_wo,
 		input_is_infinite_dffe26_wo = input_is_infinite_dffe26_wi,
 		input_is_infinite_dffe27_wi = input_is_infinite_dffe22_wo,
-		input_is_infinite_dffe27_wo = input_is_infinite_dffe27,
+		input_is_infinite_dffe27_wo = input_is_infinite_dffe27_wi,
 		input_is_infinite_dffe2_wi = input_is_infinite_dffe25_wo,
 		input_is_infinite_dffe2_wo = input_is_infinite_dffe2,
 		input_is_infinite_dffe31_wi = input_is_infinite_dffe26_wo,
@@ -3171,15 +2461,15 @@ module  fpAdd_altfp_add_sub_suk
 		input_is_infinite_dffe3_wi = input_is_infinite_dffe33_wo,
 		input_is_infinite_dffe3_wo = input_is_infinite_dffe3,
 		input_is_infinite_dffe41_wi = input_is_infinite_dffe42_wo,
-		input_is_infinite_dffe41_wo = input_is_infinite_dffe41,
+		input_is_infinite_dffe41_wo = input_is_infinite_dffe41_wi,
 		input_is_infinite_dffe42_wi = input_is_infinite_dffe3_wo,
 		input_is_infinite_dffe42_wo = input_is_infinite_dffe42_wi,
 		input_is_infinite_dffe4_wi = input_is_infinite_dffe41_wo,
 		input_is_infinite_dffe4_wo = input_is_infinite_dffe4,
 		input_is_nan_dffe13_wi = (input_dataa_nan_dffe12_wo | input_datab_nan_dffe12_wo),
-		input_is_nan_dffe13_wo = input_is_nan_dffe13,
+		input_is_nan_dffe13_wo = input_is_nan_dffe13_wi,
 		input_is_nan_dffe14_wi = input_is_nan_dffe13_wo,
-		input_is_nan_dffe14_wo = input_is_nan_dffe14,
+		input_is_nan_dffe14_wo = input_is_nan_dffe14_wi,
 		input_is_nan_dffe15_wi = input_is_nan_dffe14_wo,
 		input_is_nan_dffe15_wo = input_is_nan_dffe15_wi,
 		input_is_nan_dffe1_wi = input_is_nan_dffe15_wo,
@@ -3189,13 +2479,13 @@ module  fpAdd_altfp_add_sub_suk
 		input_is_nan_dffe22_wi = input_is_nan_dffe2_wo,
 		input_is_nan_dffe22_wo = input_is_nan_dffe22_wi,
 		input_is_nan_dffe23_wi = input_is_nan_dffe21_wo,
-		input_is_nan_dffe23_wo = input_is_nan_dffe23,
+		input_is_nan_dffe23_wo = input_is_nan_dffe23_wi,
 		input_is_nan_dffe25_wi = input_is_nan_dffe1_wo,
-		input_is_nan_dffe25_wo = input_is_nan_dffe25,
+		input_is_nan_dffe25_wo = input_is_nan_dffe25_wi,
 		input_is_nan_dffe26_wi = input_is_nan_dffe23_wo,
 		input_is_nan_dffe26_wo = input_is_nan_dffe26_wi,
 		input_is_nan_dffe27_wi = input_is_nan_dffe22_wo,
-		input_is_nan_dffe27_wo = input_is_nan_dffe27,
+		input_is_nan_dffe27_wo = input_is_nan_dffe27_wi,
 		input_is_nan_dffe2_wi = input_is_nan_dffe25_wo,
 		input_is_nan_dffe2_wo = input_is_nan_dffe2,
 		input_is_nan_dffe31_wi = input_is_nan_dffe26_wo,
@@ -3207,7 +2497,7 @@ module  fpAdd_altfp_add_sub_suk
 		input_is_nan_dffe3_wi = input_is_nan_dffe33_wo,
 		input_is_nan_dffe3_wo = input_is_nan_dffe3,
 		input_is_nan_dffe41_wi = input_is_nan_dffe42_wo,
-		input_is_nan_dffe41_wo = input_is_nan_dffe41,
+		input_is_nan_dffe41_wo = input_is_nan_dffe41_wi,
 		input_is_nan_dffe42_wi = input_is_nan_dffe3_wo,
 		input_is_nan_dffe42_wo = input_is_nan_dffe42_wi,
 		input_is_nan_dffe4_wi = input_is_nan_dffe41_wo,
@@ -3221,19 +2511,19 @@ module  fpAdd_altfp_add_sub_suk
 		man_add_sub_res_mag_dffe21_wi = man_res_mag_w2,
 		man_add_sub_res_mag_dffe21_wo = man_add_sub_res_mag_dffe21,
 		man_add_sub_res_mag_dffe23_wi = man_add_sub_res_mag_dffe21_wo,
-		man_add_sub_res_mag_dffe23_wo = man_add_sub_res_mag_dffe23,
+		man_add_sub_res_mag_dffe23_wo = man_add_sub_res_mag_dffe23_wi,
 		man_add_sub_res_mag_dffe26_wi = man_add_sub_res_mag_dffe23_wo,
 		man_add_sub_res_mag_dffe26_wo = man_add_sub_res_mag_dffe26_wi,
 		man_add_sub_res_mag_dffe27_wi = man_add_sub_res_mag_w2,
-		man_add_sub_res_mag_dffe27_wo = man_add_sub_res_mag_dffe27,
+		man_add_sub_res_mag_dffe27_wo = man_add_sub_res_mag_dffe27_wi,
 		man_add_sub_res_mag_w2 = (({28{man_add_sub_w[27]}} & man_2comp_res_w) | ({28{(~ man_add_sub_w[27])}} & man_add_sub_w)),
 		man_add_sub_res_sign_dffe21_wo = man_add_sub_res_sign_dffe21,
 		man_add_sub_res_sign_dffe23_wi = man_add_sub_res_sign_dffe21_wo,
-		man_add_sub_res_sign_dffe23_wo = man_add_sub_res_sign_dffe23,
+		man_add_sub_res_sign_dffe23_wo = man_add_sub_res_sign_dffe23_wi,
 		man_add_sub_res_sign_dffe26_wi = man_add_sub_res_sign_dffe23_wo,
 		man_add_sub_res_sign_dffe26_wo = man_add_sub_res_sign_dffe26_wi,
 		man_add_sub_res_sign_dffe27_wi = man_add_sub_res_sign_w2,
-		man_add_sub_res_sign_dffe27_wo = man_add_sub_res_sign_dffe27,
+		man_add_sub_res_sign_dffe27_wo = man_add_sub_res_sign_dffe27_wi,
 		man_add_sub_res_sign_w2 = ((need_complement_dffe22_wo & (~ man_add_sub_w[27])) | ((~ need_complement_dffe22_wo) & man_add_sub_w[27])),
 		man_add_sub_w = {(({14{(~ wire_man_add_sub_lower_cout)}} & wire_man_add_sub_upper0_result) | ({14{wire_man_add_sub_lower_cout}} & wire_man_add_sub_upper1_result)), wire_man_add_sub_lower_result},
 		man_all_zeros_w = {23{1'b0}},
@@ -3257,24 +2547,24 @@ module  fpAdd_altfp_add_sub_suk
 		man_res_is_not_zero_dffe3_wi = man_res_is_not_zero_dffe33_wo,
 		man_res_is_not_zero_dffe3_wo = man_res_is_not_zero_dffe3,
 		man_res_is_not_zero_dffe41_wi = man_res_is_not_zero_dffe42_wo,
-		man_res_is_not_zero_dffe41_wo = man_res_is_not_zero_dffe41,
+		man_res_is_not_zero_dffe41_wo = man_res_is_not_zero_dffe41_wi,
 		man_res_is_not_zero_dffe42_wi = man_res_is_not_zero_dffe3_wo,
 		man_res_is_not_zero_dffe42_wo = man_res_is_not_zero_dffe42_wi,
 		man_res_is_not_zero_dffe4_wi = man_res_is_not_zero_dffe41_wo,
 		man_res_is_not_zero_dffe4_wo = man_res_is_not_zero_dffe4,
 		man_res_mag_w2 = (({26{man_add_sub_res_mag_dffe27_wo[26]}} & man_add_sub_res_mag_dffe27_wo[26:1]) | ({26{(~ man_add_sub_res_mag_dffe27_wo[26])}} & man_add_sub_res_mag_dffe27_wo[25:0])),
 		man_res_not_zero_dffe23_wi = man_res_not_zero_w2[24],
-		man_res_not_zero_dffe23_wo = man_res_not_zero_dffe23,
+		man_res_not_zero_dffe23_wo = man_res_not_zero_dffe23_wi,
 		man_res_not_zero_dffe26_wi = man_res_not_zero_dffe23_wo,
 		man_res_not_zero_dffe26_wo = man_res_not_zero_dffe26_wi,
 		man_res_not_zero_w2 = {(man_res_not_zero_w2[23] | man_add_sub_res_mag_dffe21_wo[25]), (man_res_not_zero_w2[22] | man_add_sub_res_mag_dffe21_wo[24]), (man_res_not_zero_w2[21] | man_add_sub_res_mag_dffe21_wo[23]), (man_res_not_zero_w2[20] | man_add_sub_res_mag_dffe21_wo[22]), (man_res_not_zero_w2[19] | man_add_sub_res_mag_dffe21_wo[21]), (man_res_not_zero_w2[18] | man_add_sub_res_mag_dffe21_wo[20]), (man_res_not_zero_w2[17] | man_add_sub_res_mag_dffe21_wo[19]), (man_res_not_zero_w2[16] | man_add_sub_res_mag_dffe21_wo[18]), (man_res_not_zero_w2[15] | man_add_sub_res_mag_dffe21_wo[17]), (man_res_not_zero_w2[14] | man_add_sub_res_mag_dffe21_wo[16]), (man_res_not_zero_w2[13] | man_add_sub_res_mag_dffe21_wo[15]), (man_res_not_zero_w2[12] | man_add_sub_res_mag_dffe21_wo[14]), (man_res_not_zero_w2[11] | man_add_sub_res_mag_dffe21_wo[13]), (man_res_not_zero_w2[10] | man_add_sub_res_mag_dffe21_wo[12]), (man_res_not_zero_w2[9] | man_add_sub_res_mag_dffe21_wo[11]), (man_res_not_zero_w2[8] | man_add_sub_res_mag_dffe21_wo[10]), (man_res_not_zero_w2[7] | man_add_sub_res_mag_dffe21_wo[9]), (man_res_not_zero_w2[6] | man_add_sub_res_mag_dffe21_wo[8]), (man_res_not_zero_w2[5] | man_add_sub_res_mag_dffe21_wo[7]), (man_res_not_zero_w2[4] | man_add_sub_res_mag_dffe21_wo[6]), (man_res_not_zero_w2[3] | man_add_sub_res_mag_dffe21_wo[5]), (man_res_not_zero_w2[2] | man_add_sub_res_mag_dffe21_wo[4]), (man_res_not_zero_w2[1] | man_add_sub_res_mag_dffe21_wo[3]), (man_res_not_zero_w2[0] | man_add_sub_res_mag_dffe21_wo[2]), man_add_sub_res_mag_dffe21_wo[1]},
 		man_res_rounding_add_sub_datab_w = {{25{1'b0}}, man_rounding_add_value_w},
-		man_res_rounding_add_sub_w = man_res_rounding_add_sub_result_reg,
+		man_res_rounding_add_sub_w = {(({13{(~ wire_man_res_rounding_add_sub_lower_cout)}} & adder_upper_w) | ({13{wire_man_res_rounding_add_sub_lower_cout}} & wire_man_res_rounding_add_sub_upper1_result)), wire_man_res_rounding_add_sub_lower_result},
 		man_res_w3 = wire_lbarrel_shift_result[25:2],
 		man_rounded_res_w = (({23{man_res_rounding_add_sub_w[24]}} & man_res_rounding_add_sub_w[23:1]) | ({23{(~ man_res_rounding_add_sub_w[24])}} & man_res_rounding_add_sub_w[22:0])),
 		man_rounding_add_value_w = (round_bit_dffe3_wo & (sticky_bit_dffe3_wo | guard_bit_dffe3_wo)),
 		man_smaller_dffe13_wi = man_smaller_w,
-		man_smaller_dffe13_wo = man_smaller_dffe13,
+		man_smaller_dffe13_wo = man_smaller_dffe13_wi,
 		man_smaller_w = (({24{exp_amb_mux_w}} & aligned_dataa_man_dffe12_wo) | ({24{(~ exp_amb_mux_w)}} & aligned_datab_man_dffe12_wo)),
 		need_complement_dffe22_wi = need_complement_dffe2_wo,
 		need_complement_dffe22_wo = need_complement_dffe22_wi,
@@ -3286,7 +2576,7 @@ module  fpAdd_altfp_add_sub_suk
 		round_bit_dffe21_wi = round_bit_w,
 		round_bit_dffe21_wo = round_bit_dffe21,
 		round_bit_dffe23_wi = round_bit_dffe21_wo,
-		round_bit_dffe23_wo = round_bit_dffe23,
+		round_bit_dffe23_wo = round_bit_dffe23_wi,
 		round_bit_dffe26_wi = round_bit_dffe23_wo,
 		round_bit_dffe26_wo = round_bit_dffe26_wi,
 		round_bit_dffe31_wi = round_bit_dffe26_wo,
@@ -3301,9 +2591,9 @@ module  fpAdd_altfp_add_sub_suk
 		rounded_res_infinity_dffe4_wi = exp_rounded_res_infinity_w,
 		rounded_res_infinity_dffe4_wo = rounded_res_infinity_dffe4,
 		rshift_distance_dffe13_wi = rshift_distance_w,
-		rshift_distance_dffe13_wo = rshift_distance_dffe13,
+		rshift_distance_dffe13_wo = rshift_distance_dffe13_wi,
 		rshift_distance_dffe14_wi = rshift_distance_dffe13_wo,
-		rshift_distance_dffe14_wo = rshift_distance_dffe14,
+		rshift_distance_dffe14_wo = rshift_distance_dffe14_wi,
 		rshift_distance_dffe15_wi = rshift_distance_dffe14_wo,
 		rshift_distance_dffe15_wo = rshift_distance_dffe15_wi,
 		rshift_distance_w = (({5{exp_diff_abs_exceed_max_w[2]}} & exp_diff_abs_max_w) | ({5{(~ exp_diff_abs_exceed_max_w[2])}} & exp_diff_abs_w[4:0])),
@@ -3318,7 +2608,7 @@ module  fpAdd_altfp_add_sub_suk
 		sign_res_dffe3_wi = sign_dffe33_wo,
 		sign_res_dffe3_wo = sign_res_dffe3,
 		sign_res_dffe41_wi = sign_res_dffe42_wo,
-		sign_res_dffe41_wo = sign_res_dffe41,
+		sign_res_dffe41_wo = sign_res_dffe41_wi,
 		sign_res_dffe42_wi = sign_res_dffe3_wo,
 		sign_res_dffe42_wo = sign_res_dffe42_wi,
 		sign_res_dffe4_wi = sign_res_dffe41_wo,
@@ -3333,13 +2623,13 @@ module  fpAdd_altfp_add_sub_suk
 		sticky_bit_dffe22_wi = sticky_bit_dffe2_wo,
 		sticky_bit_dffe22_wo = sticky_bit_dffe22_wi,
 		sticky_bit_dffe23_wi = sticky_bit_dffe21_wo,
-		sticky_bit_dffe23_wo = sticky_bit_dffe23,
+		sticky_bit_dffe23_wo = sticky_bit_dffe23_wi,
 		sticky_bit_dffe25_wi = sticky_bit_dffe1_wo,
-		sticky_bit_dffe25_wo = sticky_bit_dffe25,
+		sticky_bit_dffe25_wo = sticky_bit_dffe25_wi,
 		sticky_bit_dffe26_wi = sticky_bit_dffe23_wo,
 		sticky_bit_dffe26_wo = sticky_bit_dffe26_wi,
 		sticky_bit_dffe27_wi = sticky_bit_dffe22_wo,
-		sticky_bit_dffe27_wo = sticky_bit_dffe27,
+		sticky_bit_dffe27_wo = sticky_bit_dffe27_wi,
 		sticky_bit_dffe2_wi = sticky_bit_dffe25_wo,
 		sticky_bit_dffe2_wo = sticky_bit_dffe2,
 		sticky_bit_dffe31_wi = sticky_bit_dffe26_wo,
@@ -3357,14 +2647,14 @@ module  fpAdd_altfp_add_sub_suk
 		zero_man_sign_dffe22_wi = zero_man_sign_dffe2_wo,
 		zero_man_sign_dffe22_wo = zero_man_sign_dffe22_wi,
 		zero_man_sign_dffe23_wi = zero_man_sign_dffe21_wo,
-		zero_man_sign_dffe23_wo = zero_man_sign_dffe23,
+		zero_man_sign_dffe23_wo = zero_man_sign_dffe23_wi,
 		zero_man_sign_dffe26_wi = zero_man_sign_dffe23_wo,
 		zero_man_sign_dffe26_wo = zero_man_sign_dffe26_wi,
 		zero_man_sign_dffe27_wi = zero_man_sign_dffe22_wo,
-		zero_man_sign_dffe27_wo = zero_man_sign_dffe27,
+		zero_man_sign_dffe27_wo = zero_man_sign_dffe27_wi,
 		zero_man_sign_dffe2_wi = (dataa_sign_dffe25_wo & add_sub_dffe25_wo),
 		zero_man_sign_dffe2_wo = zero_man_sign_dffe2;
-endmodule //fpAdd_altfp_add_sub_suk
+endmodule //fpAdd_altfp_add_sub_etk
 //VALID FILE
 
 
@@ -3389,7 +2679,7 @@ module fpAdd (
 	wire [31:0] sub_wire0;
 	wire [31:0] result = sub_wire0[31:0];
 
-	fpAdd_altfp_add_sub_suk	fpAdd_altfp_add_sub_suk_component (
+	fpAdd_altfp_add_sub_etk	fpAdd_altfp_add_sub_etk_component (
 				.add_sub (add_sub),
 				.clk_en (clk_en),
 				.clock (clock),
@@ -3411,7 +2701,7 @@ endmodule
 // Retrieval info: CONSTANT: DIRECTION STRING "VARIABLE"
 // Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "Cyclone II"
 // Retrieval info: CONSTANT: OPTIMIZE STRING "SPEED"
-// Retrieval info: CONSTANT: PIPELINE NUMERIC "14"
+// Retrieval info: CONSTANT: PIPELINE NUMERIC "7"
 // Retrieval info: CONSTANT: REDUCED_FUNCTIONALITY STRING "NO"
 // Retrieval info: CONSTANT: WIDTH_EXP NUMERIC "8"
 // Retrieval info: CONSTANT: WIDTH_MAN NUMERIC "23"

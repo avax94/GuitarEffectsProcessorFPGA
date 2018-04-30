@@ -1,14 +1,16 @@
 //TODO you have to make sure AUDIO and EFFECTS dont read/wr in same clock cycle
 
-module echo
+module chorus
 #(
 	parameter DATA_WIDTH=16,
-	parameter ADDR_WIDTH = 12,
-	parameter OFFSET = 2048
+	parameter ADDR_WIDTH = 13,
+	parameter SAMPLERATE = 48000,
+	parameter N = 10
 )
 (
 	/* smart_ram interface */
 	input [DATA_WIDTH-1:0]    sram_data_in,
+	input                     sram_read_finish,
 	output                    sram_rd,
 	output [(ADDR_WIDTH-1):0] sram_offset,
 	/* end */
@@ -18,71 +20,124 @@ module echo
 	input                     cs,
 	input                     my_turn,
 	input [DATA_WIDTH-1:0]    data_in,
-	output                    done,
-	output                    available,
-        output [DATA_WIDTH-1:0]   what_i_read;
-        output [(DATA_WIDTH-1):0] data_out
+	output                    done,
+	output [(DATA_WIDTH-1):0] data_out
 );
 
-reg [DATA_WIDTH-1:0] sr_data_out, sr_data_out_next;
+function reg [ADDR_WIDTH-1:0] delay_to_off(input [31:0] dly); //ms;
+begin
+		delay_to_off = dly * SAMPLERATE / 1000;
+end
+endfunction
+
 reg [ADDR_WIDTH-1:0] sr_offset, sr_offset_next;
-reg sr_wr, sr_wr_next;
 reg sr_rd, sr_rd_next;
 reg [DATA_WIDTH-1:0] data_out_reg, data_out_reg_next;
 
-localparam PASSIVE = 0, GETDATA_AND_CALCULATE = 1, SAVE = 2, DONE = 3;
+localparam PASSIVE = 0, GET_FIRST = 1, GET_SECOND = 2, GET_THIRD = 3, DONE = 4;
 
-reg [1:0] state, state_next;
-
+reg [2:0] state, state_next;
+reg [3:0] index_first, index_second, index_third;
+integer counter;
+/*
+	Array of Delays between 10 and 25 ms
+*/
+reg [ADDR_WIDTH-1:0] delays [0:15];
+integer i;
 initial
 begin
 	state = PASSIVE;
+	for (i=10;i<=25;i=i+1)
+		delays[i - 10] = delay_to_off(i);
+
+	// Pick random 3 initial values
+	index_first = 3;
+	index_second = 8;
+	index_third = 13;
+	counter = N;
 end
 
+/*
+	sync
+*/
+always @(posedge clk)
+begin
+	if (state == DONE)
+	begin
+		counter <= counter - 1;
+		if (counter == 0)
+		begin
+			counter <= N;
+			index_first <= index_first + 1;
+			index_second <= index_second + 1;
+			index_third <= index_third + 1;
+		end
+	end
+end
+
+always @(posedge clk)
+begin
+	state <= state_next;
+	data_out_reg <= data_out_reg_next;
+	sr_rd <= sr_rd_next;
+	sr_offset <= sr_offset_next;
+end
+
+/*
+	comb
+*/
 always @(*)
 begin
 	state_next <= state;
 	sr_offset_next <= sr_offset;
-	sr_data_out_next <= sr_data_out;
 	data_out_reg_next <= data_out_reg;
 	sr_rd_next <= 0;
-	sr_wr_next <= 0;
 
 	casex(state)
 	PASSIVE:
 	begin
 		if(cs == 1 && my_turn == 1)
 		begin
-			state_next <= GETDATA_AND_CALCULATE;
-			// prepare for reading from sram
+			state_next <= GET_FIRST;
+			data_out_reg_next <= {{2{data_in[DATA_WIDTH-1]}}, data_in[DATA_WIDTH-1:2]};
+
+			// prepare for reading from sram for first vocal
 			sr_rd_next <= 1;
-			sr_offset_next <= OFFSET;
+			sr_offset_next <= delays[index_first];
 		end
 	end
-	GETDATA_AND_CALCULATE:
+	GET_FIRST:
 	begin
 		if (sram_read_finish)
 		begin
-			data_out_reg_next <= data_in + {{1{sram_data_in[DATA_WIDTH-1]}}, sram_data_in[DATA_WIDTH-1:1]};
-			state_next <= DONE;
-                   what_i_read <= sram_data_in[DATA_WIDTH-1];
+			data_out_reg_next <= data_out_reg + {{2{sram_data_in[DATA_WIDTH-1]}}, sram_data_in[DATA_WIDTH-1:2]};
+			state_next <= GET_SECOND;
 
-			if (should_save)
-			begin
-				sr_offset_next <= 1;
-				sr_wr_next <= 1;
-				sr_data_out_next <= data_in + {{1{sram_data_in[DATA_WIDTH-1]}}, sram_data_in[DATA_WIDTH-1:1]};
-				state_next <= SAVE;
-			end
-
+			// prepare for reading from sram for second vocal
+			sr_rd_next <= 1;
+			sr_offset_next <= delays[index_second];
 		end
 	end
-        SAVE:
-        begin
-           if (sram_write_finish) begin
-              state_next <= DONE;
-           end
-        end
+	GET_SECOND:
+	begin
+		if (sram_read_finish)
+		begin
+			data_out_reg_next <= data_out_reg + {{2{sram_data_in[DATA_WIDTH-1]}}, sram_data_in[DATA_WIDTH-1:2]};
+			state_next <= GET_THIRD;
+
+			// prepare for reading from sram for third vocal
+			sr_rd_next <= 1;
+			sr_offset_next <= delays[index_third];
+		end
+	end
+	GET_THIRD:
+	begin
+		if (sram_read_finish)
+		begin
+			data_out_reg_next <= data_out_reg + {{2{sram_data_in[DATA_WIDTH-1]}}, sram_data_in[DATA_WIDTH-1:2]};
+			state_next <= DONE;
+		end
+	end
 	DONE:
 	begin
 		state_next <= PASSIVE;
@@ -90,25 +145,8 @@ begin
 	endcase
 end
 
-/* Take action based on state */
-reg [(DATA_WIDTH-1):0] sum;
-integer i;
-
-always @(posedge clk)
-begin
-	state <= state_next;
-	data_out_reg <= data_out_reg_next;
-	sr_wr <= sr_wr_next;
-	sr_rd <= sr_rd_next;
-	sr_offset <= sr_offset_next;
-	sr_data_out <= sr_data_out_next;
-end
-
-assign available = state == PASSIVE;
 assign sram_offset = sr_offset;
-assign sram_wr = sr_wr;
 assign sram_rd = sr_rd;
-assign sram_data_out = sr_data_out;
 assign data_out = data_out_reg;
 assign done = state == DONE;
 endmodule

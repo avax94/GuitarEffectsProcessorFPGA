@@ -26,9 +26,7 @@ module echo
 	input [DATA_WIDTH-1:0]    data_in,
 	output                    done,
 	output                    available,
-        output [DATA_WIDTH-1:0]   what_i_read
-		  ,
-        output [(DATA_WIDTH-1):0] data_out
+  output [(DATA_WIDTH-1):0] data_out
 );
 
 reg [DATA_WIDTH-1:0] sr_data_out, sr_data_out_next;
@@ -72,7 +70,6 @@ begin
 		begin
 			data_out_reg_next <= data_in + {{N{sram_data_in[DATA_WIDTH-1]}}, sram_data_in[DATA_WIDTH-1:N]};
 			state_next <= DONE;
-                   what_i_read_reg <= sram_data_in[DATA_WIDTH-1];
 
 			if (should_save)
 			begin
@@ -96,8 +93,6 @@ begin
 	end
 	endcase
 end
-reg [DATA_WIDTH-1:0] what_i_read_reg;
-assign what_i_read = what_i_read_reg;
 /* Take action based on state */
 reg [(DATA_WIDTH-1):0] sum;
 integer i;

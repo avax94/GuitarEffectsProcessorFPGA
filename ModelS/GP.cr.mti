@@ -5,12 +5,111 @@ Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
 Top level modules:
 	test_smart_ram
 
-} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/noise_fitler.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/noise_fitler.v
+} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/Tests/test_vibrato.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/Tests/test_vibrato.v
 Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
--- Compiling module noise_filter
+-- Compiling module test_vibrato
 
 Top level modules:
-	noise_filter
+	test_vibrato
+
+} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpMult.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpMult.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module fpMult_altfp_mult_nbo
+-- Compiling module fpMult
+
+Top level modules:
+	fpMult
+
+} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/ram.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/ram.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module ram
+
+Top level modules:
+	ram
+
+} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpAddWrapper.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpAddWrapper.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module fpAddWrapper
+
+Top level modules:
+	fpAddWrapper
+
+} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpInt2FloatWrapper.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpInt2FloatWrapper.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module fpInt2FloatWrapper
+
+Top level modules:
+	fpInt2FloatWrapper
+
+} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpFloat2IntWrapper.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpFloat2IntWrapper.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module fpFloat2IntWrapper
+
+Top level modules:
+	fpFloat2IntWrapper
+
+} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpDivWrapper.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpDivWrapper.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module fpDivWrapper
+
+Top level modules:
+	fpDivWrapper
+
+} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpMulWrapper.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpMulWrapper.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module fpMulWrapper
+
+Top level modules:
+	fpMulWrapper
+
+} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/smart_ram.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/smart_ram.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module smart_ram
+
+Top level modules:
+	smart_ram
+
+} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpUnit.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpUnit.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module fpUnit
+
+Top level modules:
+	fpUnit
+
+} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpAdd.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpAdd.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module fpAdd_altbarrel_shift_h0e
+-- Compiling module fpAdd_altbarrel_shift_6hb
+-- Compiling module fpAdd_altpriority_encoder_3e8
+-- Compiling module fpAdd_altpriority_encoder_6e8
+-- Compiling module fpAdd_altpriority_encoder_be8
+-- Compiling module fpAdd_altpriority_encoder_3v7
+-- Compiling module fpAdd_altpriority_encoder_6v7
+-- Compiling module fpAdd_altpriority_encoder_bv7
+-- Compiling module fpAdd_altpriority_encoder_r08
+-- Compiling module fpAdd_altpriority_encoder_rf8
+-- Compiling module fpAdd_altpriority_encoder_qb6
+-- Compiling module fpAdd_altpriority_encoder_nh8
+-- Compiling module fpAdd_altpriority_encoder_qh8
+-- Compiling module fpAdd_altpriority_encoder_vh8
+-- Compiling module fpAdd_altpriority_encoder_fj8
+-- Compiling module fpAdd_altpriority_encoder_n28
+-- Compiling module fpAdd_altpriority_encoder_q28
+-- Compiling module fpAdd_altpriority_encoder_v28
+-- Compiling module fpAdd_altpriority_encoder_f48
+-- Compiling module fpAdd_altpriority_encoder_e48
+-- Compiling module fpAdd_altfp_add_sub_etk
+-- Compiling module fpAdd
+
+Top level modules:
+	fpAdd
+
+} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/echo.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/echo.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module echo
+
+Top level modules:
+	echo
 
 } {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/Tests/test_echo.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/Tests/test_echo.v
 Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
@@ -19,18 +118,99 @@ Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
 Top level modules:
 	test_echo
 
+} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpInt2Float.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpInt2Float.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module fpInt2Float_altbarrel_shift_brf
+-- Compiling module fpInt2Float_altpriority_encoder_3e8
+-- Compiling module fpInt2Float_altpriority_encoder_6e8
+-- Compiling module fpInt2Float_altpriority_encoder_be8
+-- Compiling module fpInt2Float_altpriority_encoder_rf8
+-- Compiling module fpInt2Float_altpriority_encoder_3v7
+-- Compiling module fpInt2Float_altpriority_encoder_6v7
+-- Compiling module fpInt2Float_altpriority_encoder_bv7
+-- Compiling module fpInt2Float_altpriority_encoder_r08
+-- Compiling module fpInt2Float_altpriority_encoder_qb6
+-- Compiling module fpInt2Float_altfp_convert_fhn
+-- Compiling module fpInt2Float
+
+Top level modules:
+	fpInt2Float
+
+} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpFloat2Int.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpFloat2Int.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module fpFloat2Int_altbarrel_shift_grf
+-- Compiling module fpFloat2Int_altfp_convert_fhn
+-- Compiling module fpFloat2Int
+
+Top level modules:
+	fpFloat2Int
+
+} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpDiv.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpDiv.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module fpDiv_altfp_div_pst_jge
+-- Compiling module fpDiv_altfp_div_jth
+-- Compiling module fpDiv
+
+Top level modules:
+	fpDiv
+
+} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/sinus.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/sinus.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module sinus_altfp_sincos_cordic_atan_08b
+-- Compiling module sinus_altfp_sincos_cordic_atan_h9b
+-- Compiling module sinus_altfp_sincos_cordic_atan_i9b
+-- Compiling module sinus_altfp_sincos_cordic_atan_j9b
+-- Compiling module sinus_altfp_sincos_cordic_atan_k9b
+-- Compiling module sinus_altfp_sincos_cordic_atan_18b
+-- Compiling module sinus_altfp_sincos_cordic_atan_28b
+-- Compiling module sinus_altfp_sincos_cordic_atan_38b
+-- Compiling module sinus_altfp_sincos_cordic_atan_48b
+-- Compiling module sinus_altfp_sincos_cordic_atan_58b
+-- Compiling module sinus_altfp_sincos_cordic_atan_68b
+-- Compiling module sinus_altfp_sincos_cordic_atan_78b
+-- Compiling module sinus_altfp_sincos_cordic_atan_88b
+-- Compiling module sinus_altfp_sincos_cordic_atan_98b
+-- Compiling module sinus_altfp_sincos_cordic_start_339
+-- Compiling module sinus_altfp_sincos_cordic_m_a8e
+-- Compiling module sinus_altfp_sincos_srrt_gra
+-- Compiling module sinus_altpriority_encoder_3e8
+-- Compiling module sinus_altpriority_encoder_3v7
+-- Compiling module sinus_altpriority_encoder_6v7
+-- Compiling module sinus_altpriority_encoder_6e8
+-- Compiling module sinus_altpriority_encoder_bv7
+-- Compiling module sinus_altpriority_encoder_be8
+-- Compiling module sinus_altpriority_encoder_r08
+-- Compiling module sinus_altpriority_encoder_rf8
+-- Compiling module sinus_altpriority_encoder_qb6
+-- Compiling module sinus_altfp_sincos_range_79c
+-- Compiling module sinus_altpriority_encoder_q08
+-- Compiling module sinus_altpriority_encoder_qf8
+-- Compiling module sinus_altpriority_encoder_0c6
+-- Compiling module sinus_altfp_sincos_cue
+-- Compiling module sinus
+
+Top level modules:
+	sinus
+
+} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/sin.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/sin.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module sin
+
+Top level modules:
+	sin
+
+} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/noise_fitler.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/noise_fitler.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module noise_filter
+
+Top level modules:
+	noise_filter
+
 } {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/Tests/test_noise_filter.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/Tests/test_noise_filter.v
 Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
 -- Compiling module test_noise_filter
 
 Top level modules:
 	test_noise_filter
-
-} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/smart_ram.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/smart_ram.v
-Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
--- Compiling module smart_ram
-
-Top level modules:
-	smart_ram
 
 } {} {}}
