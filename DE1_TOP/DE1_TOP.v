@@ -40,14 +40,6 @@
 //   V1.0 :| Johnny Chen       :| 06/04/24  :|      Initial Revision
 // --------------------------------------------------------------------
 
-module shifter (
-	        input [23:0]  x,
-	        output [23:0] y
-                );
-   assign y = {2'b0, x[23:2]} ;
-endmodule
-
-
 module DE1_TOP
   (
    ////////////////////	Clock Input	 	////////////////////
@@ -271,27 +263,63 @@ module DE1_TOP
    wire                  vibrato_done;
    wire [ADDR_WIDTH-1:0] vibrato_sram_offset;
    wire [DATA_WIDTH-1:0] vibrato_data_out;
+   wire [31:0]           vibrato_sinus_angle;
+   wire                  vibrato_sinus_clk_en;
    wire                  chorus_sram_rd;
    wire                  chorus_done;
    wire [ADDR_WIDTH-1:0] chorus_sram_offset;
    wire [DATA_WIDTH-1:0] chorus_data_out;
+   wire                  tremolo_done;
+   wire [DATA_WIDTH-1:0] tremolo_data_out;
+   wire [31:0]           tremolo_sinus_angle;
+   wire                  tremolo_sinus_clk_en;
+   wire                  sinus_clk_en_value;
+   wire [31:0]           sinus_data_value;
+   wire [31:0]           sinus_result_value;
+   wire                  sinus_done_value;
 
+   sin iSinus (
+            .clock(CLOCK_50),
+            .clk_en(sinus_clk_en_value),
+            .data(sinus_data_value),
+            .result(sinus_result_value),
+            .done(sinus_done_value)
+   );
+
+   tremolo #(
+            .DATA_WIDTH(DATA_WIDTH),
+            .ADDR_WIDTH(ADDR_WIDTH)
+            )
+   tremolo (
+            .sinus_done(sinus_done_value),
+            .sinus_result(sinus_result_value),
+            .sinus_angle(tremolo_sinus_angle),
+            .sinus_clk_en(tremolo_sinus_clk_en),
+            .cs(SW[4]),
+            .my_turn(state_left_prev == CHORUS && state_left == TREMOLO),
+            .data_in(data_left_r),
+            .modfreq(32'b00111001110110100111010000001101),
+            .done(tremolo_done),
+            .data_out(tremolo_data_out),
+            .clk(CLOCK_50),
+            .rst(0)
+            );
 
    chorus #(
             .DATA_WIDTH(DATA_WIDTH),
             .ADDR_WIDTH(ADDR_WIDTH),
             .SAMPLERATE(48000),
-            .N(10)
+            .N(50000)
             )
    ch (
        .sram_data_in(sram_data_out),
        .sram_read_finish(sram_read_finish),
        .sram_rd(chorus_sram_rd),
        .sram_offset(chorus_sram_offset),
-       .cs(1),
+       .cs(SW[3]),
        .my_turn(state_left_prev == VIBRATO && state_left == CHORUS),
-       .data_in(data_left),
-       .done(done),
+       .data_in(data_left_r),
+       .done(chorus_done),
        .data_out(chorus_data_out),
        .clk(CLOCK_50),
        .rst(0)
@@ -302,32 +330,21 @@ module DE1_TOP
              .ADDR_WIDTH(ADDR_WIDTH),
              .SAMPLERATE(48000), //Hz
 	     .DELAY(5))
-   vib (.sram_data_in(sram_data_out),
+   vib (.sinus_done(sinus_done_value),
+        .sinus_result(sinus_result_value),
+        .sinus_angle(vibrato_sinus_angle),
+        .sinus_clk_en(vibrato_sinus_clk_en),
+        .sram_data_in(sram_data_out),
         .sram_read_finish(sram_read_finish),
         .sram_rd(vibrato_sram_rd),
         .sram_offset(vibrato_sram_offset),
         .clk(CLOCK_50),
         .rst(reset),
-        .cs(1),
+        .cs(SW[2]),
         .modfreq(32'b00111000110110100111010000001110),
-        .my_turn(state_left_prev == SAVING && state_left==VIBRATO),
+        .my_turn(state_left_prev == ACK_SAVE && state_left==VIBRATO),
         .done(vibrato_done),
         .data_out(vibrato_data_out));
-
-
-   smart_ram
-     #(.ADDR_WIDTH(ADDR_WIDTH),
-       .DATA_WIDTH(DATA_WIDTH))
-   smv1 (.data_in(sram_data_in),
-	 .offset(sram_offset),
-	 .wr(sram_wr),
-	 .rd(sram_rd),
-	 .read_finish(sram_read_finish),
-	 .write_finish(sram_write_finish),
-	 .data_out(sram_data_out),
-	 .available(sram_available),
-	 .clk(CLOCK_50),
-	 .rst(reset));
 
    echo #(.DATA_WIDTH(DATA_WIDTH),
           .ADDR_WIDTH(ADDR_WIDTH),
@@ -343,11 +360,25 @@ module DE1_TOP
         .clk(CLOCK_50),
         .rst(reset),
         .cs(0),
-        .my_turn(state_left_prev == SAVING && state_left==PROCESSING),
+        .my_turn(state_left_prev == ACK_SAVE && state_left==PROCESSING),
         .data_in(data_left),
         .done(echo_done),
 	.available(echo_available),
         .data_out(echo_data_out));
+
+   smart_ram
+     #(.ADDR_WIDTH(ADDR_WIDTH),
+       .DATA_WIDTH(DATA_WIDTH))
+   smv1 (.data_in(sram_data_in),
+	 .offset(sram_offset),
+	 .wr(sram_wr),
+	 .rd(sram_rd),
+	 .read_finish(sram_read_finish),
+	 .write_finish(sram_write_finish),
+	 .data_out(sram_data_out),
+	 .available(sram_available),
+	 .clk(CLOCK_50),
+	 .rst(reset));
 
    audio_core ac(
 		 .clk(CLOCK_50),                          //                 clock_reset.clk
@@ -389,8 +420,8 @@ module DE1_TOP
    localparam DATA_WIDTH = 16;
    localparam ADDR_WIDTH = 13;
    localparam N = 4;
-   localparam READING = 0, SAVING = 1, PROCESSING = 2, WRITING = 3, DONE = 4, FILTER_NOISE = 5, VIBRATO = 6, CHORUS = 7;
-   reg [4:0]             state_left, state_right, state_left_next, state_right_next, state_left_prev;
+   localparam READING = 0, SAVING = 1, PROCESSING = 2, WRITING = 3, DONE = 4, FILTER_NOISE = 5, VIBRATO = 6, CHORUS = 7, RAMREADING = 8, ACK_SAVE = 9, TREMOLO = 10;
+   reg [3:0]             state_left, state_right, state_left_next, state_right_next, state_left_prev;
    reg [DATA_WIDTH-1:0]  data_left, data_left_r, data_right, data_right_r;
    reg                   ready_left_r, ready_right_r;
    reg                   ready_left, ready_right;
@@ -431,8 +462,7 @@ module DE1_TOP
    // U sledecem taktu ocekujemo upis na izlaz, pa odmah menjamo stanje u DONE.
    // U stanju DONE se sinhronizuju levi i desni ulaz/izlaz. Kada obe strane (leva i desna) dodju do stanja DONE
    // idemo u stanje READY i ponavljamo ciklus u krug
-   always @(*)
-     begin
+   always @(*) begin
 	state_left_next <= state_left;
 	state_right_next <= state_right;
 	data_left <= data_left_r;
@@ -469,13 +499,13 @@ module DE1_TOP
 	end
 
 	if (state_left == SAVING) begin
-	   if (sram_available) begin
-	      sram_wr_reg_next <= 1;
-	      sram_offset_reg_next <= 0;
-	      sram_data_in_reg_next <= {{1{data_left[DATA_WIDTH-1]}}, data_left[DATA_WIDTH-1:1]};
-	      // sram_data_in_reg_next <= data_left_r;
-	   end
+	   sram_wr_reg_next <= 1;
+	   sram_offset_reg_next <= 0;
+	   sram_data_in_reg_next <= data_left_r;
+	   state_left_next <= ACK_SAVE;
+	end
 
+	if (state_left == ACK_SAVE) begin
 	   if (sram_write_finish) begin
 	      state_left_next <= VIBRATO;
 	   end
@@ -485,8 +515,7 @@ module DE1_TOP
 	   if (SW[2] == 0) begin
 	      state_left_next <= CHORUS;
 	   end
-
-	   if (vibrato_done) begin
+		else if (vibrato_done) begin
 	      state_left_next <= CHORUS;
 	      data_left <= vibrato_data_out;
 	   end
@@ -494,12 +523,21 @@ module DE1_TOP
 
 	if (state_left == CHORUS) begin
 	   if (SW[3] == 0) begin
+	      state_left_next <= TREMOLO;
+	   end
+	   else if (chorus_done) begin
+	      state_left_next <= TREMOLO;
+	      data_left <= chorus_data_out;
+	   end
+	end
+
+	if (state_left == TREMOLO) begin
+	   if (SW[3] == 0) begin
 	      state_left_next <= WRITING;
 	   end
-
-	   if (chorus_done) begin
+	   else if (tremolo_done) begin
 	      state_left_next <= WRITING;
-	      data_left <= chorus_data_out;
+	      data_left <= tremolo_data_out;
 	   end
 	end
 
@@ -555,15 +593,78 @@ module DE1_TOP
       sram_offset_reg <= sram_offset_reg_next;
    end
 
+	reg [ADDR_WIDTH-1:0] sram_offset_value;
+	reg sram_rd_value, sram_wr_value;
+	reg [DATA_WIDTH-1:0] sram_data_in_value;
 
-   assign LEDG[7:0] = vibrato_data_out[7:0];
+
+	always @(*) begin
+		casex(state_left)
+		SAVING:
+		ACK_SAVE:
+		begin
+			sram_data_in_value <= sram_data_in_reg;
+			sram_offset_value <= sram_offset_reg;
+			sram_wr_value <= sram_wr_reg;
+			sram_rd_value <= sram_rd_reg;
+		end
+		VIBRATO:
+		begin
+			sram_data_in_value <= {{DATA_WIDTH{1'bz}}};
+			sram_offset_value <= vibrato_sram_offset;
+			sram_wr_value <= 0;
+			sram_rd_value <= vibrato_sram_rd;
+		end
+		CHORUS:
+		begin
+			sram_data_in_value <= {{DATA_WIDTH{1'bz}}};
+			sram_offset_value <= chorus_sram_offset;
+			sram_wr_value <= 0;
+			sram_rd_value <= chorus_sram_rd;
+		end
+		default:
+		begin
+			sram_data_in_value <= sram_data_in_reg;
+			sram_offset_value <= sram_offset_reg;
+			sram_wr_value <= sram_wr_reg;
+			sram_rd_value <= sram_rd_reg;
+		end
+		endcase
+	end
+
+        reg [31:0] sinus_data_reg;
+        reg        sinus_clk_en_reg;
+
+	always @(*) begin
+		casex(state_left)
+		VIBRATO:
+		begin
+		        sinus_data_reg <= vibrato_sinus_angle;
+		        sinus_clk_en_reg <= vibrato_sinus_clk_en;
+		end
+		TREMOLO:
+		begin
+		        sinus_data_reg <= tremolo_sinus_angle;
+		        sinus_clk_en_reg <= tremolo_sinus_clk_en;
+		end
+		default:
+		begin
+		        sinus_data_reg <= 32'bz;
+		        sinus_clk_en_reg <= 1'bz;
+		end
+		endcase
+	end
+
+
+   assign sinus_clk_en_value = sinus_clk_en_reg;
+   assign sinus_data_value = sinus_data_reg;
+
    assign LEDR[9:0] = writedata_left[9:0];
 
-   assign sram_data_in = state_left == PROCESSING ? echo_sram_data_out : sram_data_in_reg;
-
-   assign sram_offset =  state_left == VIBRATO ? vibrato_sram_offset : (state_left == CHORUS ? chorus_sram_offset : sram_offset_reg);
-   assign sram_wr = state_left == PROCESSING ? echo_sram_wr : sram_wr_reg;
-   assign sram_rd = state_left == VIBRATO ? vibrato_sram_rd : (state_left == CHORUS ? chorus_sram_rd : sram_rd_reg);
+   assign sram_data_in = sram_data_in_value;
+   assign sram_offset =  sram_offset_value; // state_left == VIBRATO ? vibrato_sram_offset : (state_left == CHORUS ? chorus_sram_offset : sram_offset_reg);
+   assign sram_wr = sram_wr_value; // state_left == SAVING ? sram_wr_reg : echo_sram_wr;
+   assign sram_rd = sram_rd_value; // state_left == VIBRATO ? vibrato_sram_rd : (state_left == CHORUS ? chorus_sram_rd : sram_rd_reg);
 
    assign ready_left_adc = state_left == READING; // Kad god je stanje reading spremni smo za citanje
    assign ready_right_adc = state_right == READING; // Kad god je stanje reading spremni smo za citanje

@@ -21,14 +21,19 @@ module vibrato
 	output                    sram_rd,
 	output [(ADDR_WIDTH-1):0] sram_offset,
 	/* end */
+        /* sinus interface */
+        input                     sinus_done,
+        input [31:0]              sinus_result,
+        output [31:0]             sinus_angle,
+        output                    sinus_clk_en,
 
-	input clk,
-	input rst,
-	input cs,
-	input [31:0] modfreq, //float
+	input                     clk,
+	input                     rst,
+	input                     cs,
+	input [31:0]              modfreq, //float
 
-	input my_turn,
-	output done,
+	input                     my_turn,
+	output                    done,
 	output [(DATA_WIDTH-1):0] data_out
 );
 
@@ -68,17 +73,7 @@ module vibrato
 	);
 
 	 reg [31:0] angle;
-	 wire [31:0] result_sin;
 	 reg clk_en_sin;
-	 wire done_sin;
-
-	 sin s1 (
-		.clock(clk),
-		.data(angle),
-		.result(result_sin),
-		.clk_en(clk_en_sin),
-		.done(done_sin)
-	 );
 
 	/*
 		states
@@ -154,7 +149,6 @@ module vibrato
 			begin
 				started_action <= 0;
 				clk_enFA <= 0;
-				startFA <= 0;
 			end
 		end
 
@@ -197,11 +191,11 @@ module vibrato
 			end
 			else
 			begin
-				if(done_sin == 1)
+				if(sinus_done == 1)
 				begin
 					clk_en_sin <= 0;
 					started_action <= 0;
-					sin_val <= result_sin;
+					sin_val <= sinus_result;
 				end
 			end
 		end
@@ -330,7 +324,7 @@ module vibrato
 			end
 			CALCULATE_SINUS:
 			begin
-				if(done_sin == 1)
+				if(sinus_done == 1)
 				begin
 					state_next <= INTERPRET_RESULTS;
 					counter_next <= INTERPOLATION_COUNT;
@@ -415,6 +409,8 @@ module vibrato
 			endcase
 	end
 
+        assign sinus_angle = angle;
+        assign sinus_clk_en = clk_en_sin;
 	assign sram_rd = sram_rd_reg;
 	assign sram_offset = sram_offset_reg;
 	assign data_out = result_vibrato[DATA_WIDTH-1:0];

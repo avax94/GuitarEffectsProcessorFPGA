@@ -76,6 +76,13 @@ Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
 Top level modules:
 	fpUnit
 
+} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/vibrato.v {1 {vlog -work work {G:\Projects\FPGAGuitarProcessor\DE1_TOP\vibrato.v}
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module vibrato
+
+Top level modules:
+	vibrato
+
 } {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpAdd.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpAdd.v
 Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
 -- Compiling module fpAdd_altbarrel_shift_h0e
@@ -212,5 +219,12 @@ Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
 
 Top level modules:
 	test_noise_filter
+
+} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/Tests/test_chorus.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/Tests/test_chorus.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module test_chorus
+
+Top level modules:
+	test_chorus
 
 } {} {}}
