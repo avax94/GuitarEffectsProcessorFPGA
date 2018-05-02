@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simPackage>
+ <file path="sram_sim/sram.v" type="VERILOG" />
+ <topLevel name="sram" />
+ <deviceFamily name="cycloneii" />
+</simPackage>

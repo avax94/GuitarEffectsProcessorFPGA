@@ -24,7 +24,7 @@ module chorus
 
 function reg [ADDR_WIDTH-1:0] delay_to_off(input [31:0] dly); //ms;
 begin
-		delay_to_off = dly * SAMPLERATE / 1000;
+		delay_to_off = 4 * dly * SAMPLERATE / 1000; // multiply it by two cuz memory address must be even number
 end
 endfunction
 
@@ -82,7 +82,6 @@ begin
 	sr_offset <= sr_offset_next;
 end
 
-integer helperIdx;
 /*
 	comb
 */
@@ -103,8 +102,7 @@ begin
 			
 			// prepare for reading from sram for first vocal
 			sr_rd_next <= 1;
-			helperIdx = index_first;
-			sr_offset_next <= delays[helperIdx];
+			sr_offset_next <= delays[index_first];
 		end
 	end
 	GET_FIRST:

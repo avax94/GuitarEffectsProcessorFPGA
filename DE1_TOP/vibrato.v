@@ -26,6 +26,13 @@ module vibrato
         input [31:0]              sinus_result,
         output [31:0]             sinus_angle,
         output                    sinus_clk_en,
+        /* fpUnit interface */
+        output [31:0]             fp_dataa,
+        output [31:0]             fp_datab,
+        output [2:0]              fp_operation,
+        output                    fp_clk_en,
+        input                     fp_done,
+        input [31:0]              fp_result,
 
 	input                     clk,
 	input                     rst,
@@ -39,7 +46,7 @@ module vibrato
 
 	function reg [ADDR_WIDTH-1:0] delay_to_off(input [31:0] dly); //ms;
 	begin
-		delay_to_off = dly * SAMPLERATE / 1000;
+		delay_to_off = 4 * dly * SAMPLERATE / 1000;
 	end
 	endfunction
 
@@ -57,23 +64,9 @@ module vibrato
 	reg [31:0] dataa;
 	reg [31:0] datab;
 	reg [2:0] operation;
-	reg startFA = 0;
 	reg clk_enFA = 0;
-	wire doneFA;
-	wire [31:0] resultFA;
-	wire [31:0] dummyFA;
-	fpUnit u0 (
-	  .dataa     (dataa),     // s1.dataa
-	  .datab     (datab),     //   .datab
-	  .operation         (operation),         //   .n
-	  .clock       (clk),
-	  .clk_en    (clk_enFA),
-	  .done      (doneFA),
-	  .result    (resultFA)
-	);
-
-	 reg [31:0] angle;
-	 reg clk_en_sin;
+        reg [31:0] angle;
+        reg clk_en_sin;
 
 	/*
 		states
@@ -125,9 +118,6 @@ module vibrato
 	reg [31:0] zeiger;
 	reg [31:0] delay_c;
 	reg [31:0] frac;
-	/*
-		state actions
-	*/
 
 	task useFA;
 		input [31:0] data1;
@@ -145,14 +135,14 @@ module vibrato
 		end
 		else
 		begin
-			if(doneFA == 1)
+			if(fp_done == 1)
 			begin
 				started_action <= 0;
 				clk_enFA <= 0;
 			end
 		end
 
-		r = resultFA;
+		r = fp_result;
 	end
 	endtask
 
@@ -310,11 +300,11 @@ module vibrato
 				end
 				CONVERT_TO_FLOAT, MULTIPLY_FIRST:
 				begin
-					if(doneFA == 1)
+					if(fp_done == 1)
 						substate_next <= substate + 1;
 				end
 				MULTIPLY_SECOND:
-					if(doneFA == 1)
+					if(fp_done == 1)
 					begin
 						substate_next <= PASSIVE;
 						state_next <= CALCULATE_SINUS;
@@ -339,12 +329,12 @@ module vibrato
 				end
 				CONV_TO_FLOAT1, MUL_1, CONV_TO_FLOAT2, ADD_1, CONVERT_TO_INT, CONV_TO_FLOAT:
 				begin
-					if(doneFA == 1)
+					if(fp_done == 1)
 						substate_next <= substate + 1;
 				end
 				SUB:
 				begin
-					if(doneFA == 1)
+					if(fp_done == 1)
 					begin
 						substate_next <= PASSIVE;
 						state_next <= INTERPOLATION;
@@ -370,7 +360,7 @@ module vibrato
 					end
 					CONV_TO_F:
 					begin
-						if(doneFA == 1)
+						if(fp_done == 1)
 						begin
 							if(counter == INTERPOLATION_COUNT)
 								substate_next <= CONV_TO_F_1;
@@ -380,21 +370,21 @@ module vibrato
 					end
 					INTER_MUL1:
 					begin
-						if(doneFA == 1)
+						if(fp_done == 1)
 						begin
 							substate_next <= READ_DELAY;
 						end
 					end
 					CONV_TO_F_1, SUB_1, INTER_MUL2, INTER_ADD:
 					begin
-						if(doneFA == 1)
+						if(fp_done == 1)
 						begin
 							substate_next <= substate + 1;
 						end
 					end
 					INTER_TOINT:
 					begin
-						if(doneFA == 1)
+						if(fp_done == 1)
 						begin
 							substate_next <= PASSIVE;
 							state_next <= DONE;
@@ -407,10 +397,16 @@ module vibrato
 				state_next <= CALCULATE_ANGLE;
 			end
 			endcase
-	end
+		end
+
+        assign fp_dataa = dataa;
+        assign fp_datab = datab;
+        assign fp_operation = operation;
+        assign fp_clk_en = clk_enFA;
 
         assign sinus_angle = angle;
         assign sinus_clk_en = clk_en_sin;
+
 	assign sram_rd = sram_rd_reg;
 	assign sram_offset = sram_offset_reg;
 	assign data_out = result_vibrato[DATA_WIDTH-1:0];

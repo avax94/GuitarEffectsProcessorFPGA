@@ -1,0 +1,8 @@
+set_global_assignment -entity "sram" -library "sram" -name IP_TOOL_NAME "altera_up_avalon_sram"
+set_global_assignment -entity "sram" -library "sram" -name IP_TOOL_VERSION "13.0sp1"
+set_global_assignment -entity "sram" -library "sram" -name IP_TOOL_ENV "mwpim"
+set_global_assignment -library "sram" -name MISC_FILE [file join $::quartus(qip_path) "sram.cmp"]
+set_global_assignment -name SYNTHESIS_ONLY_QIP ON
+
+set_global_assignment -library "sram" -name VERILOG_FILE [file join $::quartus(qip_path) "sram.v"]
+set_global_assignment -library "sram" -name VERILOG_FILE [file join $::quartus(qip_path) "sram/sram_0002.v"]

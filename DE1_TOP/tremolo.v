@@ -25,7 +25,15 @@ module tremolo #(
     input                     sinus_done,
     input [31:0]              sinus_result,
     output [31:0]             sinus_angle,
-    output                    sinus_clk_en
+    output                    sinus_clk_en,
+
+    /* fpUnit interface */
+    output [31:0]             fp_dataa,
+    output [31:0]             fp_datab,
+    output [2:0]              fp_operation,
+    output                    fp_clk_en,
+    input                     fp_done,
+    input [31:0]              fp_result
     );
    /*
     variables
@@ -35,21 +43,7 @@ module tremolo #(
    reg [31:0]                 dataa;
    reg [31:0]                 datab;
    reg [2:0]                  operation;
-   reg                        startFA = 0;
    reg                        clk_enFA = 0;
-   wire                       doneFA;
-   wire [31:0]                resultFA;
-   wire [31:0]                dummyFA;
-   fpUnit u0 (
-	      .dataa     (dataa),     // s1.dataa
-	      .datab     (datab),     //   .datab
-	      .operation         (operation),         //   .n
-	      .clock       (clk),
-	      .clk_en    (clk_enFA),
-	      .done      (doneFA),
-	      .result    (resultFA)
-	      );
-
    reg [31:0]                 angle;
    reg                        clk_en_sin;
 
@@ -60,7 +54,7 @@ module tremolo #(
    /*
     CALCULATE_ANGLE substates
     */
-   localparam PASSIVE = 0,  CONVERT_TO_FLOAT = 1, MULTIPLY_FIRST = 2, MULTIPLY_SECOND = 3, MULTIPLY_THIRD = 4;
+   localparam PASSIVE = 0,  CONVERT_TO_FLOAT = 1, MULTIPLY_FIRST = 2, MULTIPLY_SECOND = 3;
    /*
     COMPUTE_RESULT substates
     */
@@ -110,14 +104,14 @@ module tremolo #(
 	   end
 	 else
 	   begin
-	      if(doneFA == 1)
+	      if(fp_done == 1)
 		begin
 		   started_action <= 0;
 		   clk_enFA <= 0;
 		end
 	   end
 
-	 r = resultFA;
+	 r = fp_result;
       end
    endtask
 
@@ -199,11 +193,11 @@ module tremolo #(
 		  end
 	       end
 	       CONVERT_TO_FLOAT, MULTIPLY_FIRST: begin
-		  if(doneFA == 1)
+		  if(fp_done == 1)
 		    substate_next <= substate + 1;
 	       end
 	       MULTIPLY_SECOND:
-		 if(doneFA == 1) begin
+		 if(fp_done == 1) begin
 		    substate_next <= PASSIVE;
 		    state_next <= CALCULATE_SINUS;
 		    sin_arg_next <= sin_arg + 1; // for next input
@@ -215,8 +209,8 @@ module tremolo #(
 		state_next <= MULTIPLY_SINUS_WITH_ALPHA;
 	     end
 	  end
-	  CALCULATE_SINUS: begin
-	     if(doneFA == 1) begin
+	  MULTIPLY_SINUS_WITH_ALPHA: begin
+	     if(fp_done == 1) begin
 		state_next <= COMPUTE_RESULT;
 	     end
 	  end
@@ -226,7 +220,7 @@ module tremolo #(
 		  substate_next <= CONV_INPUT_TO_FLOAT;
 	       end
 	       CONV_INPUT_TO_FLOAT, SCALE_INPUT, CONVERT_TO_INT: begin
-		  if(doneFA == 1)
+		  if(fp_done == 1)
 		    substate_next <= substate + 1;
 	       end
 	       ADD: begin
@@ -241,8 +235,15 @@ module tremolo #(
 	endcase
      end
 
-   assign data_out = result_tremolo[DATA_WIDTH-1:0];
-   assign done = state == DONE;
+
+   assign fp_dataa = dataa;
+   assign fp_datab = datab;
+   assign fp_operation = operation;
+   assign fp_clk_en = clk_enFA;
+
    assign sinus_angle = angle;
    assign sinus_clk_en = clk_en_sin;
+
+   assign data_out = result_tremolo[DATA_WIDTH-1:0];
+   assign done = state == DONE;
 endmodule
