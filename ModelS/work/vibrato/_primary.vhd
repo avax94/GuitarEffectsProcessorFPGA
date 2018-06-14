@@ -13,6 +13,16 @@ entity vibrato is
         sram_read_finish: in     vl_logic;
         sram_rd         : out    vl_logic;
         sram_offset     : out    vl_logic_vector;
+        sinus_done      : in     vl_logic;
+        sinus_result    : in     vl_logic_vector(31 downto 0);
+        sinus_angle     : out    vl_logic_vector(31 downto 0);
+        sinus_clk_en    : out    vl_logic;
+        fp_dataa        : out    vl_logic_vector(31 downto 0);
+        fp_datab        : out    vl_logic_vector(31 downto 0);
+        fp_operation    : out    vl_logic_vector(2 downto 0);
+        fp_clk_en       : out    vl_logic;
+        fp_done         : in     vl_logic;
+        fp_result       : in     vl_logic_vector(31 downto 0);
         clk             : in     vl_logic;
         rst             : in     vl_logic;
         cs              : in     vl_logic;

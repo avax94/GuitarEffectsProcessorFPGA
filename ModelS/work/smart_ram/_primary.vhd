@@ -15,7 +15,14 @@ entity smart_ram is
         data_out        : out    vl_logic_vector;
         write_finish    : out    vl_logic;
         read_finish     : out    vl_logic;
-        available       : out    vl_logic
+        available       : out    vl_logic;
+        SRAM_DQ         : out    vl_logic_vector(15 downto 0);
+        SRAM_ADDR       : out    vl_logic_vector(17 downto 0);
+        SRAM_LB_N       : out    vl_logic;
+        SRAM_UB_N       : out    vl_logic;
+        SRAM_CE_N       : out    vl_logic;
+        SRAM_OE_N       : out    vl_logic;
+        SRAM_WE_N       : out    vl_logic
     );
     attribute mti_svvh_generic_type : integer;
     attribute mti_svvh_generic_type of ADDR_WIDTH : constant is 1;

@@ -341,6 +341,64 @@ module DE1_TOP
 	                );
 
    /*
+    Initialize distortion effect
+    */
+   wire                  distortion_done;
+   wire [DATA_WIDTH-1:0] distortion_data_out;
+   distortion #(
+            .DATA_WIDTH(DATA_WIDTH)
+            )
+   distt (
+            .cs(SW[7]),
+            .my_turn(state_left_prev == WAHWAH && state_left == DISTORTION),
+            .data_in(data_left_r),
+            // 2000 / (48000 * 48000)
+            .done(distortion_done),
+            .data_out(distortion_data_out),
+            .clk(CLOCK_50),
+            .rst(0),
+          );
+
+   /*
+    Initialize wahwah effect
+    */
+   wire                  wahwah_done;
+   wire [DATA_WIDTH-1:0] wahwah_data_out;
+   wire [31:0]           wahwah_sinus_angle;
+   wire                  wahwah_sinus_clk_en;
+   wire [31:0]           wahwah_fp_dataa;
+   wire [31:0]           wahwah_fp_datab;
+   wire [2:0]            wahwah_fp_operation;
+   wire                  wahwah_fp_clk_en;
+	wire [31:0] stt, substt;
+
+   wah_wah #(
+            .DATA_WIDTH(DATA_WIDTH)
+            )
+   wahwah (
+            .sinus_done(sinus_done_value),
+            .sinus_result(sinus_result_value),
+            .sinus_angle(wahwah_sinus_angle),
+            .sinus_clk_en(wahwah_sinus_clk_en),
+            .cs(SW[6]),
+            .my_turn(state_left_prev == TREMOLO && state_left == WAHWAH),
+            .data_in(data_left_r),
+            // 2000 / (48000 * 48000)
+            .delta(32'b00110110100100011010001010100011),
+            .done(wahwah_done),
+            .data_out(wahwah_data_out),
+            .clk(CLOCK_50),
+            .rst(0),
+            .fp_dataa(wahwah_fp_dataa),
+            .fp_datab(wahwah_fp_datab),
+            .fp_operation(wahwah_fp_operation),
+            .fp_clk_en(wahwah_fp_clk_en),
+            .fp_done(fpu_done),
+            .fp_result(fpu_result),
+	   .st(stt),
+	   .st_next(substt)
+           );
+   /*
     Initialize tremolo effect
     */
    wire                  tremolo_done;
@@ -364,7 +422,7 @@ module DE1_TOP
             .cs(SW[5]),
             .my_turn(state_left_prev == CHORUS && state_left == TREMOLO),
             .data_in(data_left_r),
-            .modfreq(32'b00111001101000111101011100001010),
+            .modfreq(32'b00111000110110100111010000001101),
             .done(tremolo_done),
             .data_out(tremolo_data_out),
             .clk(CLOCK_50),
@@ -435,7 +493,8 @@ module DE1_TOP
         .clk(CLOCK_50),
         .rst(reset),
         .cs(SW[3]),
-        .modfreq(32'b00111000110110100111010000001110),
+        .modfreq_option(modfreq_option),
+		  //.modfreq(32'b00111000110110100111010000001110),
         .my_turn(state_left_prev == ECHO && state_left==VIBRATO),
         .done(vibrato_done),
         .data_out(vibrato_data_out),
@@ -467,7 +526,7 @@ module DE1_TOP
           .OFFSET(24000),
 			 .N(1))
    ech (.sram_data_in(sram_data_out),
-	.sram_write_finish(sram_write_finish),
+		  .sram_write_finish(sram_write_finish),
         .sram_read_finish(sram_read_finish),
         .sram_wr(echo_sram_wr),
         .sram_rd(echo_sram_rd),
@@ -480,7 +539,7 @@ module DE1_TOP
         .my_turn(state_left_prev == ACK_SAVE && state_left==ECHO),
         .data_in(data_left),
         .done(echo_done),
-	.available(echo_available),
+			.available(echo_available),
         .data_out(echo_data_out));
 
 
@@ -488,7 +547,7 @@ module DE1_TOP
    localparam DATA_WIDTH = 16;
    localparam ADDR_WIDTH = 18;
    localparam N = 6;
-   localparam READING = 0, SAVING = 1, PROCESSING = 2, WRITING = 3, DONE = 4, FILTER_NOISE = 5, VIBRATO = 6, CHORUS = 7, RAMREADING = 8, ACK_SAVE = 9, TREMOLO = 10, ECHO = 11;
+   localparam READING = 0, SAVING = 1, PROCESSING = 2, WRITING = 3, DONE = 4, FILTER_NOISE = 5, VIBRATO = 6, CHORUS = 7, RAMREADING = 8, ACK_SAVE = 9, TREMOLO = 10, ECHO = 11, WAHWAH = 12, DISTORTION = 13;
    reg [3:0]             state_left, state_right, state_left_next, state_right_next, state_left_prev;
    reg [DATA_WIDTH-1:0]  data_left, data_left_r, data_right, data_right_r;
    reg                   ready_left_r, ready_right_r;
@@ -610,11 +669,31 @@ module DE1_TOP
 
 	if (state_left == TREMOLO) begin
 	   if (SW[5] == 0) begin
-	      state_left_next <= WRITING;
+	      state_left_next <= WAHWAH;
 	   end
 	   else if (tremolo_done) begin
-	      state_left_next <= WRITING;
+	      state_left_next <= WAHWAH;
 	      data_left <= tremolo_data_out;
+	   end
+	end
+
+	if (state_left == WAHWAH) begin
+	   if (SW[6] == 0) begin
+	      state_left_next <= DISTORTION;
+	   end
+	   else if (wahwah_done) begin
+	      state_left_next <= DISTORTION;
+	      data_left <= wahwah_data_out;
+	   end
+	end
+
+	if (state_left == DISTORTION) begin
+	   if (SW[7] == 0) begin
+	      state_left_next <= WRITING;
+	   end
+	   else if (distortion_done) begin
+	      state_left_next <= WRITING;
+	      data_left <= distortion_data_out;
 	   end
 	end
 
@@ -684,12 +763,12 @@ module DE1_TOP
 	     sram_wr_value <= sram_wr_reg;
 	     sram_rd_value <= sram_rd_reg;
 	  end
-        ECHO: begin
+	ECHO: begin
 	     sram_data_in_value <= echo_sram_data_out;
 	     sram_offset_value <= echo_sram_offset;
 	     sram_wr_value <= echo_sram_wr;
 	     sram_rd_value <= echo_sram_rd;
-        end
+	end
 	VIBRATO: begin
 	   sram_data_in_value <= {{DATA_WIDTH{1'bz}}};
 	   sram_offset_value <= vibrato_sram_offset;
@@ -724,6 +803,10 @@ module DE1_TOP
 	   sinus_data_reg <= tremolo_sinus_angle;
 	   sinus_clk_en_reg <= tremolo_sinus_clk_en;
 	end
+	WAHWAH: begin
+	   sinus_data_reg <= wahwah_sinus_angle;
+	   sinus_clk_en_reg <= wahwah_sinus_clk_en;
+	end
 	default: begin
 	   sinus_data_reg <= 32'bz;
 	   sinus_clk_en_reg <= 1'bz;
@@ -750,6 +833,12 @@ module DE1_TOP
            fpu_operation_reg <= tremolo_fp_operation;
            fpu_clk_en_reg <= tremolo_fp_clk_en;
 	end
+	WAHWAH: begin
+           fpu_dataa_reg <= wahwah_fp_dataa;
+           fpu_datab_reg <= wahwah_fp_datab;
+           fpu_operation_reg <= wahwah_fp_operation;
+           fpu_clk_en_reg <= wahwah_fp_clk_en;
+	end
 	default:
 	  begin
              fpu_dataa_reg <= 32'bz;
@@ -760,6 +849,19 @@ module DE1_TOP
       endcase
    end
 
+	reg [3:0] modfreq_option;
+	initial modfreq_option = 0;
+	
+	always @(posedge KEY[3])
+	begin
+			modfreq_option <= modfreq_option + 1;
+			
+			if (modfreq_option == 4)
+			begin
+				modfreq_option <= 0;
+			end
+	end
+	
    assign fpu_dataa = fpu_dataa_reg;
    assign fpu_datab = fpu_datab_reg;
    assign fpu_operation = fpu_operation_reg;
@@ -768,8 +870,8 @@ module DE1_TOP
    assign sinus_clk_en_value = sinus_clk_en_reg;
    assign sinus_data_value = sinus_data_reg;
 
-   assign LEDG[0] = sram_read_finish;
-   assign LEDR[9:0] = fpu_result[9:0];
+   assign LEDR[9:0] = writedata_left[9:0];
+   assign LEDG[2:0] = state_left[2:0];
 
    assign sram_data_in = sram_data_in_value;
    assign sram_offset = sram_offset_value;// sram_offset_value; // state_left == VIBRATO ? vibrato_sram_offset : (state_left == CHORUS ? chorus_sram_offset : sram_offset_reg);

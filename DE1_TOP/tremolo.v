@@ -1,4 +1,3 @@
-`define fdivs 2
 `define fsubs 0
 `define fadds 1
 `define fmuls 3

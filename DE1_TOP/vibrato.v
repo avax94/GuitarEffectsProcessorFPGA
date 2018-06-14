@@ -1,4 +1,3 @@
-`define fdivs 2
 `define fsubs 0
 `define fadds 1
 `define fmuls 3
@@ -37,7 +36,7 @@ module vibrato
 	input                     clk,
 	input                     rst,
 	input                     cs,
-	input [31:0]              modfreq, //float
+	input [3:0]              modfreq_option, //float
 
 	input                     my_turn,
 	output                    done,
@@ -60,7 +59,7 @@ module vibrato
 
 	reg [ADDR_WIDTH*NUM_TO_ADD-1: 0] offset_input ;
 	reg my_turn_delay;
-
+	wire [31:0] modfreq;
 	reg [31:0] dataa;
 	reg [31:0] datab;
 	reg [2:0] operation;
@@ -93,6 +92,9 @@ module vibrato
 	integer substate = CONVERT_TO_FLOAT, substate_next;
 	integer counter, counter_next;
 	integer sin_arg = 1, sin_arg_next = 1;
+	
+	reg [31:0] modfreqs [4:0];
+	
 	reg [31:0] result_vibrato;
 
         initial begin
@@ -100,6 +102,11 @@ module vibrato
            state_next = CALCULATE_ANGLE;
            substate_next = PASSIVE;
            substate = PASSIVE;
+			  modfreqs[0] = 32'b00111000110110100111010000001101;
+			  modfreqs[1] = 32'b00111000100000110001001001101111;
+			  modfreqs[2] = 32'b00110111101011101100001100111100;
+			  modfreqs[3] = 32'b00110111001011101100001100110111;
+			  modfreqs[4] = 32'b00110110101011101100001100110111;
         end
 
 
@@ -241,7 +248,7 @@ module vibrato
 				if(sram_read_finish)
 				begin
 					started_action <= 0;
-					cont1 <= {{DATA_WIDTH_DIFF{sram_data_in[DATA_WIDTH-1]}}, sram_data_in[DATA_WIDTH-1:0]}; // critical path
+					result_vibrato <= {{DATA_WIDTH_DIFF{sram_data_in[DATA_WIDTH-1]}}, sram_data_in[DATA_WIDTH-1:0]}; // critical path
 				end
 			end
 			CONV_TO_F: //int_to_float(delay)
@@ -354,7 +361,8 @@ module vibrato
 					begin
 						if(sram_read_finish == 1)
 						begin
-							substate_next <= CONV_TO_F;
+							substate_next <= PASSIVE;
+							state_next <= DONE;
 							counter_next <= counter + 1;
 						end
 					end
@@ -403,10 +411,10 @@ module vibrato
         assign fp_datab = datab;
         assign fp_operation = operation;
         assign fp_clk_en = clk_enFA;
-
+		
         assign sinus_angle = angle;
         assign sinus_clk_en = clk_en_sin;
-
+		  assign modfreq = modfreqs[modfreq_option];
 	assign sram_rd = sram_rd_reg;
 	assign sram_offset = sram_offset_reg;
 	assign data_out = result_vibrato[DATA_WIDTH-1:0];

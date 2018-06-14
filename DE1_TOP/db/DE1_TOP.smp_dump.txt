@@ -6,32 +6,6 @@ state_right.PROCESSING 1 1 0 0
 state_right.WRITING 0 1 0 1 
 state_right.DONE 0 1 1 0 
 
-State Machine - |DE1_TOP|state_left
-Name state_left.ECHO state_left.TREMOLO state_left.ACK_SAVE state_left.CHORUS state_left.VIBRATO state_left.FILTER_NOISE state_left.DONE state_left.WRITING state_left.SAVING state_left.READING 
-state_left.READING 0 0 0 0 0 0 0 0 0 0 
-state_left.SAVING 0 0 0 0 0 0 0 0 1 1 
-state_left.WRITING 0 0 0 0 0 0 0 1 0 1 
-state_left.DONE 0 0 0 0 0 0 1 0 0 1 
-state_left.FILTER_NOISE 0 0 0 0 0 1 0 0 0 1 
-state_left.VIBRATO 0 0 0 0 1 0 0 0 0 1 
-state_left.CHORUS 0 0 0 1 0 0 0 0 0 1 
-state_left.ACK_SAVE 0 0 1 0 0 0 0 0 0 1 
-state_left.TREMOLO 0 1 0 0 0 0 0 0 0 1 
-state_left.ECHO 1 0 0 0 0 0 0 0 0 1 
-
-State Machine - |DE1_TOP|state_left_prev
-Name state_left_prev.ECHO state_left_prev.TREMOLO state_left_prev.ACK_SAVE state_left_prev.CHORUS state_left_prev.VIBRATO state_left_prev.FILTER_NOISE state_left_prev.DONE state_left_prev.WRITING state_left_prev.SAVING state_left_prev.READING 
-state_left_prev.READING 0 0 0 0 0 0 0 0 0 0 
-state_left_prev.SAVING 0 0 0 0 0 0 0 0 1 1 
-state_left_prev.WRITING 0 0 0 0 0 0 0 1 0 1 
-state_left_prev.DONE 0 0 0 0 0 0 1 0 0 1 
-state_left_prev.FILTER_NOISE 0 0 0 0 0 1 0 0 0 1 
-state_left_prev.VIBRATO 0 0 0 0 1 0 0 0 0 1 
-state_left_prev.CHORUS 0 0 0 1 0 0 0 0 0 1 
-state_left_prev.ACK_SAVE 0 0 1 0 0 0 0 0 0 1 
-state_left_prev.TREMOLO 0 1 0 0 0 0 0 0 0 1 
-state_left_prev.ECHO 1 0 0 0 0 0 0 0 0 1 
-
 State Machine - |DE1_TOP|echo:ech|state
 Name state.DONE state.SAVE state.GETDATA_AND_CALCULATE state.PASSIVE 
 state.PASSIVE 0 0 0 0 

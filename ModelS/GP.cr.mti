@@ -1,18 +1,4 @@
-G:/Projects/FPGAGuitarProcessor/DE1_TOP/Tests/test_smart_ram.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/Tests/test_smart_ram.v
-Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
--- Compiling module test_smart_ram
-
-Top level modules:
-	test_smart_ram
-
-} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/Tests/test_vibrato.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/Tests/test_vibrato.v
-Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
--- Compiling module test_vibrato
-
-Top level modules:
-	test_vibrato
-
-} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpMult.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpMult.v
+G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpMult.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpMult.v
 Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
 -- Compiling module fpMult_altfp_mult_nbo
 -- Compiling module fpMult
@@ -41,13 +27,6 @@ Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
 Top level modules:
 	fpInt2FloatWrapper
 
-} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpFloat2IntWrapper.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpFloat2IntWrapper.v
-Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
--- Compiling module fpFloat2IntWrapper
-
-Top level modules:
-	fpFloat2IntWrapper
-
 } {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpDivWrapper.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpDivWrapper.v
 Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
 -- Compiling module fpDivWrapper
@@ -62,6 +41,13 @@ Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
 Top level modules:
 	fpMulWrapper
 
+} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpCompareWrapper.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpCompareWrapper.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module fpCompareWrapper
+
+Top level modules:
+	fpCompareWrapper
+
 } {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/smart_ram.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/smart_ram.v
 Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
 -- Compiling module smart_ram
@@ -69,19 +55,19 @@ Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
 Top level modules:
 	smart_ram
 
-} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpUnit.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpUnit.v
+} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/Tests/test_fpunit.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/Tests/test_fpunit.v
 Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
--- Compiling module fpUnit
+-- Compiling module test_fpunit
 
 Top level modules:
-	fpUnit
+	test_fpunit
 
-} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/vibrato.v {1 {vlog -work work {G:\Projects\FPGAGuitarProcessor\DE1_TOP\vibrato.v}
+} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/echo.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/echo.v
 Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
--- Compiling module vibrato
+-- Compiling module echo
 
 Top level modules:
-	vibrato
+	echo
 
 } {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpAdd.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpAdd.v
 Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
@@ -111,19 +97,23 @@ Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
 Top level modules:
 	fpAdd
 
-} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/echo.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/echo.v
+} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpDiv.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpDiv.v
 Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
--- Compiling module echo
+-- Compiling module fpDiv_altfp_div_pst_jge
+-- Compiling module fpDiv_altfp_div_jth
+-- Compiling module fpDiv
 
 Top level modules:
-	echo
+	fpDiv
 
-} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/Tests/test_echo.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/Tests/test_echo.v
+} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpFloat2Int.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpFloat2Int.v
 Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
--- Compiling module test_echo
+-- Compiling module fpFloat2Int_altbarrel_shift_grf
+-- Compiling module fpFloat2Int_altfp_convert_fhn
+-- Compiling module fpFloat2Int
 
 Top level modules:
-	test_echo
+	fpFloat2Int
 
 } {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpInt2Float.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpInt2Float.v
 Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
@@ -143,23 +133,12 @@ Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
 Top level modules:
 	fpInt2Float
 
-} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpFloat2Int.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpFloat2Int.v
+} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/sin.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/sin.v
 Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
--- Compiling module fpFloat2Int_altbarrel_shift_grf
--- Compiling module fpFloat2Int_altfp_convert_fhn
--- Compiling module fpFloat2Int
+-- Compiling module sin
 
 Top level modules:
-	fpFloat2Int
-
-} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpDiv.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpDiv.v
-Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
--- Compiling module fpDiv_altfp_div_pst_jge
--- Compiling module fpDiv_altfp_div_jth
--- Compiling module fpDiv
-
-Top level modules:
-	fpDiv
+	sin
 
 } {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/sinus.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/sinus.v
 Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
@@ -199,13 +178,6 @@ Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
 Top level modules:
 	sinus
 
-} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/sin.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/sin.v
-Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
--- Compiling module sin
-
-Top level modules:
-	sin
-
 } {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/noise_fitler.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/noise_fitler.v
 Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
 -- Compiling module noise_filter
@@ -213,18 +185,19 @@ Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
 Top level modules:
 	noise_filter
 
-} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/Tests/test_noise_filter.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/Tests/test_noise_filter.v
+} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/chorus.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/chorus.v
 Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
--- Compiling module test_noise_filter
+-- Compiling module chorus
 
 Top level modules:
-	test_noise_filter
+	chorus
 
-} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/Tests/test_chorus.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/Tests/test_chorus.v
+} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpCompare.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpCompare.v
 Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
--- Compiling module test_chorus
+-- Compiling module fpCompare_altfp_compare_eld
+-- Compiling module fpCompare
 
 Top level modules:
-	test_chorus
+	fpCompare
 
 } {} {}}

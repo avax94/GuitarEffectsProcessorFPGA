@@ -1,105 +1,83 @@
-module chorus
-#(
-	parameter DATA_WIDTH=16,
-)
-(
-	input                     clk,
-	input                     rst,
-	input                     cs,
-	input                     my_turn,
-	input [DATA_WIDTH-1:0]    data_in,
-	output                    done,
-	output [(DATA_WIDTH-1):0] data_out
-);
+`define fdivs 2
+`define fsubs 0
+`define fadds 1
+`define fmuls 3
+`define floatis 5   //intToFloat
+`define fixsi 4      //FloatToInt
+`define fexps 7      //Exp
 
 
-signed reg [DATA_WIDTH-1:0] dataa, dataa_next;
+module distortion #(
+	         parameter DATA_WIDTH=16
+                 )
+   (
+    input                           clk,
+    input                           rst,
+    input                           cs,
+    input signed [(DATA_WIDTH-1):0] data_in,
 
-localparam PASSIVE = 0, DISTORTION = 1;
+    input                           my_turn,
+    output                          done,
+    output [(DATA_WIDTH-1):0]       data_out
+    );
 
-reg [2:0] state, state_next;
-reg [3:0] index_first, index_second, index_third;
-integer counter;
+   /*
+    States
+   */
+   localparam PASSIVE = 0, DONE = 1;
 
-/*
-	sync
-*/
+   /*
+    Variables
+    */
+   integer state = PASSIVE, state_next;
+
+   initial begin
+      state = PASSIVE;
+      state_next = PASSIVE;
+   end
 
 
-always @(posedge clk)
-begin
-	state <= state_next;
-	data_out_reg <= data_out_reg_next;
-	sr_rd <= sr_rd_next;
-	sr_offset <= sr_offset_next;
-end
+   reg signed [DATA_WIDTH-1:0] clipped, clipped_next;
+   reg signed [DATA_WIDTH-1:0] threshold = 16'b0100000000000000;
 
-integer helperIdx;
-/*
-	comb
-*/
-always @(*)
-begin
-	state_next <= state;
-	sr_offset_next <= sr_offset;
-	data_out_reg_next <= data_out_reg;
-	sr_rd_next <= 0;
 
-	casex(state)
-	PASSIVE:
-	begin
-		if(cs == 1 && my_turn == 1)
-		begin
-			state_next <= GET_FIRST;
-			data_out_reg_next <= {{2{data_in[DATA_WIDTH-1]}}, data_in[DATA_WIDTH-1:0]};
-			
-			// prepare for reading from sram for first vocal
-			sr_rd_next <= 1;
-			helperIdx = index_first;
-			sr_offset_next <= delays[helperIdx];
-		end
+   /*
+    clocked
+    */
+   always @(posedge clk) begin
+      state <= state_next;
+      clipped <= clipped_next;
+   end
+
+   /*
+    comb
+    */
+   always @(*) begin
+      state_next <= state;
+      clipped_next <= clipped;
+
+      case(state)
+	PASSIVE: begin
+           if (my_turn == 1 && cs == 1) begin
+              state_next <= DONE;
+
+              if (data_in > 0 && data_in > threshold) begin
+                 clipped_next <= threshold;
+              end
+              else if (data_in < 0 && data_in < -threshold) begin
+                 clipped_next <= -threshold;
+              end
+              else begin
+                 clipped_next <= data_in;
+              end
+           end
 	end
-	GET_FIRST:
-	begin
-		if (sram_read_finish)
-		begin
-			state_next <= GET_SECOND;
-			data_out_reg_next <= data_out_reg + {{2{sram_data_in[DATA_WIDTH-1]}}, sram_data_in[DATA_WIDTH-1:0]};
-			
-			// prepare for reading from sram for second vocal
-			sr_rd_next <= 1;
-			sr_offset_next <= delays[index_second];
-		end
-	end
-	GET_SECOND:
-	begin
-		if (sram_read_finish)
-		begin
-			data_out_reg_next <= data_out_reg + {{2{sram_data_in[DATA_WIDTH-1]}}, sram_data_in[DATA_WIDTH-1:0]};
-			state_next <= GET_THIRD;
+	DONE: begin
+           state_next <= PASSIVE;
+        end
+      endcase
+   end
 
-			// prepare for reading from sram for third vocal
-			sr_rd_next <= 1;
-			sr_offset_next <= delays[index_third];
-		end
-	end
-	GET_THIRD:
-	begin
-		if (sram_read_finish)
-		begin
-			data_out_reg_next <= data_out_reg + {{2{sram_data_in[DATA_WIDTH-1]}}, sram_data_in[DATA_WIDTH-1:0]};
-			state_next <= DONE;
-		end
-	end
-	DONE:
-	begin
-		state_next <= PASSIVE;
-	end
-	endcase
-end
-
-assign sram_offset = sr_offset;
-assign sram_rd = sr_rd;
-assign data_out = data_out_reg[DATA_WIDTH+2-1:2];
-assign done = state == DONE;
+   assign data_out = clipped[DATA_WIDTH-1:0];
+   assign done = state == DONE;
 endmodule
