@@ -1,15 +1,20 @@
-Info (10281): Verilog HDL Declaration information at wah_wah.v(34): object "done" differs only in case from object "DONE" in the same scope
-Info (10281): Verilog HDL Declaration information at tremolo.v(20): object "done" differs only in case from object "DONE" in the same scope
 Info (10281): Verilog HDL Declaration information at fpUnit.v(11): object "I2F" differs only in case from object "i2f" in the same scope
+Info (10281): Verilog HDL Declaration information at wah_wah.v(34): object "done" differs only in case from object "DONE" in the same scope
+Info (10281): Verilog HDL Declaration information at vibrato.v(43): object "done" differs only in case from object "DONE" in the same scope
+Info (10281): Verilog HDL Declaration information at tremolo.v(22): object "done" differs only in case from object "DONE" in the same scope
 Warning (10268): Verilog HDL information at noise_fitler.v(32): always construct contains both blocking and non-blocking assignments
-Warning (10273): Verilog HDL warning at DE1_TOP.v(811): extended using "x" or "z"
-Warning (10273): Verilog HDL warning at DE1_TOP.v(844): extended using "x" or "z"
-Warning (10273): Verilog HDL warning at DE1_TOP.v(845): extended using "x" or "z"
-Warning (10273): Verilog HDL warning at DE1_TOP.v(846): extended using "x" or "z"
-Info (10281): Verilog HDL Declaration information at DE1_TOP.v(436): object "tremolo" differs only in case from object "TREMOLO" in the same scope
-Info (10281): Verilog HDL Declaration information at DE1_TOP.v(400): object "wahwah" differs only in case from object "WAHWAH" in the same scope
-Info (10281): Verilog HDL Declaration information at echo.v(27): object "done" differs only in case from object "DONE" in the same scope
-Info (10281): Verilog HDL Declaration information at vibrato.v(42): object "done" differs only in case from object "DONE" in the same scope
+Warning (10268): Verilog HDL information at echo.v(82): always construct contains both blocking and non-blocking assignments
+Info (10281): Verilog HDL Declaration information at echo.v(7): object "OFFSET" differs only in case from object "offset" in the same scope
+Info (10281): Verilog HDL Declaration information at echo.v(31): object "done" differs only in case from object "DONE" in the same scope
+Warning (10268): Verilog HDL information at distortion.v(68): always construct contains both blocking and non-blocking assignments
+Info (10281): Verilog HDL Declaration information at distortion.v(19): object "done" differs only in case from object "DONE" in the same scope
 Info (10281): Verilog HDL Declaration information at chorus.v(21): object "done" differs only in case from object "DONE" in the same scope
+Warning (10273): Verilog HDL warning at DE1_TOP.v(818): extended using "x" or "z"
+Warning (10273): Verilog HDL warning at DE1_TOP.v(851): extended using "x" or "z"
+Warning (10273): Verilog HDL warning at DE1_TOP.v(852): extended using "x" or "z"
+Warning (10273): Verilog HDL warning at DE1_TOP.v(853): extended using "x" or "z"
+Info (10281): Verilog HDL Declaration information at DE1_TOP.v(434): object "tremolo" differs only in case from object "TREMOLO" in the same scope
+Info (10281): Verilog HDL Declaration information at DE1_TOP.v(398): object "wahwah" differs only in case from object "WAHWAH" in the same scope
 Warning (10268): Verilog HDL information at test_fpunit.v(67): always construct contains both blocking and non-blocking assignments
-Info (10281): Verilog HDL Declaration information at distortion.v(20): object "done" differs only in case from object "DONE" in the same scope
+Info (10281): Verilog HDL Declaration information at vibrato2.v(28): object "done" differs only in case from object "DONE" in the same scope
+Info (10281): Verilog HDL Declaration information at vibrato2.v(14): object "DELAY" differs only in case from object "delay" in the same scope

@@ -55,7 +55,7 @@ module test_distortion();
           .done(done),
           .data_out(data_out),
           .clk(clk),
-          .rst(0),
+          .rst(0)
           );
    always begin
           // Take one that is < 1/3

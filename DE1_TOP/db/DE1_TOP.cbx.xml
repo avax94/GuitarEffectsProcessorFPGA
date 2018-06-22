@@ -1,6 +1,7 @@
 <?xml version="1.0" ?>
 <LOG_ROOT>
 	<PROJECT NAME="DE1_TOP">
+		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|echo:ech|lpm_mult:Mult0|multcore:mult_core|mpar_add:padder|lpm_add_sub:adder[0]" CBX_FILE_NAME="add_sub_2ch.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|fpUnit:u0|fpAddWrapper:fadd|fpAdd:fpAdd_inst|fpAdd_altfp_add_sub_etk:fpAdd_altfp_add_sub_etk_component|lpm_add_sub:add_sub5" CBX_FILE_NAME="add_sub_l8j.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|fpUnit:u0|fpAddWrapper:fadd|fpAdd:fpAdd_inst|fpAdd_altfp_add_sub_etk:fpAdd_altfp_add_sub_etk_component|lpm_add_sub:man_res_rounding_add_sub_upper1" CBX_FILE_NAME="add_sub_6jf.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|sin:iSinus|sinus:s|sinus_altfp_sincos_cue:sinus_altfp_sincos_cue_component|sinus_altfp_sincos_cordic_m_a8e:ccc_cordic_m|lpm_add_sub:y_pipenode_3_add" CBX_FILE_NAME="add_sub_2ef.tdf"/>
@@ -15,6 +16,7 @@
 		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|sin:iSinus|sinus:s|sinus_altfp_sincos_cue:sinus_altfp_sincos_cue_component|sinus_altfp_sincos_cordic_m_a8e:ccc_cordic_m|lpm_add_sub:y_pipenode_5_add" CBX_FILE_NAME="add_sub_2ef.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|sin:iSinus|sinus:s|sinus_altfp_sincos_cue:sinus_altfp_sincos_cue_component|sinus_altfp_sincos_cordic_m_a8e:ccc_cordic_m|lpm_mult:cmx" CBX_FILE_NAME="mult_feo.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|sin:iSinus|sinus:s|sinus_altfp_sincos_cue:sinus_altfp_sincos_cue_component|sinus_altfp_sincos_range_79c:crr_fp_range1|lpm_add_sub:negrangeexponent_sub4" CBX_FILE_NAME="add_sub_r2f.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|echo:ech|lpm_divide:Div0" CBX_FILE_NAME="lpm_divide_rfm.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|sin:iSinus|sinus:s|sinus_altfp_sincos_cue:sinus_altfp_sincos_cue_component|sinus_altfp_sincos_cordic_m_a8e:ccc_cordic_m|lpm_add_sub:y_pipenode_6_add" CBX_FILE_NAME="add_sub_2ef.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|sin:iSinus|sinus:s|sinus_altfp_sincos_cue:sinus_altfp_sincos_cue_component|sinus_altfp_sincos_range_79c:crr_fp_range1|lpm_add_sub:negrangeexponent_sub5" CBX_FILE_NAME="add_sub_q1f.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|sin:iSinus|sinus:s|sinus_altfp_sincos_cue:sinus_altfp_sincos_cue_component|sinus_altfp_sincos_range_79c:crr_fp_range1|lpm_clshift:fp_lsft_rsft78" CBX_FILE_NAME="lpm_clshift_e9d.tdf"/>
@@ -31,16 +33,15 @@
 		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|vibrato:vib|lpm_mult:Mult0" CBX_FILE_NAME="mult_dct.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|sin:iSinus|sinus:s|sinus_altfp_sincos_cue:sinus_altfp_sincos_cue_component|sinus_altfp_sincos_cordic_m_a8e:ccc_cordic_m|altshift_taps:cdaff_0_rtl_0" CBX_FILE_NAME="shift_taps_7jm.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|sin:iSinus|sinus:s|sinus_altfp_sincos_cue:sinus_altfp_sincos_cue_component|sinus_altfp_sincos_range_79c:crr_fp_range1|lpm_add_sub:rangeexponent_sub5" CBX_FILE_NAME="add_sub_r2f.tdf"/>
-		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|vibrato:vib|lpm_mult:Mult1" CBX_FILE_NAME="mult_dct.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|audio_core:ac|audio_core_0002:audio_core_inst|altera_up_audio_out_serializer:Audio_Out_Serializer|altera_up_sync_fifo:Audio_Out_Left_Channel_FIFO|scfifo:Sync_FIFO" CBX_FILE_NAME="scfifo_7041.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|fpUnit:u0|fpCompareWrapper:fcmp|fpCompare:fpCompare_inst|fpCompare_altfp_compare_eld:fpCompare_altfp_compare_eld_component|lpm_compare:cmpr1" CBX_FILE_NAME="cmpr_saj.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|sin:iSinus|sinus:s|sinus_altfp_sincos_cue:sinus_altfp_sincos_cue_component|sinus_altfp_sincos_range_79c:crr_fp_range1|sinus_altfp_sincos_srrt_gra:fp_range_table1|lpm_mux:mux2" CBX_FILE_NAME="mux_ctc.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|distortion:distt|lpm_divide:Div0" CBX_FILE_NAME="lpm_divide_cem.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|fpUnit:u0|fpCompareWrapper:fcmp|fpCompare:fpCompare_inst|fpCompare_altfp_compare_eld:fpCompare_altfp_compare_eld_component|lpm_compare:cmpr2" CBX_FILE_NAME="cmpr_saj.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|fpUnit:u0|fpFloat2IntWrapper:fti|fpFloat2Int:fpFloat2Int_inst|fpFloat2Int_altfp_convert_fhn:fpFloat2Int_altfp_convert_fhn_component|lpm_compare:max_shift_compare" CBX_FILE_NAME="cmpr_ehg.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|sin:iSinus|sinus:s|sinus_altfp_sincos_cue:sinus_altfp_sincos_cue_component|lpm_mult:cmul" CBX_FILE_NAME="mult_d7o.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|audio_core:ac|audio_core_0002:audio_core_inst|altera_up_audio_in_deserializer:Audio_In_Deserializer|altera_up_sync_fifo:Audio_In_Right_Channel_FIFO|scfifo:Sync_FIFO" CBX_FILE_NAME="scfifo_7041.tdf"/>
-		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|fpUnit:u0|fpAddWrapper:fadd|fpAdd:fpAdd_inst|fpAdd_altfp_add_sub_etk:fpAdd_altfp_add_sub_etk_component|altshift_taps:man_res_is_not_zero_dffe31_rtl_0" CBX_FILE_NAME="shift_taps_3jm.tdf"/>
-		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|fpUnit:u0|fpAddWrapper:fadd|fpAdd:fpAdd_inst|fpAdd_altfp_add_sub_etk:fpAdd_altfp_add_sub_etk_component|lpm_add_sub:add_sub1" CBX_FILE_NAME="add_sub_ore.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|distortion:distt|lpm_divide:Div1" CBX_FILE_NAME="lpm_divide_cem.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|fpUnit:u0|fpAddWrapper:fadd|fpAdd:fpAdd_inst|fpAdd_altfp_add_sub_etk:fpAdd_altfp_add_sub_etk_component|lpm_add_sub:man_res_rounding_add_sub_lower" CBX_FILE_NAME="add_sub_taf.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|fpUnit:u0|fpCompareWrapper:fcmp|fpCompare:fpCompare_inst|fpCompare_altfp_compare_eld:fpCompare_altfp_compare_eld_component|lpm_compare:cmpr3" CBX_FILE_NAME="cmpr_saj.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|fpUnit:u0|fpMulWrapper:fmul|fpMult:fpMult_inst|fpMult_altfp_mult_nbo:fpMult_altfp_mult_nbo_component|lpm_mult:man_product2_mult" CBX_FILE_NAME="mult_01t.tdf"/>
@@ -49,7 +50,6 @@
 		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|fpUnit:u0|fpAddWrapper:fadd|fpAdd:fpAdd_inst|fpAdd_altfp_add_sub_etk:fpAdd_altfp_add_sub_etk_component|lpm_add_sub:add_sub2" CBX_FILE_NAME="add_sub_ore.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|fpUnit:u0|fpCompareWrapper:fcmp|fpCompare:fpCompare_inst|fpCompare_altfp_compare_eld:fpCompare_altfp_compare_eld_component|lpm_compare:cmpr4" CBX_FILE_NAME="cmpr_raj.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|sin:iSinus|sinus:s|sinus_altfp_sincos_cue:sinus_altfp_sincos_cue_component|sinus_altfp_sincos_cordic_m_a8e:ccc_cordic_m|lpm_add_sub:x_pipenode_10_add" CBX_FILE_NAME="add_sub_2ef.tdf"/>
-		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|vibrato:vib|lpm_divide:Div1" CBX_FILE_NAME="lpm_divide_rfm.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|fpUnit:u0|fpAddWrapper:fadd|fpAdd:fpAdd_inst|fpAdd_altfp_add_sub_etk:fpAdd_altfp_add_sub_etk_component|lpm_add_sub:add_sub3" CBX_FILE_NAME="add_sub_lre.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|fpUnit:u0|fpAddWrapper:fadd|fpAdd:fpAdd_inst|fpAdd_altfp_add_sub_etk:fpAdd_altfp_add_sub_etk_component|lpm_add_sub:man_add_sub_lower" CBX_FILE_NAME="add_sub_l1j.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|fpUnit:u0|fpInt2FloatWrapper:i2f|fpInt2Float:fpInt2Float_inst|fpInt2Float_altfp_convert_fhn:fpInt2Float_altfp_convert_fhn_component|lpm_add_sub:add_sub1" CBX_FILE_NAME="add_sub_jse.tdf"/>
@@ -80,6 +80,7 @@
 		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|sin:iSinus|sinus:s|sinus_altfp_sincos_cue:sinus_altfp_sincos_cue_component|sinus_altfp_sincos_cordic_m_a8e:ccc_cordic_m|lpm_add_sub:y_pipenode_13_add" CBX_FILE_NAME="add_sub_2ef.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|sin:iSinus|sinus:s|sinus_altfp_sincos_cue:sinus_altfp_sincos_cue_component|sinus_altfp_sincos_cordic_m_a8e:ccc_cordic_m|lpm_add_sub:z_pipenode_12_add" CBX_FILE_NAME="add_sub_2ef.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|sin:iSinus|sinus:s|sinus_altfp_sincos_cue:sinus_altfp_sincos_cue_component|sinus_altfp_sincos_cordic_m_a8e:ccc_cordic_m|lpm_add_sub:z_pipenode_3_add" CBX_FILE_NAME="add_sub_2ef.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|echo:ech|lpm_mult:Mult0|multcore:mult_core|mpar_add:padder|mpar_add:sub_par_add|lpm_add_sub:adder[0]" CBX_FILE_NAME="add_sub_6ch.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|sin:iSinus|sinus:s|sinus_altfp_sincos_cue:sinus_altfp_sincos_cue_component|sinus_altfp_sincos_cordic_m_a8e:ccc_cordic_m|lpm_add_sub:x_pipenode_6_add" CBX_FILE_NAME="add_sub_2ef.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|sin:iSinus|sinus:s|sinus_altfp_sincos_cue:sinus_altfp_sincos_cue_component|sinus_altfp_sincos_cordic_m_a8e:ccc_cordic_m|lpm_add_sub:z_pipenode_13_add" CBX_FILE_NAME="add_sub_2ef.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|sin:iSinus|sinus:s|sinus_altfp_sincos_cue:sinus_altfp_sincos_cue_component|sinus_altfp_sincos_cordic_m_a8e:ccc_cordic_m|lpm_add_sub:z_pipenode_4_add" CBX_FILE_NAME="add_sub_2ef.tdf"/>
@@ -103,6 +104,7 @@
 		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|fpUnit:u0|fpFloat2IntWrapper:fti|fpFloat2Int:fpFloat2Int_inst|fpFloat2Int_altfp_convert_fhn:fpFloat2Int_altfp_convert_fhn_component|lpm_compare:cmpr2" CBX_FILE_NAME="cmpr_dhg.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|fpUnit:u0|fpInt2FloatWrapper:i2f|fpInt2Float:fpInt2Float_inst|fpInt2Float_altfp_convert_fhn:fpInt2Float_altfp_convert_fhn_component|lpm_compare:cmpr4" CBX_FILE_NAME="cmpr_khg.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|sin:iSinus|sinus:s|sinus_altfp_sincos_cue:sinus_altfp_sincos_cue_component|sinus_altfp_sincos_cordic_m_a8e:ccc_cordic_m|lpm_add_sub:z_pipenode_8_add" CBX_FILE_NAME="add_sub_2ef.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|distortion:distt|lpm_mult:Mult0" CBX_FILE_NAME="mult_rvs.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|fpUnit:u0|fpFloat2IntWrapper:fti|fpFloat2Int:fpFloat2Int_inst|fpFloat2Int_altfp_convert_fhn:fpFloat2Int_altfp_convert_fhn_component|lpm_add_sub:add_sub8" CBX_FILE_NAME="add_sub_gbf.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|fpUnit:u0|fpFloat2IntWrapper:fti|fpFloat2Int:fpFloat2Int_inst|fpFloat2Int_altfp_convert_fhn:fpFloat2Int_altfp_convert_fhn_component|lpm_compare:cmpr3" CBX_FILE_NAME="cmpr_khg.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|fpUnit:u0|fpMulWrapper:fmul|fpMult:fpMult_inst|fpMult_altfp_mult_nbo:fpMult_altfp_mult_nbo_component|lpm_add_sub:exp_adj_adder" CBX_FILE_NAME="add_sub_gna.tdf"/>
@@ -113,5 +115,7 @@
 		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|audio_core:ac|audio_core_0002:audio_core_inst|altera_up_audio_in_deserializer:Audio_In_Deserializer|altera_up_sync_fifo:Audio_In_Left_Channel_FIFO|scfifo:Sync_FIFO" CBX_FILE_NAME="scfifo_7041.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|fpUnit:u0|fpAddWrapper:fadd|fpAdd:fpAdd_inst|fpAdd_altfp_add_sub_etk:fpAdd_altfp_add_sub_etk_component|lpm_add_sub:man_2comp_res_upper0" CBX_FILE_NAME="add_sub_qii.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|fpUnit:u0|fpAddWrapper:fadd|fpAdd:fpAdd_inst|fpAdd_altfp_add_sub_etk:fpAdd_altfp_add_sub_etk_component|lpm_add_sub:man_2comp_res_upper1" CBX_FILE_NAME="add_sub_qii.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|fpUnit:u0|fpAddWrapper:fadd|fpAdd:fpAdd_inst|fpAdd_altfp_add_sub_etk:fpAdd_altfp_add_sub_etk_component|altshift_taps:man_res_is_not_zero_dffe31_rtl_0" CBX_FILE_NAME="shift_taps_3jm.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|DE1_TOP|fpUnit:u0|fpAddWrapper:fadd|fpAdd:fpAdd_inst|fpAdd_altfp_add_sub_etk:fpAdd_altfp_add_sub_etk_component|lpm_add_sub:add_sub1" CBX_FILE_NAME="add_sub_ore.tdf"/>
 	</PROJECT>
 </LOG_ROOT>

@@ -13,41 +13,6 @@ Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
 Top level modules:
 	ram
 
-} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpAddWrapper.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpAddWrapper.v
-Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
--- Compiling module fpAddWrapper
-
-Top level modules:
-	fpAddWrapper
-
-} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpInt2FloatWrapper.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpInt2FloatWrapper.v
-Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
--- Compiling module fpInt2FloatWrapper
-
-Top level modules:
-	fpInt2FloatWrapper
-
-} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpDivWrapper.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpDivWrapper.v
-Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
--- Compiling module fpDivWrapper
-
-Top level modules:
-	fpDivWrapper
-
-} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpMulWrapper.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpMulWrapper.v
-Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
--- Compiling module fpMulWrapper
-
-Top level modules:
-	fpMulWrapper
-
-} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpCompareWrapper.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpCompareWrapper.v
-Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
--- Compiling module fpCompareWrapper
-
-Top level modules:
-	fpCompareWrapper
-
 } {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/smart_ram.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/smart_ram.v
 Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
 -- Compiling module smart_ram
@@ -97,24 +62,6 @@ Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
 Top level modules:
 	fpAdd
 
-} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpDiv.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpDiv.v
-Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
--- Compiling module fpDiv_altfp_div_pst_jge
--- Compiling module fpDiv_altfp_div_jth
--- Compiling module fpDiv
-
-Top level modules:
-	fpDiv
-
-} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpFloat2Int.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpFloat2Int.v
-Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
--- Compiling module fpFloat2Int_altbarrel_shift_grf
--- Compiling module fpFloat2Int_altfp_convert_fhn
--- Compiling module fpFloat2Int
-
-Top level modules:
-	fpFloat2Int
-
 } {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpInt2Float.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpInt2Float.v
 Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
 -- Compiling module fpInt2Float_altbarrel_shift_brf
@@ -133,12 +80,23 @@ Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
 Top level modules:
 	fpInt2Float
 
-} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/sin.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/sin.v
+} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpFloat2Int.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpFloat2Int.v
 Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
--- Compiling module sin
+-- Compiling module fpFloat2Int_altbarrel_shift_grf
+-- Compiling module fpFloat2Int_altfp_convert_fhn
+-- Compiling module fpFloat2Int
 
 Top level modules:
-	sin
+	fpFloat2Int
+
+} {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpDiv.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpDiv.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module fpDiv_altfp_div_pst_jge
+-- Compiling module fpDiv_altfp_div_jth
+-- Compiling module fpDiv
+
+Top level modules:
+	fpDiv
 
 } {} {}} G:/Projects/FPGAGuitarProcessor/DE1_TOP/sinus.v {1 {vlog -work work G:/Projects/FPGAGuitarProcessor/DE1_TOP/sinus.v
 Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
