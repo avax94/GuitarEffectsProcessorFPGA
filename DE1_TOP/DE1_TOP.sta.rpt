@@ -1,5 +1,5 @@
 TimeQuest Timing Analyzer report for DE1_TOP
-Sun Jun 10 21:38:24 2018
+Fri Jun 22 00:38:28 2018
 Quartus II 32-bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
 
 
@@ -106,11 +106,12 @@ applicable agreement for further details.
 ; Maximum allowed            ; 4           ;
 ;                            ;             ;
 ; Average used               ; 1.00        ;
-; Maximum used               ; 1           ;
+; Maximum used               ; 2           ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processors 2-8         ;   0.0%      ;
+;     Processor 2            ; < 0.1%      ;
+;     Processors 3-8         ;   0.0%      ;
 +----------------------------+-------------+
 
 
@@ -1980,10 +1981,14 @@ No dedicated SERDES Receiver circuitry present in device or used in design
 +------------------------------------+
 ; TimeQuest Timing Analyzer Messages ;
 +------------------------------------+
+Warning (125092): Tcl Script File fpCompare.qip not found
+    Info (125063): set_global_assignment -name QIP_FILE fpCompare.qip
+Warning (125092): Tcl Script File fpExp.qip not found
+    Info (125063): set_global_assignment -name QIP_FILE fpExp.qip
 Info: *******************************************************************
 Info: Running Quartus II 32-bit TimeQuest Timing Analyzer
     Info: Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
-    Info: Processing started: Sun Jun 10 21:38:20 2018
+    Info: Processing started: Fri Jun 22 00:38:23 2018
 Info: Command: quartus_sta DE1_TOP -c DE1_TOP
 Info: qsta_default_script.tcl version: #1
 Critical Warning (138069): Setting INCREMENTAL_COMPILATION to "OFF" is no longer supported. Assignment is ignored. To disable partitions, set the IGNORE_PARTITIONS global assignment to "ON" instead.
@@ -2044,10 +2049,10 @@ Info (332146): Worst-case minimum pulse width slack is -1.627
 Info (332001): The selected device family is not supported by the report_metastability command.
 Info (332102): Design is not fully constrained for setup requirements
 Info (332102): Design is not fully constrained for hold requirements
-Info: Quartus II 32-bit TimeQuest Timing Analyzer was successful. 0 errors, 4 warnings
-    Info: Peak virtual memory: 527 megabytes
-    Info: Processing ended: Sun Jun 10 21:38:24 2018
-    Info: Elapsed time: 00:00:04
+Info: Quartus II 32-bit TimeQuest Timing Analyzer was successful. 0 errors, 6 warnings
+    Info: Peak virtual memory: 526 megabytes
+    Info: Processing ended: Fri Jun 22 00:38:28 2018
+    Info: Elapsed time: 00:00:05
     Info: Total CPU time (on all processors): 00:00:05
 
 

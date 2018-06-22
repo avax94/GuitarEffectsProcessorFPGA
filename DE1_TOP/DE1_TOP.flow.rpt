@@ -1,5 +1,5 @@
 Flow report for DE1_TOP
-Sun Jun 10 21:38:24 2018
+Fri Jun 22 00:38:28 2018
 Quartus II 32-bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
 
 
@@ -40,7 +40,7 @@ applicable agreement for further details.
 +--------------------------------------------------------------------------------------+
 ; Flow Summary                                                                         ;
 +------------------------------------+-------------------------------------------------+
-; Flow Status                        ; Successful - Sun Jun 10 21:38:19 2018           ;
+; Flow Status                        ; Successful - Fri Jun 22 00:38:22 2018           ;
 ; Quartus II 32-bit Version          ; 13.0.1 Build 232 06/12/2013 SP 1 SJ Web Edition ;
 ; Revision Name                      ; DE1_TOP                                         ;
 ; Top-level Entity Name              ; DE1_TOP                                         ;
@@ -64,7 +64,7 @@ applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 06/10/2018 21:35:47 ;
+; Start date & time ; 06/22/2018 00:35:34 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; DE1_TOP             ;
 +-------------------+---------------------+
@@ -75,7 +75,7 @@ applicable agreement for further details.
 +-------------------------------------+-----------------------------------------------------------+---------------+-----------------+------------+
 ; Assignment Name                     ; Value                                                     ; Default Value ; Entity Name     ; Section Id ;
 +-------------------------------------+-----------------------------------------------------------+---------------+-----------------+------------+
-; COMPILER_SIGNATURE_ID               ; 30902514607939.152865934608488                            ; --            ; --              ; --         ;
+; COMPILER_SIGNATURE_ID               ; 30902514607939.152962053310748                            ; --            ; --              ; --         ;
 ; IP_TOOL_ENV                         ; mwpim                                                     ; --            ; audio_clock_gen ; --         ;
 ; IP_TOOL_ENV                         ; mwpim                                                     ; --            ; audio_clock_gen ; --         ;
 ; IP_TOOL_ENV                         ; mwpim                                                     ; --            ; audio_core      ; --         ;
@@ -91,8 +91,6 @@ applicable agreement for further details.
 ; IP_TOOL_NAME                        ; ALTFP_CONVERT                                             ; --            ; --              ; --         ;
 ; IP_TOOL_NAME                        ; ALTFP_MULT                                                ; --            ; --              ; --         ;
 ; IP_TOOL_NAME                        ; ALTFP_DIV                                                 ; --            ; --              ; --         ;
-; IP_TOOL_NAME                        ; ALTFP_COMPARE                                             ; --            ; --              ; --         ;
-; IP_TOOL_NAME                        ; ALTFP_EXP                                                 ; --            ; --              ; --         ;
 ; IP_TOOL_NAME                        ; altera_up_clocks                                          ; --            ; audio_clock_gen ; --         ;
 ; IP_TOOL_NAME                        ; altera_up_clocks                                          ; --            ; audio_clock_gen ; --         ;
 ; IP_TOOL_NAME                        ; altera_up_avalon_audio                                    ; --            ; audio_core      ; --         ;
@@ -101,8 +99,6 @@ applicable agreement for further details.
 ; IP_TOOL_NAME                        ; altera_up_avalon_audio_and_video_config                   ; --            ; av_config       ; --         ;
 ; IP_TOOL_NAME                        ; altera_up_avalon_sram                                     ; --            ; sram            ; --         ;
 ; IP_TOOL_NAME                        ; altera_up_avalon_sram                                     ; --            ; sram            ; --         ;
-; IP_TOOL_VERSION                     ; 13.0                                                      ; --            ; --              ; --         ;
-; IP_TOOL_VERSION                     ; 13.0                                                      ; --            ; --              ; --         ;
 ; IP_TOOL_VERSION                     ; 13.0                                                      ; --            ; --              ; --         ;
 ; IP_TOOL_VERSION                     ; 13.0                                                      ; --            ; --              ; --         ;
 ; IP_TOOL_VERSION                     ; 13.0                                                      ; --            ; --              ; --         ;
@@ -151,8 +147,6 @@ applicable agreement for further details.
 ; MISC_FILE                           ; fpDiv_inst.v                                              ; --            ; --              ; --         ;
 ; MISC_FILE                           ; sram.cmp                                                  ; --            ; --              ; --         ;
 ; MISC_FILE                           ; sram_sim/sram.v                                           ; --            ; --              ; --         ;
-; MISC_FILE                           ; fpCompare_inst.v                                          ; --            ; --              ; --         ;
-; MISC_FILE                           ; fpExp_inst.v                                              ; --            ; --              ; --         ;
 ; PARTITION_COLOR                     ; 16764057                                                  ; --            ; --              ; Top        ;
 ; PARTITION_FITTER_PRESERVATION_LEVEL ; PLACEMENT_AND_ROUTING                                     ; --            ; --              ; Top        ;
 ; PARTITION_NETLIST_TYPE              ; SOURCE                                                    ; --            ; --              ; Top        ;
@@ -175,11 +169,11 @@ applicable agreement for further details.
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name               ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis      ; 00:01:29     ; 1.0                     ; 855 MB              ; 00:01:29                           ;
-; Fitter                    ; 00:00:56     ; 2.0                     ; 708 MB              ; 00:01:47                           ;
+; Analysis & Synthesis      ; 00:01:40     ; 1.0                     ; 858 MB              ; 00:01:35                           ;
+; Fitter                    ; 00:01:02     ; 2.1                     ; 701 MB              ; 00:02:00                           ;
 ; Assembler                 ; 00:00:02     ; 1.0                     ; 420 MB              ; 00:00:02                           ;
-; TimeQuest Timing Analyzer ; 00:00:04     ; 1.0                     ; 527 MB              ; 00:00:04                           ;
-; Total                     ; 00:02:31     ; --                      ; --                  ; 00:03:22                           ;
+; TimeQuest Timing Analyzer ; 00:00:05     ; 1.0                     ; 526 MB              ; 00:00:05                           ;
+; Total                     ; 00:02:49     ; --                      ; --                  ; 00:03:42                           ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 

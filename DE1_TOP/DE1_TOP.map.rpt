@@ -1,5 +1,5 @@
 Analysis & Synthesis report for DE1_TOP
-Sun Jun 10 21:37:17 2018
+Fri Jun 22 00:37:15 2018
 Quartus II 32-bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
 
 
@@ -218,7 +218,7 @@ applicable agreement for further details.
 +--------------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                         ;
 +------------------------------------+-------------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Sun Jun 10 21:37:17 2018           ;
+; Analysis & Synthesis Status        ; Successful - Fri Jun 22 00:37:14 2018           ;
 ; Quartus II 32-bit Version          ; 13.0.1 Build 232 06/12/2013 SP 1 SJ Web Edition ;
 ; Revision Name                      ; DE1_TOP                                         ;
 ; Top-level Entity Name              ; DE1_TOP                                         ;
@@ -339,163 +339,163 @@ applicable agreement for further details.
 +----------------------------+-------------+
 
 
-+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                                                                                                   ;
-+-------------------------------------------------------+-----------------+------------------------------+-----------------------------------------------------------------------------------------------+-----------------+
-; File Name with User-Entered Path                      ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                                                  ; Library         ;
-+-------------------------------------------------------+-----------------+------------------------------+-----------------------------------------------------------------------------------------------+-----------------+
-; wah_wah.v                                             ; yes             ; User Verilog HDL File        ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/wah_wah.v                                             ;                 ;
-; fpAddWrapper.v                                        ; yes             ; User Verilog HDL File        ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpAddWrapper.v                                        ;                 ;
-; fpFloat2IntWrapper.v                                  ; yes             ; User Verilog HDL File        ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpFloat2IntWrapper.v                                  ;                 ;
-; fpInt2FloatWrapper.v                                  ; yes             ; User Verilog HDL File        ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpInt2FloatWrapper.v                                  ;                 ;
-; fpMulWrapper.v                                        ; yes             ; User Verilog HDL File        ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpMulWrapper.v                                        ;                 ;
-; tremolo.v                                             ; yes             ; User Verilog HDL File        ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/tremolo.v                                             ;                 ;
-; fpUnit.v                                              ; yes             ; User Verilog HDL File        ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpUnit.v                                              ;                 ;
-; noise_fitler.v                                        ; yes             ; User Verilog HDL File        ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/noise_fitler.v                                        ;                 ;
-; DE1_TOP.v                                             ; yes             ; User Verilog HDL File        ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/DE1_TOP.v                                             ;                 ;
-; audio_core.v                                          ; yes             ; User Wizard-Generated File   ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/audio_core.v                                          ; audio_core      ;
-; audio_core/altera_up_audio_bit_counter.v              ; yes             ; User Verilog HDL File        ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/audio_core/altera_up_audio_bit_counter.v              ; audio_core      ;
-; audio_core/altera_up_audio_in_deserializer.v          ; yes             ; User Verilog HDL File        ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/audio_core/altera_up_audio_in_deserializer.v          ; audio_core      ;
-; audio_core/altera_up_audio_out_serializer.v           ; yes             ; User Verilog HDL File        ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/audio_core/altera_up_audio_out_serializer.v           ; audio_core      ;
-; audio_core/altera_up_clock_edge.v                     ; yes             ; User Verilog HDL File        ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/audio_core/altera_up_clock_edge.v                     ; audio_core      ;
-; audio_core/altera_up_sync_fifo.v                      ; yes             ; User Verilog HDL File        ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/audio_core/altera_up_sync_fifo.v                      ; audio_core      ;
-; audio_core/audio_core_0002.v                          ; yes             ; User Verilog HDL File        ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/audio_core/audio_core_0002.v                          ; audio_core      ;
-; av_config.v                                           ; yes             ; User Wizard-Generated File   ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/av_config.v                                           ; av_config       ;
-; av_config/altera_up_av_config_serial_bus_controller.v ; yes             ; User Verilog HDL File        ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/av_config/altera_up_av_config_serial_bus_controller.v ; av_config       ;
-; av_config/altera_up_slow_clock_generator.v            ; yes             ; User Verilog HDL File        ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/av_config/altera_up_slow_clock_generator.v            ; av_config       ;
-; av_config/altera_up_av_config_auto_init.v             ; yes             ; User Verilog HDL File        ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/av_config/altera_up_av_config_auto_init.v             ; av_config       ;
-; av_config/altera_up_av_config_auto_init_ob_audio.v    ; yes             ; User Verilog HDL File        ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/av_config/altera_up_av_config_auto_init_ob_audio.v    ; av_config       ;
-; av_config/av_config_0002.v                            ; yes             ; User Verilog HDL File        ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/av_config/av_config_0002.v                            ; av_config       ;
-; audio_clock_gen.v                                     ; yes             ; User Wizard-Generated File   ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/audio_clock_gen.v                                     ; audio_clock_gen ;
-; audio_clock_gen/audio_clock_gen_0002.v                ; yes             ; User Verilog HDL File        ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/audio_clock_gen/audio_clock_gen_0002.v                ; audio_clock_gen ;
-; smart_ram.v                                           ; yes             ; User Verilog HDL File        ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/smart_ram.v                                           ;                 ;
-; echo.v                                                ; yes             ; User Verilog HDL File        ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/echo.v                                                ;                 ;
-; sinus.v                                               ; yes             ; User Wizard-Generated File   ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/sinus.v                                               ;                 ;
-; sin.v                                                 ; yes             ; User Verilog HDL File        ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/sin.v                                                 ;                 ;
-; vibrato.v                                             ; yes             ; User Verilog HDL File        ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/vibrato.v                                             ;                 ;
-; fpAdd.v                                               ; yes             ; User Wizard-Generated File   ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpAdd.v                                               ;                 ;
-; fpInt2Float.v                                         ; yes             ; User Wizard-Generated File   ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpInt2Float.v                                         ;                 ;
-; fpFloat2Int.v                                         ; yes             ; User Wizard-Generated File   ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpFloat2Int.v                                         ;                 ;
-; fpMult.v                                              ; yes             ; User Wizard-Generated File   ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpMult.v                                              ;                 ;
-; chorus.v                                              ; yes             ; User Verilog HDL File        ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/chorus.v                                              ;                 ;
-; sram.v                                                ; yes             ; User Wizard-Generated File   ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/sram.v                                                ; sram            ;
-; sram/sram_0002.v                                      ; yes             ; User Verilog HDL File        ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/sram/sram_0002.v                                      ; sram            ;
-; fpCompare.v                                           ; yes             ; User Wizard-Generated File   ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpCompare.v                                           ;                 ;
-; fpCompareWrapper.v                                    ; yes             ; User Verilog HDL File        ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpCompareWrapper.v                                    ;                 ;
-; lpm_add_sub.tdf                                       ; yes             ; Megafunction                 ; c:/altera/13.0sp1/quartus/libraries/megafunctions/lpm_add_sub.tdf                             ;                 ;
-; addcore.inc                                           ; yes             ; Megafunction                 ; c:/altera/13.0sp1/quartus/libraries/megafunctions/addcore.inc                                 ;                 ;
-; look_add.inc                                          ; yes             ; Megafunction                 ; c:/altera/13.0sp1/quartus/libraries/megafunctions/look_add.inc                                ;                 ;
-; bypassff.inc                                          ; yes             ; Megafunction                 ; c:/altera/13.0sp1/quartus/libraries/megafunctions/bypassff.inc                                ;                 ;
-; altshift.inc                                          ; yes             ; Megafunction                 ; c:/altera/13.0sp1/quartus/libraries/megafunctions/altshift.inc                                ;                 ;
-; alt_stratix_add_sub.inc                               ; yes             ; Megafunction                 ; c:/altera/13.0sp1/quartus/libraries/megafunctions/alt_stratix_add_sub.inc                     ;                 ;
-; aglobal130.inc                                        ; yes             ; Megafunction                 ; c:/altera/13.0sp1/quartus/libraries/megafunctions/aglobal130.inc                              ;                 ;
-; db/add_sub_ore.tdf                                    ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_ore.tdf                                    ;                 ;
-; db/add_sub_lre.tdf                                    ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_lre.tdf                                    ;                 ;
-; db/add_sub_nqe.tdf                                    ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_nqe.tdf                                    ;                 ;
-; db/add_sub_l8j.tdf                                    ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_l8j.tdf                                    ;                 ;
-; db/add_sub_l1j.tdf                                    ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_l1j.tdf                                    ;                 ;
-; db/add_sub_qii.tdf                                    ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_qii.tdf                                    ;                 ;
-; db/add_sub_taf.tdf                                    ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_taf.tdf                                    ;                 ;
-; db/add_sub_6jf.tdf                                    ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_6jf.tdf                                    ;                 ;
-; lpm_compare.tdf                                       ; yes             ; Megafunction                 ; c:/altera/13.0sp1/quartus/libraries/megafunctions/lpm_compare.tdf                             ;                 ;
-; comptree.inc                                          ; yes             ; Megafunction                 ; c:/altera/13.0sp1/quartus/libraries/megafunctions/comptree.inc                                ;                 ;
-; db/cmpr_aag.tdf                                       ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/cmpr_aag.tdf                                       ;                 ;
-; db/add_sub_pvd.tdf                                    ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_pvd.tdf                                    ;                 ;
-; db/add_sub_gna.tdf                                    ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_gna.tdf                                    ;                 ;
-; db/add_sub_egg.tdf                                    ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_egg.tdf                                    ;                 ;
-; db/add_sub_7pb.tdf                                    ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_7pb.tdf                                    ;                 ;
-; lpm_mult.tdf                                          ; yes             ; Megafunction                 ; c:/altera/13.0sp1/quartus/libraries/megafunctions/lpm_mult.tdf                                ;                 ;
-; lpm_add_sub.inc                                       ; yes             ; Megafunction                 ; c:/altera/13.0sp1/quartus/libraries/megafunctions/lpm_add_sub.inc                             ;                 ;
-; multcore.inc                                          ; yes             ; Megafunction                 ; c:/altera/13.0sp1/quartus/libraries/megafunctions/multcore.inc                                ;                 ;
-; db/mult_01t.tdf                                       ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/mult_01t.tdf                                       ;                 ;
-; db/add_sub_8se.tdf                                    ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_8se.tdf                                    ;                 ;
-; db/add_sub_5re.tdf                                    ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_5re.tdf                                    ;                 ;
-; db/add_sub_ebf.tdf                                    ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_ebf.tdf                                    ;                 ;
-; db/add_sub_gbf.tdf                                    ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_gbf.tdf                                    ;                 ;
-; db/add_sub_mse.tdf                                    ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_mse.tdf                                    ;                 ;
-; db/cmpr_nrg.tdf                                       ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/cmpr_nrg.tdf                                       ;                 ;
-; db/cmpr_dhg.tdf                                       ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/cmpr_dhg.tdf                                       ;                 ;
-; db/cmpr_khg.tdf                                       ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/cmpr_khg.tdf                                       ;                 ;
-; db/cmpr_ehg.tdf                                       ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/cmpr_ehg.tdf                                       ;                 ;
-; db/add_sub_jse.tdf                                    ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_jse.tdf                                    ;                 ;
-; db/add_sub_dbf.tdf                                    ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_dbf.tdf                                    ;                 ;
-; db/add_sub_7re.tdf                                    ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_7re.tdf                                    ;                 ;
-; db/cmpr_saj.tdf                                       ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/cmpr_saj.tdf                                       ;                 ;
-; db/cmpr_raj.tdf                                       ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/cmpr_raj.tdf                                       ;                 ;
-; lpm_mux.tdf                                           ; yes             ; Megafunction                 ; c:/altera/13.0sp1/quartus/libraries/megafunctions/lpm_mux.tdf                                 ;                 ;
-; muxlut.inc                                            ; yes             ; Megafunction                 ; c:/altera/13.0sp1/quartus/libraries/megafunctions/muxlut.inc                                  ;                 ;
-; db/mux_3qc.tdf                                        ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/mux_3qc.tdf                                        ;                 ;
-; db/add_sub_2ef.tdf                                    ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_2ef.tdf                                    ;                 ;
-; db/add_sub_83f.tdf                                    ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_83f.tdf                                    ;                 ;
-; db/add_sub_94f.tdf                                    ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_94f.tdf                                    ;                 ;
-; db/mult_feo.tdf                                       ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/mult_feo.tdf                                       ;                 ;
-; db/mux_ctc.tdf                                        ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/mux_ctc.tdf                                        ;                 ;
-; db/add_sub_b3f.tdf                                    ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_b3f.tdf                                    ;                 ;
-; db/add_sub_r2f.tdf                                    ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_r2f.tdf                                    ;                 ;
-; db/add_sub_lgf.tdf                                    ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_lgf.tdf                                    ;                 ;
-; db/add_sub_5ef.tdf                                    ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_5ef.tdf                                    ;                 ;
-; db/add_sub_q1f.tdf                                    ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_q1f.tdf                                    ;                 ;
-; lpm_clshift.tdf                                       ; yes             ; Megafunction                 ; c:/altera/13.0sp1/quartus/libraries/megafunctions/lpm_clshift.tdf                             ;                 ;
-; db/lpm_clshift_qc9.tdf                                ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/lpm_clshift_qc9.tdf                                ;                 ;
-; db/lpm_clshift_e9d.tdf                                ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/lpm_clshift_e9d.tdf                                ;                 ;
-; db/mult_nlo.tdf                                       ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/mult_nlo.tdf                                       ;                 ;
-; db/add_sub_p1f.tdf                                    ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_p1f.tdf                                    ;                 ;
-; db/add_sub_q2f.tdf                                    ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_q2f.tdf                                    ;                 ;
-; db/add_sub_63f.tdf                                    ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_63f.tdf                                    ;                 ;
-; db/add_sub_4ef.tdf                                    ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_4ef.tdf                                    ;                 ;
-; db/lpm_clshift_vc9.tdf                                ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/lpm_clshift_vc9.tdf                                ;                 ;
-; db/mult_d7o.tdf                                       ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/mult_d7o.tdf                                       ;                 ;
-; scfifo.tdf                                            ; yes             ; Megafunction                 ; c:/altera/13.0sp1/quartus/libraries/megafunctions/scfifo.tdf                                  ;                 ;
-; a_regfifo.inc                                         ; yes             ; Megafunction                 ; c:/altera/13.0sp1/quartus/libraries/megafunctions/a_regfifo.inc                               ;                 ;
-; a_dpfifo.inc                                          ; yes             ; Megafunction                 ; c:/altera/13.0sp1/quartus/libraries/megafunctions/a_dpfifo.inc                                ;                 ;
-; a_i2fifo.inc                                          ; yes             ; Megafunction                 ; c:/altera/13.0sp1/quartus/libraries/megafunctions/a_i2fifo.inc                                ;                 ;
-; a_fffifo.inc                                          ; yes             ; Megafunction                 ; c:/altera/13.0sp1/quartus/libraries/megafunctions/a_fffifo.inc                                ;                 ;
-; a_f2fifo.inc                                          ; yes             ; Megafunction                 ; c:/altera/13.0sp1/quartus/libraries/megafunctions/a_f2fifo.inc                                ;                 ;
-; db/scfifo_7041.tdf                                    ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/scfifo_7041.tdf                                    ;                 ;
-; db/a_dpfifo_qn31.tdf                                  ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/a_dpfifo_qn31.tdf                                  ;                 ;
-; db/altsyncram_vc81.tdf                                ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/altsyncram_vc81.tdf                                ;                 ;
-; db/cmpr_2o8.tdf                                       ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/cmpr_2o8.tdf                                       ;                 ;
-; db/cntr_d5b.tdf                                       ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/cntr_d5b.tdf                                       ;                 ;
-; db/cntr_q57.tdf                                       ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/cntr_q57.tdf                                       ;                 ;
-; db/cntr_e5b.tdf                                       ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/cntr_e5b.tdf                                       ;                 ;
-; altpll.tdf                                            ; yes             ; Megafunction                 ; c:/altera/13.0sp1/quartus/libraries/megafunctions/altpll.tdf                                  ;                 ;
-; stratix_pll.inc                                       ; yes             ; Megafunction                 ; c:/altera/13.0sp1/quartus/libraries/megafunctions/stratix_pll.inc                             ;                 ;
-; stratixii_pll.inc                                     ; yes             ; Megafunction                 ; c:/altera/13.0sp1/quartus/libraries/megafunctions/stratixii_pll.inc                           ;                 ;
-; cycloneii_pll.inc                                     ; yes             ; Megafunction                 ; c:/altera/13.0sp1/quartus/libraries/megafunctions/cycloneii_pll.inc                           ;                 ;
-; distortion.v                                          ; yes             ; Auto-Found Verilog HDL File  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/distortion.v                                          ;                 ;
-; altshift_taps.tdf                                     ; yes             ; Megafunction                 ; c:/altera/13.0sp1/quartus/libraries/megafunctions/altshift_taps.tdf                           ;                 ;
-; altdpram.inc                                          ; yes             ; Megafunction                 ; c:/altera/13.0sp1/quartus/libraries/megafunctions/altdpram.inc                                ;                 ;
-; lpm_counter.inc                                       ; yes             ; Megafunction                 ; c:/altera/13.0sp1/quartus/libraries/megafunctions/lpm_counter.inc                             ;                 ;
-; lpm_compare.inc                                       ; yes             ; Megafunction                 ; c:/altera/13.0sp1/quartus/libraries/megafunctions/lpm_compare.inc                             ;                 ;
-; lpm_constant.inc                                      ; yes             ; Megafunction                 ; c:/altera/13.0sp1/quartus/libraries/megafunctions/lpm_constant.inc                            ;                 ;
-; db/shift_taps_okm.tdf                                 ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/shift_taps_okm.tdf                                 ;                 ;
-; db/altsyncram_kc81.tdf                                ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/altsyncram_kc81.tdf                                ;                 ;
-; db/cntr_8mf.tdf                                       ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/cntr_8mf.tdf                                       ;                 ;
-; db/cmpr_9cc.tdf                                       ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/cmpr_9cc.tdf                                       ;                 ;
-; db/shift_taps_5jm.tdf                                 ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/shift_taps_5jm.tdf                                 ;                 ;
-; db/altsyncram_e981.tdf                                ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/altsyncram_e981.tdf                                ;                 ;
-; db/cntr_9mf.tdf                                       ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/cntr_9mf.tdf                                       ;                 ;
-; db/shift_taps_bjm.tdf                                 ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/shift_taps_bjm.tdf                                 ;                 ;
-; db/altsyncram_m981.tdf                                ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/altsyncram_m981.tdf                                ;                 ;
-; db/cntr_nkf.tdf                                       ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/cntr_nkf.tdf                                       ;                 ;
-; db/cmpr_7cc.tdf                                       ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/cmpr_7cc.tdf                                       ;                 ;
-; db/shift_taps_3jm.tdf                                 ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/shift_taps_3jm.tdf                                 ;                 ;
-; db/altsyncram_9g31.tdf                                ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/altsyncram_9g31.tdf                                ;                 ;
-; db/add_sub_gvd.tdf                                    ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_gvd.tdf                                    ;                 ;
-; db/cntr_kkf.tdf                                       ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/cntr_kkf.tdf                                       ;                 ;
-; db/cmpr_6cc.tdf                                       ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/cmpr_6cc.tdf                                       ;                 ;
-; db/shift_taps_7jm.tdf                                 ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/shift_taps_7jm.tdf                                 ;                 ;
-; db/altsyncram_hg31.tdf                                ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/altsyncram_hg31.tdf                                ;                 ;
-; db/mult_dct.tdf                                       ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/mult_dct.tdf                                       ;                 ;
-; lpm_divide.tdf                                        ; yes             ; Megafunction                 ; c:/altera/13.0sp1/quartus/libraries/megafunctions/lpm_divide.tdf                              ;                 ;
-; abs_divider.inc                                       ; yes             ; Megafunction                 ; c:/altera/13.0sp1/quartus/libraries/megafunctions/abs_divider.inc                             ;                 ;
-; sign_div_unsign.inc                                   ; yes             ; Megafunction                 ; c:/altera/13.0sp1/quartus/libraries/megafunctions/sign_div_unsign.inc                         ;                 ;
-; db/lpm_divide_rfm.tdf                                 ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/lpm_divide_rfm.tdf                                 ;                 ;
-; db/sign_div_unsign_5nh.tdf                            ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/sign_div_unsign_5nh.tdf                            ;                 ;
-; db/alt_u_div_c5f.tdf                                  ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/alt_u_div_c5f.tdf                                  ;                 ;
-; db/add_sub_lkc.tdf                                    ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_lkc.tdf                                    ;                 ;
-; db/add_sub_mkc.tdf                                    ; yes             ; Auto-Generated Megafunction  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_mkc.tdf                                    ;                 ;
-+-------------------------------------------------------+-----------------+------------------------------+-----------------------------------------------------------------------------------------------+-----------------+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                                                                        ;
++-------------------------------------------------------+-----------------+-----------------------------------+-----------------------------------------------------------------------------------------------+-----------------+
+; File Name with User-Entered Path                      ; Used in Netlist ; File Type                         ; File Name with Absolute Path                                                                  ; Library         ;
++-------------------------------------------------------+-----------------+-----------------------------------+-----------------------------------------------------------------------------------------------+-----------------+
+; wah_wah.v                                             ; yes             ; User Verilog HDL File             ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/wah_wah.v                                             ;                 ;
+; fpAddWrapper.v                                        ; yes             ; User Verilog HDL File             ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpAddWrapper.v                                        ;                 ;
+; fpFloat2IntWrapper.v                                  ; yes             ; User Verilog HDL File             ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpFloat2IntWrapper.v                                  ;                 ;
+; fpInt2FloatWrapper.v                                  ; yes             ; User Verilog HDL File             ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpInt2FloatWrapper.v                                  ;                 ;
+; fpMulWrapper.v                                        ; yes             ; User Verilog HDL File             ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpMulWrapper.v                                        ;                 ;
+; tremolo.v                                             ; yes             ; User Verilog HDL File             ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/tremolo.v                                             ;                 ;
+; fpUnit.v                                              ; yes             ; User Verilog HDL File             ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpUnit.v                                              ;                 ;
+; noise_fitler.v                                        ; yes             ; User Verilog HDL File             ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/noise_fitler.v                                        ;                 ;
+; DE1_TOP.v                                             ; yes             ; User Verilog HDL File             ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/DE1_TOP.v                                             ;                 ;
+; audio_core.v                                          ; yes             ; User Wizard-Generated File        ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/audio_core.v                                          ; audio_core      ;
+; audio_core/altera_up_audio_bit_counter.v              ; yes             ; User Verilog HDL File             ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/audio_core/altera_up_audio_bit_counter.v              ; audio_core      ;
+; audio_core/altera_up_audio_in_deserializer.v          ; yes             ; User Verilog HDL File             ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/audio_core/altera_up_audio_in_deserializer.v          ; audio_core      ;
+; audio_core/altera_up_audio_out_serializer.v           ; yes             ; User Verilog HDL File             ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/audio_core/altera_up_audio_out_serializer.v           ; audio_core      ;
+; audio_core/altera_up_clock_edge.v                     ; yes             ; User Verilog HDL File             ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/audio_core/altera_up_clock_edge.v                     ; audio_core      ;
+; audio_core/altera_up_sync_fifo.v                      ; yes             ; User Verilog HDL File             ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/audio_core/altera_up_sync_fifo.v                      ; audio_core      ;
+; audio_core/audio_core_0002.v                          ; yes             ; User Verilog HDL File             ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/audio_core/audio_core_0002.v                          ; audio_core      ;
+; av_config.v                                           ; yes             ; User Wizard-Generated File        ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/av_config.v                                           ; av_config       ;
+; av_config/altera_up_av_config_serial_bus_controller.v ; yes             ; User Verilog HDL File             ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/av_config/altera_up_av_config_serial_bus_controller.v ; av_config       ;
+; av_config/altera_up_slow_clock_generator.v            ; yes             ; User Verilog HDL File             ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/av_config/altera_up_slow_clock_generator.v            ; av_config       ;
+; av_config/altera_up_av_config_auto_init.v             ; yes             ; User Verilog HDL File             ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/av_config/altera_up_av_config_auto_init.v             ; av_config       ;
+; av_config/altera_up_av_config_auto_init_ob_audio.v    ; yes             ; User Verilog HDL File             ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/av_config/altera_up_av_config_auto_init_ob_audio.v    ; av_config       ;
+; av_config/av_config_0002.v                            ; yes             ; User Verilog HDL File             ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/av_config/av_config_0002.v                            ; av_config       ;
+; audio_clock_gen.v                                     ; yes             ; User Wizard-Generated File        ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/audio_clock_gen.v                                     ; audio_clock_gen ;
+; audio_clock_gen/audio_clock_gen_0002.v                ; yes             ; User Verilog HDL File             ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/audio_clock_gen/audio_clock_gen_0002.v                ; audio_clock_gen ;
+; smart_ram.v                                           ; yes             ; User Verilog HDL File             ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/smart_ram.v                                           ;                 ;
+; echo.v                                                ; yes             ; User Verilog HDL File             ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/echo.v                                                ;                 ;
+; sinus.v                                               ; yes             ; User Wizard-Generated File        ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/sinus.v                                               ;                 ;
+; sin.v                                                 ; yes             ; User Verilog HDL File             ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/sin.v                                                 ;                 ;
+; vibrato.v                                             ; yes             ; User Verilog HDL File             ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/vibrato.v                                             ;                 ;
+; fpAdd.v                                               ; yes             ; User Wizard-Generated File        ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpAdd.v                                               ;                 ;
+; fpInt2Float.v                                         ; yes             ; User Wizard-Generated File        ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpInt2Float.v                                         ;                 ;
+; fpFloat2Int.v                                         ; yes             ; User Wizard-Generated File        ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpFloat2Int.v                                         ;                 ;
+; fpMult.v                                              ; yes             ; User Wizard-Generated File        ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpMult.v                                              ;                 ;
+; chorus.v                                              ; yes             ; User Verilog HDL File             ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/chorus.v                                              ;                 ;
+; sram.v                                                ; yes             ; User Wizard-Generated File        ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/sram.v                                                ; sram            ;
+; sram/sram_0002.v                                      ; yes             ; User Verilog HDL File             ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/sram/sram_0002.v                                      ; sram            ;
+; fpCompareWrapper.v                                    ; yes             ; User Verilog HDL File             ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpCompareWrapper.v                                    ;                 ;
+; lpm_add_sub.tdf                                       ; yes             ; Megafunction                      ; c:/altera/13.0sp1/quartus/libraries/megafunctions/lpm_add_sub.tdf                             ;                 ;
+; addcore.inc                                           ; yes             ; Megafunction                      ; c:/altera/13.0sp1/quartus/libraries/megafunctions/addcore.inc                                 ;                 ;
+; look_add.inc                                          ; yes             ; Megafunction                      ; c:/altera/13.0sp1/quartus/libraries/megafunctions/look_add.inc                                ;                 ;
+; bypassff.inc                                          ; yes             ; Megafunction                      ; c:/altera/13.0sp1/quartus/libraries/megafunctions/bypassff.inc                                ;                 ;
+; altshift.inc                                          ; yes             ; Megafunction                      ; c:/altera/13.0sp1/quartus/libraries/megafunctions/altshift.inc                                ;                 ;
+; alt_stratix_add_sub.inc                               ; yes             ; Megafunction                      ; c:/altera/13.0sp1/quartus/libraries/megafunctions/alt_stratix_add_sub.inc                     ;                 ;
+; aglobal130.inc                                        ; yes             ; Megafunction                      ; c:/altera/13.0sp1/quartus/libraries/megafunctions/aglobal130.inc                              ;                 ;
+; db/add_sub_ore.tdf                                    ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_ore.tdf                                    ;                 ;
+; db/add_sub_lre.tdf                                    ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_lre.tdf                                    ;                 ;
+; db/add_sub_nqe.tdf                                    ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_nqe.tdf                                    ;                 ;
+; db/add_sub_l8j.tdf                                    ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_l8j.tdf                                    ;                 ;
+; db/add_sub_l1j.tdf                                    ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_l1j.tdf                                    ;                 ;
+; db/add_sub_qii.tdf                                    ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_qii.tdf                                    ;                 ;
+; db/add_sub_taf.tdf                                    ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_taf.tdf                                    ;                 ;
+; db/add_sub_6jf.tdf                                    ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_6jf.tdf                                    ;                 ;
+; lpm_compare.tdf                                       ; yes             ; Megafunction                      ; c:/altera/13.0sp1/quartus/libraries/megafunctions/lpm_compare.tdf                             ;                 ;
+; comptree.inc                                          ; yes             ; Megafunction                      ; c:/altera/13.0sp1/quartus/libraries/megafunctions/comptree.inc                                ;                 ;
+; db/cmpr_aag.tdf                                       ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/cmpr_aag.tdf                                       ;                 ;
+; db/add_sub_pvd.tdf                                    ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_pvd.tdf                                    ;                 ;
+; db/add_sub_gna.tdf                                    ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_gna.tdf                                    ;                 ;
+; db/add_sub_egg.tdf                                    ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_egg.tdf                                    ;                 ;
+; db/add_sub_7pb.tdf                                    ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_7pb.tdf                                    ;                 ;
+; lpm_mult.tdf                                          ; yes             ; Megafunction                      ; c:/altera/13.0sp1/quartus/libraries/megafunctions/lpm_mult.tdf                                ;                 ;
+; lpm_add_sub.inc                                       ; yes             ; Megafunction                      ; c:/altera/13.0sp1/quartus/libraries/megafunctions/lpm_add_sub.inc                             ;                 ;
+; multcore.inc                                          ; yes             ; Megafunction                      ; c:/altera/13.0sp1/quartus/libraries/megafunctions/multcore.inc                                ;                 ;
+; db/mult_01t.tdf                                       ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/mult_01t.tdf                                       ;                 ;
+; db/add_sub_8se.tdf                                    ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_8se.tdf                                    ;                 ;
+; db/add_sub_5re.tdf                                    ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_5re.tdf                                    ;                 ;
+; db/add_sub_ebf.tdf                                    ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_ebf.tdf                                    ;                 ;
+; db/add_sub_gbf.tdf                                    ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_gbf.tdf                                    ;                 ;
+; db/add_sub_mse.tdf                                    ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_mse.tdf                                    ;                 ;
+; db/cmpr_nrg.tdf                                       ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/cmpr_nrg.tdf                                       ;                 ;
+; db/cmpr_dhg.tdf                                       ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/cmpr_dhg.tdf                                       ;                 ;
+; db/cmpr_khg.tdf                                       ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/cmpr_khg.tdf                                       ;                 ;
+; db/cmpr_ehg.tdf                                       ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/cmpr_ehg.tdf                                       ;                 ;
+; db/add_sub_jse.tdf                                    ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_jse.tdf                                    ;                 ;
+; db/add_sub_dbf.tdf                                    ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_dbf.tdf                                    ;                 ;
+; db/add_sub_7re.tdf                                    ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_7re.tdf                                    ;                 ;
+; fpcompare.v                                           ; yes             ; Auto-Found Wizard-Generated File  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpcompare.v                                           ;                 ;
+; db/cmpr_saj.tdf                                       ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/cmpr_saj.tdf                                       ;                 ;
+; db/cmpr_raj.tdf                                       ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/cmpr_raj.tdf                                       ;                 ;
+; lpm_mux.tdf                                           ; yes             ; Megafunction                      ; c:/altera/13.0sp1/quartus/libraries/megafunctions/lpm_mux.tdf                                 ;                 ;
+; muxlut.inc                                            ; yes             ; Megafunction                      ; c:/altera/13.0sp1/quartus/libraries/megafunctions/muxlut.inc                                  ;                 ;
+; db/mux_3qc.tdf                                        ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/mux_3qc.tdf                                        ;                 ;
+; db/add_sub_2ef.tdf                                    ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_2ef.tdf                                    ;                 ;
+; db/add_sub_83f.tdf                                    ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_83f.tdf                                    ;                 ;
+; db/add_sub_94f.tdf                                    ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_94f.tdf                                    ;                 ;
+; db/mult_feo.tdf                                       ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/mult_feo.tdf                                       ;                 ;
+; db/mux_ctc.tdf                                        ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/mux_ctc.tdf                                        ;                 ;
+; db/add_sub_b3f.tdf                                    ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_b3f.tdf                                    ;                 ;
+; db/add_sub_r2f.tdf                                    ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_r2f.tdf                                    ;                 ;
+; db/add_sub_lgf.tdf                                    ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_lgf.tdf                                    ;                 ;
+; db/add_sub_5ef.tdf                                    ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_5ef.tdf                                    ;                 ;
+; db/add_sub_q1f.tdf                                    ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_q1f.tdf                                    ;                 ;
+; lpm_clshift.tdf                                       ; yes             ; Megafunction                      ; c:/altera/13.0sp1/quartus/libraries/megafunctions/lpm_clshift.tdf                             ;                 ;
+; db/lpm_clshift_qc9.tdf                                ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/lpm_clshift_qc9.tdf                                ;                 ;
+; db/lpm_clshift_e9d.tdf                                ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/lpm_clshift_e9d.tdf                                ;                 ;
+; db/mult_nlo.tdf                                       ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/mult_nlo.tdf                                       ;                 ;
+; db/add_sub_p1f.tdf                                    ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_p1f.tdf                                    ;                 ;
+; db/add_sub_q2f.tdf                                    ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_q2f.tdf                                    ;                 ;
+; db/add_sub_63f.tdf                                    ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_63f.tdf                                    ;                 ;
+; db/add_sub_4ef.tdf                                    ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_4ef.tdf                                    ;                 ;
+; db/lpm_clshift_vc9.tdf                                ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/lpm_clshift_vc9.tdf                                ;                 ;
+; db/mult_d7o.tdf                                       ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/mult_d7o.tdf                                       ;                 ;
+; scfifo.tdf                                            ; yes             ; Megafunction                      ; c:/altera/13.0sp1/quartus/libraries/megafunctions/scfifo.tdf                                  ;                 ;
+; a_regfifo.inc                                         ; yes             ; Megafunction                      ; c:/altera/13.0sp1/quartus/libraries/megafunctions/a_regfifo.inc                               ;                 ;
+; a_dpfifo.inc                                          ; yes             ; Megafunction                      ; c:/altera/13.0sp1/quartus/libraries/megafunctions/a_dpfifo.inc                                ;                 ;
+; a_i2fifo.inc                                          ; yes             ; Megafunction                      ; c:/altera/13.0sp1/quartus/libraries/megafunctions/a_i2fifo.inc                                ;                 ;
+; a_fffifo.inc                                          ; yes             ; Megafunction                      ; c:/altera/13.0sp1/quartus/libraries/megafunctions/a_fffifo.inc                                ;                 ;
+; a_f2fifo.inc                                          ; yes             ; Megafunction                      ; c:/altera/13.0sp1/quartus/libraries/megafunctions/a_f2fifo.inc                                ;                 ;
+; db/scfifo_7041.tdf                                    ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/scfifo_7041.tdf                                    ;                 ;
+; db/a_dpfifo_qn31.tdf                                  ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/a_dpfifo_qn31.tdf                                  ;                 ;
+; db/altsyncram_vc81.tdf                                ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/altsyncram_vc81.tdf                                ;                 ;
+; db/cmpr_2o8.tdf                                       ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/cmpr_2o8.tdf                                       ;                 ;
+; db/cntr_d5b.tdf                                       ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/cntr_d5b.tdf                                       ;                 ;
+; db/cntr_q57.tdf                                       ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/cntr_q57.tdf                                       ;                 ;
+; db/cntr_e5b.tdf                                       ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/cntr_e5b.tdf                                       ;                 ;
+; altpll.tdf                                            ; yes             ; Megafunction                      ; c:/altera/13.0sp1/quartus/libraries/megafunctions/altpll.tdf                                  ;                 ;
+; stratix_pll.inc                                       ; yes             ; Megafunction                      ; c:/altera/13.0sp1/quartus/libraries/megafunctions/stratix_pll.inc                             ;                 ;
+; stratixii_pll.inc                                     ; yes             ; Megafunction                      ; c:/altera/13.0sp1/quartus/libraries/megafunctions/stratixii_pll.inc                           ;                 ;
+; cycloneii_pll.inc                                     ; yes             ; Megafunction                      ; c:/altera/13.0sp1/quartus/libraries/megafunctions/cycloneii_pll.inc                           ;                 ;
+; distortion.v                                          ; yes             ; Auto-Found Verilog HDL File       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/distortion.v                                          ;                 ;
+; altshift_taps.tdf                                     ; yes             ; Megafunction                      ; c:/altera/13.0sp1/quartus/libraries/megafunctions/altshift_taps.tdf                           ;                 ;
+; altdpram.inc                                          ; yes             ; Megafunction                      ; c:/altera/13.0sp1/quartus/libraries/megafunctions/altdpram.inc                                ;                 ;
+; lpm_counter.inc                                       ; yes             ; Megafunction                      ; c:/altera/13.0sp1/quartus/libraries/megafunctions/lpm_counter.inc                             ;                 ;
+; lpm_compare.inc                                       ; yes             ; Megafunction                      ; c:/altera/13.0sp1/quartus/libraries/megafunctions/lpm_compare.inc                             ;                 ;
+; lpm_constant.inc                                      ; yes             ; Megafunction                      ; c:/altera/13.0sp1/quartus/libraries/megafunctions/lpm_constant.inc                            ;                 ;
+; db/shift_taps_okm.tdf                                 ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/shift_taps_okm.tdf                                 ;                 ;
+; db/altsyncram_kc81.tdf                                ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/altsyncram_kc81.tdf                                ;                 ;
+; db/cntr_8mf.tdf                                       ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/cntr_8mf.tdf                                       ;                 ;
+; db/cmpr_9cc.tdf                                       ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/cmpr_9cc.tdf                                       ;                 ;
+; db/shift_taps_5jm.tdf                                 ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/shift_taps_5jm.tdf                                 ;                 ;
+; db/altsyncram_e981.tdf                                ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/altsyncram_e981.tdf                                ;                 ;
+; db/cntr_9mf.tdf                                       ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/cntr_9mf.tdf                                       ;                 ;
+; db/shift_taps_bjm.tdf                                 ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/shift_taps_bjm.tdf                                 ;                 ;
+; db/altsyncram_m981.tdf                                ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/altsyncram_m981.tdf                                ;                 ;
+; db/cntr_nkf.tdf                                       ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/cntr_nkf.tdf                                       ;                 ;
+; db/cmpr_7cc.tdf                                       ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/cmpr_7cc.tdf                                       ;                 ;
+; db/shift_taps_3jm.tdf                                 ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/shift_taps_3jm.tdf                                 ;                 ;
+; db/altsyncram_9g31.tdf                                ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/altsyncram_9g31.tdf                                ;                 ;
+; db/add_sub_gvd.tdf                                    ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_gvd.tdf                                    ;                 ;
+; db/cntr_kkf.tdf                                       ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/cntr_kkf.tdf                                       ;                 ;
+; db/cmpr_6cc.tdf                                       ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/cmpr_6cc.tdf                                       ;                 ;
+; db/shift_taps_7jm.tdf                                 ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/shift_taps_7jm.tdf                                 ;                 ;
+; db/altsyncram_hg31.tdf                                ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/altsyncram_hg31.tdf                                ;                 ;
+; db/mult_dct.tdf                                       ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/mult_dct.tdf                                       ;                 ;
+; lpm_divide.tdf                                        ; yes             ; Megafunction                      ; c:/altera/13.0sp1/quartus/libraries/megafunctions/lpm_divide.tdf                              ;                 ;
+; abs_divider.inc                                       ; yes             ; Megafunction                      ; c:/altera/13.0sp1/quartus/libraries/megafunctions/abs_divider.inc                             ;                 ;
+; sign_div_unsign.inc                                   ; yes             ; Megafunction                      ; c:/altera/13.0sp1/quartus/libraries/megafunctions/sign_div_unsign.inc                         ;                 ;
+; db/lpm_divide_rfm.tdf                                 ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/lpm_divide_rfm.tdf                                 ;                 ;
+; db/sign_div_unsign_5nh.tdf                            ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/sign_div_unsign_5nh.tdf                            ;                 ;
+; db/alt_u_div_c5f.tdf                                  ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/alt_u_div_c5f.tdf                                  ;                 ;
+; db/add_sub_lkc.tdf                                    ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_lkc.tdf                                    ;                 ;
+; db/add_sub_mkc.tdf                                    ; yes             ; Auto-Generated Megafunction       ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/db/add_sub_mkc.tdf                                    ;                 ;
++-------------------------------------------------------+-----------------+-----------------------------------+-----------------------------------------------------------------------------------------------+-----------------+
 
 
 +--------------------------------------------------------+
@@ -827,7 +827,7 @@ Note: number of Embedded Multiplier Blocks used is only available after a succes
 ; Altera ; ALTFP_SINCOS                            ; 13.0    ; N/A          ; N/A          ; |DE1_TOP|sin:iSinus|sinus:s                                            ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/sinus.v           ;
 ; Altera ; altera_up_avalon_sram                   ; 13.0sp1 ; N/A          ; N/A          ; |DE1_TOP|smart_ram:smv1|sram:r                                         ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/sram.v            ;
 ; Altera ; ALTFP_ADD_SUB                           ; 13.0    ; N/A          ; N/A          ; |DE1_TOP|fpUnit:u0|fpAddWrapper:fadd|fpAdd:fpAdd_inst                  ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpAdd.v           ;
-; Altera ; ALTFP_COMPARE                           ; 13.0    ; N/A          ; N/A          ; |DE1_TOP|fpUnit:u0|fpCompareWrapper:fcmp|fpCompare:fpCompare_inst      ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpCompare.v       ;
+; Altera ; ALTFP_COMPARE                           ; N/A     ; N/A          ; N/A          ; |DE1_TOP|fpUnit:u0|fpCompareWrapper:fcmp|fpCompare:fpCompare_inst      ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpcompare.v       ;
 ; Altera ; ALTFP_MULT                              ; 13.0    ; N/A          ; N/A          ; |DE1_TOP|fpUnit:u0|fpMulWrapper:fmul|fpMult:fpMult_inst                ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpMult.v          ;
 ; Altera ; ALTFP_CONVERT                           ; 13.0    ; N/A          ; N/A          ; |DE1_TOP|fpUnit:u0|fpFloat2IntWrapper:fti|fpFloat2Int:fpFloat2Int_inst ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpFloat2Int.v     ;
 ; Altera ; ALTFP_CONVERT                           ; 13.0    ; N/A          ; N/A          ; |DE1_TOP|fpUnit:u0|fpInt2FloatWrapper:i2f|fpInt2Float:fpInt2Float_inst ; G:/Projects/FPGAGuitarProcessor/DE1_TOP/fpInt2Float.v     ;
@@ -7182,7 +7182,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:01:13     ;
+; Top            ; 00:01:19     ;
 +----------------+--------------+
 
 
@@ -7192,8 +7192,12 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus II 32-bit Analysis & Synthesis
     Info: Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
-    Info: Processing started: Sun Jun 10 21:35:45 2018
+    Info: Processing started: Fri Jun 22 00:35:32 2018
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off DE1_TOP -c DE1_TOP
+Warning (125092): Tcl Script File fpCompare.qip not found
+    Info (125063): set_global_assignment -name QIP_FILE fpCompare.qip
+Warning (125092): Tcl Script File fpExp.qip not found
+    Info (125063): set_global_assignment -name QIP_FILE fpExp.qip
 Critical Warning (138069): Setting INCREMENTAL_COMPILATION to "OFF" is no longer supported. Assignment is ignored. To disable partitions, set the IGNORE_PARTITIONS global assignment to "ON" instead.
 Info (11104): Parallel Compilation has detected 8 hyper-threaded processors. However, the extra hyper-threaded processors will not be used by default. Parallel Compilation will use 4 of the 4 physical processors detected instead.
 Info (12021): Found 1 design units, including 1 entities, in source file wah_wah.v
@@ -7367,16 +7371,10 @@ Info (12021): Found 1 design units, including 1 entities, in source file sram.v
     Info (12023): Found entity 1: sram
 Info (12021): Found 1 design units, including 1 entities, in source file sram/sram_0002.v
     Info (12023): Found entity 1: sram_0002
-Info (12021): Found 2 design units, including 2 entities, in source file fpcompare.v
-    Info (12023): Found entity 1: fpCompare_altfp_compare_eld
-    Info (12023): Found entity 2: fpCompare
 Info (12021): Found 1 design units, including 1 entities, in source file fpcomparewrapper.v
     Info (12023): Found entity 1: fpCompareWrapper
 Info (12021): Found 1 design units, including 1 entities, in source file tests/test_fpunit.v
     Info (12023): Found entity 1: test_fpunit
-Info (12021): Found 2 design units, including 2 entities, in source file fpexp.v
-    Info (12023): Found entity 1: fpExp_altfp_exp_d6d
-    Info (12023): Found entity 2: fpExp
 Info (12021): Found 1 design units, including 1 entities, in source file fpexpwrapper.v
     Info (12023): Found entity 1: fpExpWrapper
 Warning (10236): Verilog HDL Implicit Net warning at test_echo.v(69): created implicit net for "reset"
@@ -7748,6 +7746,9 @@ Info (12021): Found 1 design units, including 1 entities, in source file db/add_
     Info (12023): Found entity 1: add_sub_7re
 Info (12128): Elaborating entity "add_sub_7re" for hierarchy "fpUnit:u0|fpInt2FloatWrapper:i2f|fpInt2Float:fpInt2Float_inst|fpInt2Float_altfp_convert_fhn:fpInt2Float_altfp_convert_fhn_component|lpm_add_sub:add_sub8|add_sub_7re:auto_generated"
 Info (12128): Elaborating entity "fpCompareWrapper" for hierarchy "fpUnit:u0|fpCompareWrapper:fcmp"
+Warning (12125): Using design file fpcompare.v, which is not specified as a design file for the current project, but contains definitions for 2 design units and 2 entities in project
+    Info (12023): Found entity 1: fpCompare_altfp_compare_eld
+    Info (12023): Found entity 2: fpCompare
 Info (12128): Elaborating entity "fpCompare" for hierarchy "fpUnit:u0|fpCompareWrapper:fcmp|fpCompare:fpCompare_inst"
 Info (12128): Elaborating entity "fpCompare_altfp_compare_eld" for hierarchy "fpUnit:u0|fpCompareWrapper:fcmp|fpCompare:fpCompare_inst|fpCompare_altfp_compare_eld:fpCompare_altfp_compare_eld_component"
 Info (12128): Elaborating entity "lpm_compare" for hierarchy "fpUnit:u0|fpCompareWrapper:fcmp|fpCompare:fpCompare_inst|fpCompare_altfp_compare_eld:fpCompare_altfp_compare_eld_component|lpm_compare:cmpr1"
@@ -8691,11 +8692,11 @@ Info (21057): Implemented 15172 device resources after synthesis - the final res
     Info (21064): Implemented 180 RAM segments
     Info (21065): Implemented 1 PLLs
     Info (21062): Implemented 46 DSP elements
-Info: Quartus II 32-bit Analysis & Synthesis was successful. 0 errors, 397 warnings
-    Info: Peak virtual memory: 855 megabytes
-    Info: Processing ended: Sun Jun 10 21:37:17 2018
-    Info: Elapsed time: 00:01:32
-    Info: Total CPU time (on all processors): 00:01:32
+Info: Quartus II 32-bit Analysis & Synthesis was successful. 0 errors, 400 warnings
+    Info: Peak virtual memory: 858 megabytes
+    Info: Processing ended: Fri Jun 22 00:37:15 2018
+    Info: Elapsed time: 00:01:43
+    Info: Total CPU time (on all processors): 00:01:38
 
 
 +------------------------------------------+
