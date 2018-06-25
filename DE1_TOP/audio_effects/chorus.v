@@ -23,7 +23,7 @@ module chorus
     );
 
    function reg [ADDR_WIDTH-1:0] delay_to_off(input [31:0] dly); begin //ms;
-      delay_to_off = 4 * dly * SAMPLERATE / 1000; // multiply it by two cuz memory address must be even number
+      delay_to_off = 2 * dly * SAMPLERATE / 1000; // multiply it by two cuz memory address must be even number
    end
    endfunction
 

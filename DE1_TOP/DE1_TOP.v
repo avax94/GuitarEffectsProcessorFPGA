@@ -477,10 +477,10 @@ module DE1_TOP
    wire                  vibrato_fp_clk_en;
 
    vibrato #(.DATA_WIDTH(DATA_WIDTH),
-             .ADDR_WIDTH(ADDR_WIDTH),
-             .SAMPLERATE(48000), //Hz
-             .DELAY(5))
+             .ADDR_WIDTH(ADDR_WIDTH)
+             )
    vib (.modfreq_control_key(current_selection == VIBRATO_CONTROL && rising_edge_button2),
+        .delay_control_key(current_selection == VIBRATO_CONTROL && rising_edge_button3),
         .sinus_done(sinus_done_value),
         .sinus_result(sinus_result_value),
         .sinus_angle(vibrato_sinus_angle),
@@ -519,9 +519,7 @@ module DE1_TOP
    wire [DATA_WIDTH-1:0] echo_data_out;
 
    echo #(.DATA_WIDTH(DATA_WIDTH),
-          .ADDR_WIDTH(ADDR_WIDTH),
-          .OFFSET(24000),
-          .N(1))
+          .ADDR_WIDTH(ADDR_WIDTH))
    ech (.offset_control_key(current_selection == ECHO_CONTROL && rising_edge_button2),
         .gain_control_key(current_selection == ECHO_CONTROL && rising_edge_button3),
         .sram_data_in(sram_data_out),
@@ -911,7 +909,7 @@ module DE1_TOP
    assign sinus_data_value = sinus_data_reg;
 
    assign LEDR[9:0] = current_selection;
-   assign LEDG[2:0] = state_left[2:0];
+   assign LEDG[7:0] = echo_sram_offset;
 
    assign sram_data_in = sram_data_in_value;
    assign sram_offset = sram_offset_value;// sram_offset_value; // state_left == VIBRATO ? vibrato_sram_offset : (state_left == CHORUS ? chorus_sram_offset : sram_offset_reg);

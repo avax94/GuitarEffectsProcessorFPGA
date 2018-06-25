@@ -8,14 +8,12 @@
 module vibrato
   #(
     parameter DATA_WIDTH=16,
-    parameter ADDR_WIDTH = 13,
-    parameter SAMPLERATE = 48000, //Hz
-    parameter CLOCK_FREQ = 50, // MHz   parameter MODFREQ = 5, //Hz
-    parameter DELAY = 5
+    parameter ADDR_WIDTH = 13
     )
    (
     /* control interface */
     input modfreq_control_key,
+    input delay_control_key,
     /* smart_ram interface */
     input [DATA_WIDTH-1:0]    sram_data_in,
     input                     sram_read_finish,
@@ -46,11 +44,6 @@ module vibrato
     output [31:0]             vibrato_substate_out
     );
 
-   function reg [ADDR_WIDTH-1:0] delay_to_off(input [31:0] dly); begin //ms;
-      delay_to_off = 4 * dly * SAMPLERATE / 1000;
-   end
-   endfunction
-
    /*
     variables
     */
@@ -58,6 +51,7 @@ module vibrato
 
    reg started, started_next;
    reg [2:0] modfreq_option, modfreq_option_next;
+   reg [2:0] delay_option, delay_option_next;
    reg                              my_turn_delay;
    wire [31:0]                      modfreq;
    reg [31:0]                       dataa;
@@ -70,36 +64,37 @@ module vibrato
    /*
     states
     */
-   localparam CALCULATE_ANGLE = 0, CALCULATE_SINUS = 1, INTERPRET_RESULTS = 2, INTERPOLATION = 3, DONE = 4;
+   localparam CALCULATE_ANGLE = 0, CALCULATE_SINUS = 1, CALCULATE_DELAY = 2, READ_DELAY = 3, DONE = 4;
    /*
     CALCULATE_ANGLE substates
     */
    localparam PASSIVE = 0,  CONVERT_TO_FLOAT = 1, MULTIPLY_FIRST = 2, MULTIPLY_SECOND = 3, MULTIPLY_THIRD = 4;
    /*
-    INTERPRET_RESULTS substates
+    CALCULATE_DELAY substates
     */
-   localparam  CONV_TO_FLOAT1 = 1, MUL_1 = 2, CONV_TO_FLOAT2 = 3, ADD_1 = 4, CONVERT_TO_INT = 5,  CONV_TO_FLOAT = 6, SUB = 7;
-   /*
-    INTERPOLATION substates
-    */
-   localparam READ_DELAY = 1, CONV_TO_F = 2, INTER_MUL1= 3, CONV_TO_F_1 = 4, SUB_1 = 5, INTER_MUL2 = 6, INTER_ADD = 7, INTER_TOINT = 8;
+   localparam  SINUS_DELAY = 1, CONV_TO_INT = 2, ADD = 3;
 
    /*
     Helper variables
     */
-   localparam TWO_PI = 32'b01000000110010010000111111011011, INTERPOLATION_COUNT = 2, DATA_WIDTH_DIFF = 32 - DATA_WIDTH;
+   localparam TWO_PI = 32'b01000000110010010000111111011011;
    integer                          state = CALCULATE_ANGLE, state_next;
    integer                          substate = CONVERT_TO_FLOAT, substate_next;
-   integer                          counter, counter_next; //
    integer                          sin_arg = 1, sin_arg_next = 1;
 
    reg [31:0]                       modfreqs [0:7];
 
    reg [DATA_WIDTH-1:0]             result_vibrato;
+   reg [31:0]                       delays_float [0:7];
+   reg [31:0]                       delays_int   [0:7];
+   wire [31:0]                      delay_float;
+   wire [31:0]                      delay_int;
 
    initial begin
       modfreq_option = 0;
       modfreq_option_next = 0;
+      delay_option = 0;
+      delay_option_next = 0;
       sin_arg = 1;
       sin_arg_next = 1;
       state = CALCULATE_ANGLE;
@@ -122,14 +117,47 @@ module vibrato
       modfreqs[6] = 32'b00111001101110011010111101110010;
       // 20Hz / 48KHz
       modfreqs[7] = 32'b00111001110110100111010000001110;
+
+      // Formula - DelayInMiliseconds * SampleRateInHerz / MilisecondsInSeconds
+      // 5 * 48000 / 1000
+      delays_int[0] = 32'b00000000000000000000000011110000;
+      delays_float[0] = 32'b01000011011100000000000000000000;
+
+      // 6 * 48000 / 1000
+      delays_int[1] = 32'b00000000000000000000000100100000;
+      delays_float[1] = 32'b01000011100100000000000000000000;
+
+      // 7 * 48000 / 1000
+      delays_int[2] = 32'b00000000000000000000000101010000;
+      delays_float[2] = 32'b01000011101010000000000000000000;
+
+      // 8 * 48000 / 1000
+      delays_int[3] = 32'b00000000000000000000000110000000;
+      delays_float[3] = 32'b01000011110000000000000000000000;
+
+      // 9 * 48000 / 1000
+      delays_int[4] = 32'b00000000000000000000000110110000;
+      delays_float[4] = 32'b01000011110110000000000000000000;
+
+      // 10 * 48000 / 1000
+      delays_int[5] = 32'b00000000000000000000000111100000;
+      delays_float[5] = 32'b01000011111100000000000000000000;
+
+      // 11 * 48000 / 1000
+      delays_int[6] = 32'b00000000000000000000001000010000;
+      delays_float[6] = 32'b01000100000001000000000000000000;
+
+      // 12 * 48000 / 1000
+      delays_int[7] = 32'b00000000000000000000001001000000;
+      delays_float[7] = 32'b01000100000100000000000000000000;
    end
 
 
    always @(posedge clk) begin
       modfreq_option <= modfreq_option_next;
+      delay_option <= delay_option_next;
       state <= state_next;
       substate <= substate_next;
-      counter <= counter_next;
       sin_arg <= sin_arg_next;
    end
 
@@ -137,9 +165,7 @@ module vibrato
    reg [31:0] cont2;
    reg [31:0] sin_val;
    reg        started_action = 0;
-   reg [31:0] zeiger;
    reg [31:0] delay_c;
-   reg [31:0] frac;
 
    task useFA;
       input [31:0] data1;
@@ -204,68 +230,31 @@ module vibrato
               end
            end
         end
-        INTERPRET_RESULTS: begin //1 + DELAY + DELAY*sin_val
+        CALCULATE_DELAY: begin //1 + DELAY_IN_NUMBER_OF_SAMPLES + DELAY_IN_NUMBER_OF_SAMPLES*sin_val
            case(substate)
-             CONV_TO_FLOAT1: begin
-                useFA(DELAY, DELAY, `floatis, cont1);
+             SINUS_DELAY: begin
+                useFA(delay_float, sin_val, `fmuls, cont1);
              end
-             MUL_1: begin
-                useFA(cont1, sin_val, `fmuls, cont1);
+             CONV_TO_INT: begin
+                useFA(cont1, cont1, `fixsi, cont1);
              end
-             CONV_TO_FLOAT2: begin
-                useFA(1+DELAY, 1+DELAY, `floatis, cont2);
-             end
-             ADD_1: begin
-                useFA(cont1, cont2, `fadds, zeiger);
-             end
-             CONVERT_TO_INT: begin
-                useFA(zeiger, zeiger, `fixsi, delay_c);
-             end
-             CONV_TO_FLOAT: begin
-                useFA(delay_c, delay_c, `floatis, cont1);
-             end
-             SUB: begin
-                useFA(zeiger, cont1, `fsubs, frac);
+             ADD: begin
+                delay_c <= 1 + delay_int + cont1;
              end
            endcase
         end
-        INTERPOLATION: begin //delay(x + 1) * frac + delay(x) * (1-frac)
-           case(substate)
-             READ_DELAY: begin
-                if(started_action == 0) begin
-                   started_action <= 1;
-                   sram_rd_reg <= 1;
+        READ_DELAY: begin
+           if(started_action == 0) begin
+              started_action <= 1;
+              sram_rd_reg <= 1;
 
-                   sram_offset_reg <= delay_to_off(delay_c);
-                end
+              sram_offset_reg <= delay_c * 2;
+           end
 
-                if(sram_read_finish) begin
-                   started_action <= 0;
-                   result_vibrato <= sram_data_in[DATA_WIDTH-1:0]; // critical path
-                end
-             end
-             CONV_TO_F: begin //int_to_float(delay)
-                useFA(cont1, cont1, `floatis, cont1);
-             end
-             INTER_MUL1: begin
-                useFA(cont1, frac, `fmuls, first_delay);
-             end
-             CONV_TO_F_1: begin //int_to_float(1)
-                useFA(1, 1, `floatis, one_f);
-             end
-             SUB_1: begin //1-frac
-                useFA(one_f, frac, `fsubs, second_delay);
-             end
-             INTER_MUL2: begin //(1-frac)*delay(x)
-                useFA(second_delay, cont1, `fmuls, second_delay);
-             end
-             INTER_ADD: begin
-                useFA(first_delay, second_delay, `fadds, result_vibrato);
-             end
-             INTER_TOINT: begin
-                useFA(result_vibrato, result_vibrato, `fixsi, result_vibrato);
-             end
-           endcase
+           if(sram_read_finish) begin
+              started_action <= 0;
+              result_vibrato <= sram_data_in[DATA_WIDTH-1:0]; // critical path
+           end
         end
       endcase
    end
@@ -278,7 +267,6 @@ module vibrato
         state_next <= state;
         sin_arg_next <= sin_arg;
         substate_next <= substate;
-        counter_next <= counter;
 
         case(state)
           CALCULATE_ANGLE: begin
@@ -307,65 +295,29 @@ module vibrato
           end
           CALCULATE_SINUS: begin
              if(sinus_done == 1) begin
-                state_next <= INTERPRET_RESULTS;
-                counter_next <= INTERPOLATION_COUNT;
+                state_next <= CALCULATE_DELAY;
              end
           end
-          INTERPRET_RESULTS: begin
+          CALCULATE_DELAY: begin
              case(substate)
                PASSIVE: begin
-                  substate_next <= CONV_TO_FLOAT1;
+                  substate_next <= SINUS_DELAY;
                end
-               CONV_TO_FLOAT1, MUL_1, CONV_TO_FLOAT2, ADD_1: begin
+               SINUS_DELAY, CONV_TO_INT: begin
                   if(fp_done == 1)
                     substate_next <= substate + 1;
                end
-               CONVERT_TO_INT: begin
-                  if(fp_done == 1) begin
-                     substate_next <= PASSIVE;
-                     state_next <= INTERPOLATION;
-                  end
+               ADD: begin
+                  substate_next <= PASSIVE;
+                  state_next <= READ_DELAY;
                end
              endcase
           end
-          INTERPOLATION: begin
-             case(substate)
-               PASSIVE: begin
-                  substate_next <= READ_DELAY;
-                  counter_next <= 0;
-               end
-               READ_DELAY: begin
-                  if(sram_read_finish == 1) begin
-                     substate_next <= PASSIVE;
-                     state_next <= DONE;
-                     counter_next <= counter + 1;
-                  end
-               end
-               CONV_TO_F: begin
-                  if(fp_done == 1) begin
-                     if(counter == INTERPOLATION_COUNT)
-                       substate_next <= CONV_TO_F_1;
-                     else
-                       substate_next <= INTER_MUL1;
-                  end
-               end
-               INTER_MUL1: begin
-                  if(fp_done == 1) begin
-                     substate_next <= READ_DELAY;
-                  end
-               end
-               CONV_TO_F_1, SUB_1, INTER_MUL2, INTER_ADD: begin
-                  if(fp_done == 1) begin
-                     substate_next <= substate + 1;
-                  end
-               end
-               INTER_TOINT: begin
-                  if(fp_done == 1) begin
-                     substate_next <= PASSIVE;
-                     state_next <= DONE;
-                  end
-               end
-             endcase
+          READ_DELAY: begin
+             if(sram_read_finish == 1) begin
+                substate_next <= PASSIVE;
+                state_next <= DONE;
+             end
           end
           DONE: begin
              state_next <= CALCULATE_ANGLE;
@@ -375,9 +327,13 @@ module vibrato
 
    always @(*) begin
       modfreq_option_next <= modfreq_option;
+      delay_option_next <= delay_option;
 
       if (modfreq_control_key) begin
          modfreq_option_next <= modfreq_option + 1;
+      end
+      if (delay_control_key) begin
+         delay_option_next <= delay_option + 1;
       end
    end
 
@@ -386,6 +342,8 @@ module vibrato
    assign fp_operation = operation;
    assign fp_clk_en = clk_enFA;
 
+   assign delay_int = delays_int[delay_option];
+   assign delay_float = delays_float[delay_option];
    assign sinus_angle = angle;
    assign sinus_clk_en = clk_en_sin;
    assign modfreq = modfreqs[modfreq_option];

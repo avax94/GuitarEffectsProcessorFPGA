@@ -101,38 +101,38 @@ module vibrato_t
       direction_next <= direction;
 
       if (my_turn) begin
-	 counter_next <= counter + 1;
+         counter_next <= counter + 1;
 
-	 if (counter >= freq_counter)
-	   begin
-	      counter_next <= 0;
-	   end
+         if (counter >= freq_counter)
+           begin
+              counter_next <= 0;
+           end
 
-	 if (counter >= freq_counter) begin
-	    if (generated_clock == 1) begin
-	       generated_clock_next <= 0;
-	    end
-	    else begin
-	       generated_clock_next <= 1;
-	    end
-	 end
+         if (counter >= freq_counter) begin
+            if (generated_clock == 1) begin
+               generated_clock_next <= 0;
+            end
+            else begin
+               generated_clock_next <= 1;
+            end
+         end
       end
 
       // only on positive newly generated clock edge update delay
       if (prev_generated_clock == 0 && generated_clock == 1) begin
-	 if (direction == 1) begin
-	    delay_next <= delay + 1;
-	 end
-	 else begin
-	    delay_next <= delay - 1;
-	 end
+         if (direction == 1) begin
+            delay_next <= delay + 1;
+         end
+         else begin
+            delay_next <= delay - 1;
+         end
 
-	 if (delay >= 2 * DELAY) begin
-	    direction_next <= 0;
-	 end
-	 else if (delay <= 0) begin
-	    direction_next <= 1;
-	 end
+         if (delay >= 2 * DELAY) begin
+            direction_next <= 0;
+         end
+         else if (delay <= 0) begin
+            direction_next <= 1;
+         end
       end
    end
 

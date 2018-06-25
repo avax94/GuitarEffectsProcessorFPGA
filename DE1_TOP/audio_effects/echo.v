@@ -4,9 +4,7 @@ module echo
   #(
     parameter DATA_WIDTH=16,
     parameter ADDR_WIDTH = 12,
-    parameter OFFSET = 2048,
-	 parameter SAMPLERATE = 48000,
-    parameter N = 3
+	 parameter SAMPLERATE = 48000
     )
    (
     /* control signals */
@@ -34,11 +32,11 @@ module echo
     );
 
    reg signed [DATA_WIDTH-1:0]    sram_data_helper;
-   reg [DATA_WIDTH-1:0]           sr_data_out, sr_data_out_next;
+   reg signed [DATA_WIDTH-1:0]    sr_data_out, sr_data_out_next;
    reg [ADDR_WIDTH-1:0]           sr_offset, sr_offset_next;
    reg                            sr_wr, sr_wr_next;
    reg                            sr_rd, sr_rd_next;
-   reg [DATA_WIDTH-1:0]           data_out_reg, data_out_reg_next;
+   reg signed [DATA_WIDTH-1:0]           data_out_reg, data_out_reg_next;
    reg [1:0]                      state, state_next;
    reg [31:0]                     offsets [0:7];
    wire [31:0]                    offset;
@@ -59,7 +57,7 @@ module echo
       gain_option_counter = 0;
       gain_option_counter_next = 0;
 
-      offsets[0] = 50;
+      offsets[0] = 0;
       offsets[1] = 75;
       offsets[2] = 100;
       offsets[4] = 125;
@@ -67,14 +65,14 @@ module echo
       offsets[6] = 175;
       offsets[7] = 200;
 
-      gains[0] = 8;
-      gains[1] = 4;
-      gains[2] = 2;
-      gains[3] = 1;
+      gains[0] = 3;
+      gains[1] = 2;
+      gains[2] = 1;
+      gains[3] = 0;
    end
 
    function reg [ADDR_WIDTH-1:0] delay_to_off(input [31:0] dly); begin //ms;
-      delay_to_off = 4 * dly * SAMPLERATE / 1000; // multiply it by two cuz memory address must be even number
+      delay_to_off = 2 * dly * SAMPLERATE / 1000; // multiply it by two cuz memory address must be even number
    end
    endfunction
 
@@ -109,16 +107,16 @@ module echo
         end
         GETDATA_AND_CALCULATE: begin
            if (sram_read_finish) begin
-              sram_data_helper = sram_data_in / gain;
+              sram_data_helper = sram_data_in >>> gain;
 
-              data_out_reg_next <= data_in + {{N{sram_data_in[DATA_WIDTH-1]}}, sram_data_in[DATA_WIDTH-1:N]};
+              data_out_reg_next <= data_in + sram_data_helper;
               state_next <= DONE;
 
               if (should_save)
                 begin
-                   sr_offset_next <= 1;
+                   sr_offset_next <= 2;
                    sr_wr_next <= 1;
-                   sr_data_out_next <= data_in + {{1{sram_data_in[DATA_WIDTH-1]}}, sram_data_in[DATA_WIDTH-1:1]};
+                   sr_data_out_next <= data_in + sram_data_helper;
                    state_next <= SAVE;
                 end
            end

@@ -110,17 +110,17 @@ module smart_ram
 			end
 			else if(rd == 1)
 			begin
-			   offset_reg_next <= offset + 4;
+			   offset_reg_next <= offset + 2;
 			   rdreg_next <= 1;
 			   state_next <= WAITING;
 			end
 		end
-                else if (state == WAITING) begin
-                   state_next <= WAITING2;
-                end
-               else if (state == WAITING2) begin
-                   state_next <= READ;
-                end
+		else if (state == WAITING) begin
+			state_next <= WAITING2;
+		end
+		else if (state == WAITING2) begin
+			 state_next <= READ;
+		 end
 		else if(state == READ)
 		begin
                    data_out_reg_next <= data_ram_out;
@@ -133,7 +133,7 @@ module smart_ram
 
 			if (offset_reg == 0)
 			begin
-				curr_address_next <= curr_address + 3'b100;
+				curr_address_next <= curr_address + 2;
 			end
 		end
 		else if(state == DONE)

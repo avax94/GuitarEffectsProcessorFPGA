@@ -14,7 +14,7 @@ module sin
 		.result ( result )
 	);
 	
-	localparam WAIT_CYCLES = 35;
+	localparam WAIT_CYCLES = 37;
 	
 	integer counter, counter_next;
 	reg started, started_next;
