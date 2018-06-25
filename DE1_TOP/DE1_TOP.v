@@ -230,7 +230,7 @@ module DE1_TOP
    wire                 fpu_clk_en;
    wire                 fpu_done;
    wire [31:0]          fpu_result;
-
+	wire reset = ~KEY[1];
    fpUnit u0 (
               .dataa(fpu_dataa),
               .datab(fpu_datab),
