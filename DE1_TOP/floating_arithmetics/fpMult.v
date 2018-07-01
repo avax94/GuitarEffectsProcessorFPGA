@@ -34,7 +34,7 @@
 
 
 //altfp_mult CBX_AUTO_BLACKBOX="ALL" DEDICATED_MULTIPLIER_CIRCUITRY="YES" DENORMAL_SUPPORT="NO" DEVICE_FAMILY="Cyclone II" EXCEPTION_HANDLING="NO" PIPELINE=5 REDUCED_FUNCTIONALITY="NO" ROUNDING="TO_NEAREST" WIDTH_EXP=8 WIDTH_MAN=23 clk_en clock dataa datab result
-//VERSION_BEGIN 13.0 cbx_alt_ded_mult_y 2013:06:12:18:03:43:SJ cbx_altbarrel_shift 2013:06:12:18:03:43:SJ cbx_altera_mult_add 2013:06:12:18:03:43:SJ cbx_altera_mult_add_rtl 2013:06:12:18:03:43:SJ cbx_altfp_mult 2013:06:12:18:03:43:SJ cbx_altmult_add 2013:06:12:18:03:43:SJ cbx_cycloneii 2013:06:12:18:03:43:SJ cbx_lpm_add_sub 2013:06:12:18:03:43:SJ cbx_lpm_compare 2013:06:12:18:03:43:SJ cbx_lpm_mult 2013:06:12:18:03:43:SJ cbx_mgl 2013:06:12:18:05:10:SJ cbx_padd 2013:06:12:18:03:43:SJ cbx_parallel_add 2013:06:12:18:03:43:SJ cbx_stratix 2013:06:12:18:03:43:SJ cbx_stratixii 2013:06:12:18:03:43:SJ cbx_util_mgl 2013:06:12:18:03:43:SJ  VERSION_END
+//VERSION_BEGIN 13.0 cbx_alt_ded_mult_y 2013:06:12:18:03:40:SJ cbx_altbarrel_shift 2013:06:12:18:03:40:SJ cbx_altera_mult_add 2013:06:12:18:03:40:SJ cbx_altera_mult_add_rtl 2013:06:12:18:03:40:SJ cbx_altfp_mult 2013:06:12:18:03:40:SJ cbx_altmult_add 2013:06:12:18:03:40:SJ cbx_cycloneii 2013:06:12:18:03:40:SJ cbx_lpm_add_sub 2013:06:12:18:03:40:SJ cbx_lpm_compare 2013:06:12:18:03:40:SJ cbx_lpm_mult 2013:06:12:18:03:40:SJ cbx_mgl 2013:06:12:18:04:42:SJ cbx_padd 2013:06:12:18:03:40:SJ cbx_parallel_add 2013:06:12:18:03:40:SJ cbx_stratix 2013:06:12:18:03:40:SJ cbx_stratixii 2013:06:12:18:03:40:SJ cbx_util_mgl 2013:06:12:18:03:40:SJ  VERSION_END
 // synthesis VERILOG_INPUT_VERSION VERILOG_2001
 // altera message_off 10463
 

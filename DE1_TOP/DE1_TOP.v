@@ -230,7 +230,7 @@ module DE1_TOP
    wire                 fpu_clk_en;
    wire                 fpu_done;
    wire [31:0]          fpu_result;
-	wire reset = ~KEY[1];
+   wire                 reset = ~KEY[1];
    fpUnit u0 (
               .dataa(fpu_dataa),
               .datab(fpu_datab),
@@ -356,6 +356,34 @@ module DE1_TOP
           .clk(CLOCK_50),
           .rst(0)
           );
+//   wire                  distortion_sram_rd;
+//   wire                  distortion_done;
+//   wire [DATA_WIDTH-1:0] distortion_data_out;
+//   wire [31:0]           distortion_fp_dataa;
+//   wire [31:0]           distortion_fp_datab;
+//   wire [2:0]            distortion_fp_operation;
+//   wire                  distortion_fp_clk_en;
+//
+//   distortion_sigmoid #(.DATA_WIDTH(DATA_WIDTH),
+//             .ADDR_WIDTH(ADDR_WIDTH)
+//                        )
+//   ds (.modfreq_control_key(current_selection == DISTORTION_CONTROL && rising_edge_button2),
+//       .delay_control_key(current_selection == DISTORTION_CONTROL && rising_edge_button3),
+//       .clk(CLOCK_50),
+//       .rst(reset),
+//       .cs(SW[7]),
+//       .my_turn(state_left_prev == WAHWAH && state_left == DISTORTION),
+//       .done(distortion_done),
+//       .data_in(data_left_r),
+//       .data_out(distortion_data_out),
+//       .fp_dataa(distortion_fp_dataa),
+//       .fp_datab(distortion_fp_datab),
+//       .fp_operation(distortion_fp_operation),
+//       .fp_clk_en(distortion_fp_clk_en),
+//       .fp_done(fpu_done),
+//       .fp_result(fpu_result)
+//       );
+
 
    /*
     Initialize wahwah effect
@@ -519,7 +547,8 @@ module DE1_TOP
    wire [DATA_WIDTH-1:0] echo_data_out;
 
    echo #(.DATA_WIDTH(DATA_WIDTH),
-          .ADDR_WIDTH(ADDR_WIDTH))
+          .ADDR_WIDTH(ADDR_WIDTH),
+          .SAMPLERATE(48000))
    ech (.offset_control_key(current_selection == ECHO_CONTROL && rising_edge_button2),
         .gain_control_key(current_selection == ECHO_CONTROL && rising_edge_button3),
         .sram_data_in(sram_data_out),
@@ -855,15 +884,15 @@ module DE1_TOP
    end
 
    reg button0, prev_button0;
-	wire rising_edge_button0;
-   reg button1, prev_button1;
+   wire rising_edge_button0;
+   reg  button1, prev_button1;
    wire rising_edge_button1;
-   reg button2, prev_button2;
-	wire rising_edge_button2;
-   reg button3, prev_button3;
-	wire rising_edge_button3;
-   reg button4, prev_button4;
-	wire rising_edge_button4;
+   reg  button2, prev_button2;
+   wire rising_edge_button2;
+   reg  button3, prev_button3;
+   wire rising_edge_button3;
+   reg  button4, prev_button4;
+   wire rising_edge_button4;
 
    always @(posedge CLOCK_50) begin
       button0 <= KEY[0];
@@ -912,9 +941,9 @@ module DE1_TOP
    assign LEDG[7:0] = echo_sram_offset;
 
    assign sram_data_in = sram_data_in_value;
-   assign sram_offset = sram_offset_value;// sram_offset_value; // state_left == VIBRATO ? vibrato_sram_offset : (state_left == CHORUS ? chorus_sram_offset : sram_offset_reg);
-   assign sram_wr = sram_wr_value; // state_left == SAVING ? sram_wr_reg : echo_sram_wr;
-   assign sram_rd = sram_rd_value; // state_left == VIBRATO ? vibrato_sram_rd : (state_left == CHORUS ? chorus_sram_rd : sram_rd_reg);
+   assign sram_offset = sram_offset_value;
+   assign sram_wr = sram_wr_value;
+   assign sram_rd = sram_rd_value;
 
    assign ready_left_adc = state_left == READING; // Kad god je stanje reading spremni smo za citanje
    assign ready_right_adc = state_right == READING; // Kad god je stanje reading spremni smo za citanje

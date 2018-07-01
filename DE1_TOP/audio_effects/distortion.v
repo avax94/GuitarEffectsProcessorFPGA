@@ -28,7 +28,7 @@ module distortion #(parameter DATA_WIDTH=16)
    /*
     Constants
     */
-   localparam MAX_POSITIVE = 16'b0111111111111111, MAX_NEGATIVE = 16'b0000000000000000;
+   reg signed [DATA_WIDTH-1:0] MAX_POSITIVE = 16'b0111111111111111, MAX_NEGATIVE = 16'b1000000000000000;
 
    /*
     Variables

@@ -4,7 +4,7 @@ module echo
   #(
     parameter DATA_WIDTH=16,
     parameter ADDR_WIDTH = 12,
-	 parameter SAMPLERATE = 48000
+    parameter SAMPLERATE = 48000
     )
    (
     /* control signals */
@@ -36,7 +36,7 @@ module echo
    reg [ADDR_WIDTH-1:0]           sr_offset, sr_offset_next;
    reg                            sr_wr, sr_wr_next;
    reg                            sr_rd, sr_rd_next;
-   reg signed [DATA_WIDTH-1:0]           data_out_reg, data_out_reg_next;
+   reg signed [DATA_WIDTH-1:0]    data_out_reg, data_out_reg_next;
    reg [1:0]                      state, state_next;
    reg [31:0]                     offsets [0:7];
    wire [31:0]                    offset;
@@ -45,7 +45,7 @@ module echo
    reg [2:0]                      offset_option_counter, offset_option_counter_next;
    reg [1:0]                      gain_option_counter, gain_option_counter_next;
 
-/*
+   /*
     states
     */
    localparam PASSIVE = 0, GETDATA_AND_CALCULATE = 1, SAVE = 2, DONE = 3;
@@ -65,10 +65,10 @@ module echo
       offsets[6] = 175;
       offsets[7] = 200;
 
-      gains[0] = 3;
-      gains[1] = 2;
-      gains[2] = 1;
-      gains[3] = 0;
+      gains[0] = 4;
+      gains[1] = 3;
+      gains[2] = 2;
+      gains[3] = 1;
    end
 
    function reg [ADDR_WIDTH-1:0] delay_to_off(input [31:0] dly); begin //ms;
@@ -84,7 +84,7 @@ module echo
       sr_rd_next <= 0;
       sr_wr_next <= 0;
       offset_option_counter_next <= offset_option_counter;
-      gain_option_counter_next <= gain_option_counter_next;
+      gain_option_counter_next <= gain_option_counter;
 
       if (offset_control_key) begin
          // its ok to just always add 1 since we only use 3 bits in this register and we have 8 values

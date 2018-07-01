@@ -34,14 +34,14 @@
 
 
 //altfp_add_sub CBX_AUTO_BLACKBOX="ALL" DENORMAL_SUPPORT="NO" DEVICE_FAMILY="Cyclone II" DIRECTION="VARIABLE" OPTIMIZE="SPEED" PIPELINE=7 REDUCED_FUNCTIONALITY="NO" WIDTH_EXP=8 WIDTH_MAN=23 add_sub clk_en clock dataa datab result
-//VERSION_BEGIN 13.0 cbx_altbarrel_shift 2013:06:12:18:03:43:SJ cbx_altfp_add_sub 2013:06:12:18:03:43:SJ cbx_altpriority_encoder 2013:06:12:18:03:43:SJ cbx_cycloneii 2013:06:12:18:03:43:SJ cbx_lpm_add_sub 2013:06:12:18:03:43:SJ cbx_lpm_compare 2013:06:12:18:03:43:SJ cbx_mgl 2013:06:12:18:05:10:SJ cbx_stratix 2013:06:12:18:03:43:SJ cbx_stratixii 2013:06:12:18:03:43:SJ  VERSION_END
+//VERSION_BEGIN 13.0 cbx_altbarrel_shift 2013:06:12:18:03:40:SJ cbx_altfp_add_sub 2013:06:12:18:03:40:SJ cbx_altpriority_encoder 2013:06:12:18:03:40:SJ cbx_cycloneii 2013:06:12:18:03:40:SJ cbx_lpm_add_sub 2013:06:12:18:03:40:SJ cbx_lpm_compare 2013:06:12:18:03:40:SJ cbx_mgl 2013:06:12:18:04:42:SJ cbx_stratix 2013:06:12:18:03:40:SJ cbx_stratixii 2013:06:12:18:03:40:SJ  VERSION_END
 // synthesis VERILOG_INPUT_VERSION VERILOG_2001
 // altera message_off 10463
 
 
 
 //altbarrel_shift CBX_AUTO_BLACKBOX="ALL" DEVICE_FAMILY="Cyclone II" PIPELINE=1 SHIFTDIR="LEFT" WIDTH=26 WIDTHDIST=5 aclr clk_en clock data distance result
-//VERSION_BEGIN 13.0 cbx_altbarrel_shift 2013:06:12:18:03:43:SJ cbx_mgl 2013:06:12:18:05:10:SJ  VERSION_END
+//VERSION_BEGIN 13.0 cbx_altbarrel_shift 2013:06:12:18:03:40:SJ cbx_mgl 2013:06:12:18:04:42:SJ  VERSION_END
 
 //synthesis_resources = reg 27 
 //synopsys translate_off
@@ -106,7 +106,7 @@ endmodule //fpAdd_altbarrel_shift_h0e
 
 
 //altbarrel_shift CBX_AUTO_BLACKBOX="ALL" DEVICE_FAMILY="Cyclone II" SHIFTDIR="RIGHT" WIDTH=26 WIDTHDIST=5 data distance result
-//VERSION_BEGIN 13.0 cbx_altbarrel_shift 2013:06:12:18:03:43:SJ cbx_mgl 2013:06:12:18:05:10:SJ  VERSION_END
+//VERSION_BEGIN 13.0 cbx_altbarrel_shift 2013:06:12:18:03:40:SJ cbx_mgl 2013:06:12:18:04:42:SJ  VERSION_END
 
 //synthesis_resources = 
 //synopsys translate_off
@@ -140,23 +140,23 @@ endmodule //fpAdd_altbarrel_shift_6hb
 
 
 //altpriority_encoder CBX_AUTO_BLACKBOX="ALL" WIDTH=32 WIDTHAD=5 data q
-//VERSION_BEGIN 13.0 cbx_altpriority_encoder 2013:06:12:18:03:43:SJ cbx_mgl 2013:06:12:18:05:10:SJ  VERSION_END
+//VERSION_BEGIN 13.0 cbx_altpriority_encoder 2013:06:12:18:03:40:SJ cbx_mgl 2013:06:12:18:04:42:SJ  VERSION_END
 
 
 //altpriority_encoder CBX_AUTO_BLACKBOX="ALL" LSB_PRIORITY="NO" WIDTH=16 WIDTHAD=4 data q
-//VERSION_BEGIN 13.0 cbx_altpriority_encoder 2013:06:12:18:03:43:SJ cbx_mgl 2013:06:12:18:05:10:SJ  VERSION_END
+//VERSION_BEGIN 13.0 cbx_altpriority_encoder 2013:06:12:18:03:40:SJ cbx_mgl 2013:06:12:18:04:42:SJ  VERSION_END
 
 
 //altpriority_encoder CBX_AUTO_BLACKBOX="ALL" LSB_PRIORITY="NO" WIDTH=8 WIDTHAD=3 data q zero
-//VERSION_BEGIN 13.0 cbx_altpriority_encoder 2013:06:12:18:03:43:SJ cbx_mgl 2013:06:12:18:05:10:SJ  VERSION_END
+//VERSION_BEGIN 13.0 cbx_altpriority_encoder 2013:06:12:18:03:40:SJ cbx_mgl 2013:06:12:18:04:42:SJ  VERSION_END
 
 
 //altpriority_encoder CBX_AUTO_BLACKBOX="ALL" LSB_PRIORITY="NO" WIDTH=4 WIDTHAD=2 data q zero
-//VERSION_BEGIN 13.0 cbx_altpriority_encoder 2013:06:12:18:03:43:SJ cbx_mgl 2013:06:12:18:05:10:SJ  VERSION_END
+//VERSION_BEGIN 13.0 cbx_altpriority_encoder 2013:06:12:18:03:40:SJ cbx_mgl 2013:06:12:18:04:42:SJ  VERSION_END
 
 
 //altpriority_encoder CBX_AUTO_BLACKBOX="ALL" LSB_PRIORITY="NO" WIDTH=2 WIDTHAD=1 data q zero
-//VERSION_BEGIN 13.0 cbx_altpriority_encoder 2013:06:12:18:03:43:SJ cbx_mgl 2013:06:12:18:05:10:SJ  VERSION_END
+//VERSION_BEGIN 13.0 cbx_altpriority_encoder 2013:06:12:18:03:40:SJ cbx_mgl 2013:06:12:18:04:42:SJ  VERSION_END
 
 //synthesis_resources = 
 //synopsys translate_off
@@ -245,15 +245,15 @@ endmodule //fpAdd_altpriority_encoder_be8
 
 
 //altpriority_encoder CBX_AUTO_BLACKBOX="ALL" LSB_PRIORITY="NO" WIDTH=8 WIDTHAD=3 data q
-//VERSION_BEGIN 13.0 cbx_altpriority_encoder 2013:06:12:18:03:43:SJ cbx_mgl 2013:06:12:18:05:10:SJ  VERSION_END
+//VERSION_BEGIN 13.0 cbx_altpriority_encoder 2013:06:12:18:03:40:SJ cbx_mgl 2013:06:12:18:04:42:SJ  VERSION_END
 
 
 //altpriority_encoder CBX_AUTO_BLACKBOX="ALL" LSB_PRIORITY="NO" WIDTH=4 WIDTHAD=2 data q
-//VERSION_BEGIN 13.0 cbx_altpriority_encoder 2013:06:12:18:03:43:SJ cbx_mgl 2013:06:12:18:05:10:SJ  VERSION_END
+//VERSION_BEGIN 13.0 cbx_altpriority_encoder 2013:06:12:18:03:40:SJ cbx_mgl 2013:06:12:18:04:42:SJ  VERSION_END
 
 
 //altpriority_encoder CBX_AUTO_BLACKBOX="ALL" LSB_PRIORITY="NO" WIDTH=2 WIDTHAD=1 data q
-//VERSION_BEGIN 13.0 cbx_altpriority_encoder 2013:06:12:18:03:43:SJ cbx_mgl 2013:06:12:18:05:10:SJ  VERSION_END
+//VERSION_BEGIN 13.0 cbx_altpriority_encoder 2013:06:12:18:03:40:SJ cbx_mgl 2013:06:12:18:04:42:SJ  VERSION_END
 
 //synthesis_resources = 
 //synopsys translate_off
@@ -357,7 +357,7 @@ endmodule //fpAdd_altpriority_encoder_r08
 
 
 //altpriority_encoder CBX_AUTO_BLACKBOX="ALL" LSB_PRIORITY="NO" WIDTH=16 WIDTHAD=4 data q zero
-//VERSION_BEGIN 13.0 cbx_altpriority_encoder 2013:06:12:18:03:43:SJ cbx_mgl 2013:06:12:18:05:10:SJ  VERSION_END
+//VERSION_BEGIN 13.0 cbx_altpriority_encoder 2013:06:12:18:03:40:SJ cbx_mgl 2013:06:12:18:04:42:SJ  VERSION_END
 
 //synthesis_resources = 
 //synopsys translate_off
@@ -422,23 +422,23 @@ endmodule //fpAdd_altpriority_encoder_qb6
 
 
 //altpriority_encoder CBX_AUTO_BLACKBOX="ALL" LSB_PRIORITY="YES" WIDTH=32 WIDTHAD=5 data q
-//VERSION_BEGIN 13.0 cbx_altpriority_encoder 2013:06:12:18:03:43:SJ cbx_mgl 2013:06:12:18:05:10:SJ  VERSION_END
+//VERSION_BEGIN 13.0 cbx_altpriority_encoder 2013:06:12:18:03:40:SJ cbx_mgl 2013:06:12:18:04:42:SJ  VERSION_END
 
 
 //altpriority_encoder CBX_AUTO_BLACKBOX="ALL" LSB_PRIORITY="YES" WIDTH=16 WIDTHAD=4 data q zero
-//VERSION_BEGIN 13.0 cbx_altpriority_encoder 2013:06:12:18:03:43:SJ cbx_mgl 2013:06:12:18:05:10:SJ  VERSION_END
+//VERSION_BEGIN 13.0 cbx_altpriority_encoder 2013:06:12:18:03:40:SJ cbx_mgl 2013:06:12:18:04:42:SJ  VERSION_END
 
 
 //altpriority_encoder CBX_AUTO_BLACKBOX="ALL" LSB_PRIORITY="YES" WIDTH=8 WIDTHAD=3 data q zero
-//VERSION_BEGIN 13.0 cbx_altpriority_encoder 2013:06:12:18:03:43:SJ cbx_mgl 2013:06:12:18:05:10:SJ  VERSION_END
+//VERSION_BEGIN 13.0 cbx_altpriority_encoder 2013:06:12:18:03:40:SJ cbx_mgl 2013:06:12:18:04:42:SJ  VERSION_END
 
 
 //altpriority_encoder CBX_AUTO_BLACKBOX="ALL" LSB_PRIORITY="YES" WIDTH=4 WIDTHAD=2 data q zero
-//VERSION_BEGIN 13.0 cbx_altpriority_encoder 2013:06:12:18:03:43:SJ cbx_mgl 2013:06:12:18:05:10:SJ  VERSION_END
+//VERSION_BEGIN 13.0 cbx_altpriority_encoder 2013:06:12:18:03:40:SJ cbx_mgl 2013:06:12:18:04:42:SJ  VERSION_END
 
 
 //altpriority_encoder CBX_AUTO_BLACKBOX="ALL" LSB_PRIORITY="YES" WIDTH=2 WIDTHAD=1 data q zero
-//VERSION_BEGIN 13.0 cbx_altpriority_encoder 2013:06:12:18:03:43:SJ cbx_mgl 2013:06:12:18:05:10:SJ  VERSION_END
+//VERSION_BEGIN 13.0 cbx_altpriority_encoder 2013:06:12:18:03:40:SJ cbx_mgl 2013:06:12:18:04:42:SJ  VERSION_END
 
 //synthesis_resources = 
 //synopsys translate_off
@@ -560,19 +560,19 @@ endmodule //fpAdd_altpriority_encoder_fj8
 
 
 //altpriority_encoder CBX_AUTO_BLACKBOX="ALL" LSB_PRIORITY="YES" WIDTH=16 WIDTHAD=4 data q
-//VERSION_BEGIN 13.0 cbx_altpriority_encoder 2013:06:12:18:03:43:SJ cbx_mgl 2013:06:12:18:05:10:SJ  VERSION_END
+//VERSION_BEGIN 13.0 cbx_altpriority_encoder 2013:06:12:18:03:40:SJ cbx_mgl 2013:06:12:18:04:42:SJ  VERSION_END
 
 
 //altpriority_encoder CBX_AUTO_BLACKBOX="ALL" LSB_PRIORITY="YES" WIDTH=8 WIDTHAD=3 data q
-//VERSION_BEGIN 13.0 cbx_altpriority_encoder 2013:06:12:18:03:43:SJ cbx_mgl 2013:06:12:18:05:10:SJ  VERSION_END
+//VERSION_BEGIN 13.0 cbx_altpriority_encoder 2013:06:12:18:03:40:SJ cbx_mgl 2013:06:12:18:04:42:SJ  VERSION_END
 
 
 //altpriority_encoder CBX_AUTO_BLACKBOX="ALL" LSB_PRIORITY="YES" WIDTH=4 WIDTHAD=2 data q
-//VERSION_BEGIN 13.0 cbx_altpriority_encoder 2013:06:12:18:03:43:SJ cbx_mgl 2013:06:12:18:05:10:SJ  VERSION_END
+//VERSION_BEGIN 13.0 cbx_altpriority_encoder 2013:06:12:18:03:40:SJ cbx_mgl 2013:06:12:18:04:42:SJ  VERSION_END
 
 
 //altpriority_encoder CBX_AUTO_BLACKBOX="ALL" LSB_PRIORITY="YES" WIDTH=2 WIDTHAD=1 data q
-//VERSION_BEGIN 13.0 cbx_altpriority_encoder 2013:06:12:18:03:43:SJ cbx_mgl 2013:06:12:18:05:10:SJ  VERSION_END
+//VERSION_BEGIN 13.0 cbx_altpriority_encoder 2013:06:12:18:03:40:SJ cbx_mgl 2013:06:12:18:04:42:SJ  VERSION_END
 
 //synthesis_resources = 
 //synopsys translate_off

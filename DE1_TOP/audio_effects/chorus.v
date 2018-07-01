@@ -7,7 +7,7 @@ module chorus
     )
    (
     /* smart_ram interface */
-    input [DATA_WIDTH-1:0]    sram_data_in,
+    input signed [DATA_WIDTH-1:0]    sram_data_in,
     input                     sram_read_finish,
     output                    sram_rd,
     output [(ADDR_WIDTH-1):0] sram_offset,
@@ -17,7 +17,7 @@ module chorus
     input                     rst,
     input                     cs,
     input                     my_turn,
-    input [DATA_WIDTH-1:0]    data_in,
+    input signed [DATA_WIDTH-1:0]    data_in,
     output                    done,
     output [(DATA_WIDTH-1):0] data_out
     );
@@ -29,19 +29,19 @@ module chorus
 
    reg [ADDR_WIDTH-1:0] sr_offset, sr_offset_next;
    reg                  sr_rd, sr_rd_next;
-   reg [DATA_WIDTH + 2 - 1:0] data_out_reg, data_out_reg_next;
+   reg signed [DATA_WIDTH-1:0] data_out_reg, data_out_reg_next;
 
    localparam PASSIVE = 0, GET_FIRST = 1, GET_SECOND = 2, GET_THIRD = 3, DONE = 4;
 
-   reg [2:0]                  state, state_next;
-   reg [3:0]                  index_first, index_second, index_third;
-   integer                    counter;
+   reg [2:0]            state, state_next;
+   integer              index_first, index_second, index_third;
+   integer              counter;
    /*
     Array of Delays between 10 and 25 ms
     */
 
-   integer                    i;
-   reg [ADDR_WIDTH-1:0]       delays [0:15];
+   integer              i;
+   reg [ADDR_WIDTH-1:0] delays [0:15];
    initial begin
       state = PASSIVE;
       for (i=0;i<16;i=i+1)
@@ -62,9 +62,9 @@ module chorus
          counter <= counter - 1;
          if (counter == 0) begin
             counter <= N;
-            index_first <= (index_first + 2) % 16;
-            index_second <= (index_second - 4) % 16;
-            index_third <= (index_third + 1) % 16;
+            index_first <= (index_first + 4) % 16;
+            index_second <= (index_second - 7) % 16;
+            index_third <= (index_third + 13) % 16;
          end
       end
    end
@@ -89,7 +89,7 @@ module chorus
         PASSIVE: begin
            if(cs == 1 && my_turn == 1) begin
               state_next <= GET_FIRST;
-              data_out_reg_next <= {{2{data_in[DATA_WIDTH-1]}}, data_in[DATA_WIDTH-1:0]};
+              data_out_reg_next <= data_in >>> 2;
 
               // prepare for reading from sram for first vocal
               sr_rd_next <= 1;
@@ -99,7 +99,7 @@ module chorus
         GET_FIRST: begin
            if (sram_read_finish) begin
               state_next <= GET_SECOND;
-              data_out_reg_next <= data_out_reg + {{2{sram_data_in[DATA_WIDTH-1]}}, sram_data_in[DATA_WIDTH-1:0]};
+              data_out_reg_next <= data_out_reg + (sram_data_in >>> 2);
 
               // prepare for reading from sram for second vocal
               sr_rd_next <= 1;
@@ -108,7 +108,7 @@ module chorus
         end
         GET_SECOND: begin
            if (sram_read_finish) begin
-              data_out_reg_next <= data_out_reg + {{2{sram_data_in[DATA_WIDTH-1]}}, sram_data_in[DATA_WIDTH-1:0]};
+              data_out_reg_next <= data_out_reg + (sram_data_in >>> 2);
               state_next <= GET_THIRD;
 
               // prepare for reading from sram for third vocal
@@ -118,7 +118,7 @@ module chorus
         end
         GET_THIRD: begin
            if (sram_read_finish) begin
-              data_out_reg_next <= data_out_reg + {{2{sram_data_in[DATA_WIDTH-1]}}, sram_data_in[DATA_WIDTH-1:0]};
+              data_out_reg_next <= data_out_reg + (sram_data_in >>> 2);
               state_next <= DONE;
            end
         end
@@ -130,6 +130,6 @@ module chorus
 
    assign sram_offset = sr_offset;
    assign sram_rd = sr_rd;
-   assign data_out = data_out_reg[DATA_WIDTH+2-1:2];
+   assign data_out = data_out_reg;
    assign done = state == DONE;
 endmodule
