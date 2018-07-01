@@ -13,6 +13,9 @@ module tremolo #(
     /* control signals */
     input                     alpha_control_key,
     input                     modfreq_control_key,
+    output [1:0]              available_options,
+    output [2:0]              alpha_option_output,
+    output [2:0]              modfreq_option_output,
     input                     clk,
     input                     rst,
     input                     cs,
@@ -294,10 +297,13 @@ module tremolo #(
    assign fp_datab = datab;
    assign fp_operation = operation;
    assign fp_clk_en = clk_enFA;
+   assign available_options = 2'b11;
 
    assign sinus_angle = angle;
    assign sinus_clk_en = clk_en_sin;
 
+   assign alpha_option_output = alpha_option;
+   assign modfreq_option_output = modfreq_option;
    assign alpha = alphas[alpha_option];
    assign modfreq = modfreqs[modfreq_option];
    assign data_out = result_tremolo[DATA_WIDTH-1:0];

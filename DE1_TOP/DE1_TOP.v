@@ -205,11 +205,51 @@ module DE1_TOP
    inout [35:0]         GPIO_0;                                         //      GPIO Connection 0
    inout [35:0]         GPIO_1;                                         //      GPIO Connection 1
 
-   //   Turn on all display
-   assign       HEX0            =       7'h00;
-   assign       HEX1            =       7'h00;
-   assign       HEX2            =       7'h00;
-   assign       HEX3            =       7'h00;
+   function reg [6:0] digit_to_display(input [3:0] digit); begin
+      casex(digit)
+        0: begin
+          //                    6543210
+          digit_to_display = 7'b1000000;
+        end
+        1: begin
+          //                    6543210
+          digit_to_display = 7'b1111001;
+        end
+        2: begin
+          //                    6543210
+          digit_to_display = 7'b0100100;
+        end
+        3: begin
+          //                    6543210
+          digit_to_display = 7'b0110000;
+        end
+        4: begin
+          //                    6543210
+          digit_to_display = 7'b0011001;
+        end
+        5: begin
+          //                    6543210
+          digit_to_display = 7'b0010010;
+        end
+        6: begin
+          //                    6543210
+          digit_to_display = 7'b0000010;
+        end
+        7: begin
+          //                    6543210
+          digit_to_display = 7'b1111000;
+        end
+        8: begin
+          //                    6543210
+          digit_to_display = 7'b0000000;
+        end
+        9: begin
+          //                    6543210
+          digit_to_display = 7'b0011000;
+        end
+      endcase
+   end
+   endfunction
 
    //   All inout port turn to tri-state
    assign       DRAM_DQ                 =       16'hzzzz;
@@ -342,12 +382,17 @@ module DE1_TOP
     */
    wire                  distortion_done;
    wire [DATA_WIDTH-1:0] distortion_data_out;
+   wire [1:0]            distortion_available_options;
+   wire [2:0]            distortion_control;
+
    distortion #(
                 .DATA_WIDTH(DATA_WIDTH)
                 )
    distt (
+          .available_options(distortion_available_options),
+          .distortion_option_output(distortion_control),
           .control_key1(current_selection == DISTORTION_CONTROL && rising_edge_button2),
-          .cs(SW[7]),
+          .cs(SW[7]      ),
           .my_turn(state_left_prev == WAHWAH && state_left == DISTORTION),
           .data_in(data_left_r),
           // 2000 / (48000 * 48000)
@@ -397,11 +442,16 @@ module DE1_TOP
    wire [2:0]            wahwah_fp_operation;
    wire                  wahwah_fp_clk_en;
    wire [31:0]           stt, substt;
+   wire [1:0]            wahwah_available_options;
+   wire [2:0]            wahwah_freq_option;
+   wire [2:0]            wahwah_delta_option;
 
    wah_wah #(
              .DATA_WIDTH(DATA_WIDTH)
              )
-   wahwah (
+   wahwah (.freq_option_output(wahwah_freq_option),
+           .delta_option_output(wahwah_delta_option),
+           .available_options(wahwah_available_options),
            .freq_control_key(current_selection == WAHWAH_CONTROL && rising_edge_button2),
            .delta_control_key(current_selection == WAHWAH_CONTROL && rising_edge_button3),
            .sinus_done(sinus_done_value),
@@ -427,6 +477,7 @@ module DE1_TOP
    /*
     Initialize tremolo effect
     */
+   wire [1:0]            tremolo_available_options;
    wire                  tremolo_done;
    wire [DATA_WIDTH-1:0] tremolo_data_out;
    wire [31:0]           tremolo_sinus_angle;
@@ -435,12 +486,16 @@ module DE1_TOP
    wire [31:0]           tremolo_fp_datab;
    wire [2:0]            tremolo_fp_operation;
    wire                  tremolo_fp_clk_en;
-
+   wire [2:0]            tremolo_alpha_option;
+   wire [2:0]            tremolo_modfreq_option;
    tremolo #(
              .DATA_WIDTH(DATA_WIDTH),
              .ADDR_WIDTH(ADDR_WIDTH)
              )
-   tremolo (.alpha_control_key(current_selection == TREMOLO_CONTROL && rising_edge_button2),
+   tremolo (.alpha_option_output(tremolo_alpha_option),
+            .modfreq_option_output(tremolo_modfreq_option),
+            .available_options(tremolo_available_options),
+            .alpha_control_key(current_selection == TREMOLO_CONTROL && rising_edge_button2),
             .modfreq_control_key(current_selection == TREMOLO_CONTROL && rising_edge_button3),
             .sinus_done(sinus_done_value),
             .sinus_result(sinus_result_value),
@@ -464,11 +519,11 @@ module DE1_TOP
    /*
     Initialize chorus effect
     */
+   wire [1:0]            chorus_available_options;
    wire                  chorus_sram_rd;
    wire                  chorus_done;
    wire [ADDR_WIDTH-1:0] chorus_sram_offset;
    wire [DATA_WIDTH-1:0] chorus_data_out;
-
    chorus #(
             .DATA_WIDTH(DATA_WIDTH),
             .ADDR_WIDTH(ADDR_WIDTH),
@@ -476,6 +531,7 @@ module DE1_TOP
             .N(50000)
             )
    ch (
+       .available_options(chorus_available_options),
        .sram_data_in(sram_data_out),
        .sram_read_finish(sram_read_finish),
        .sram_rd(chorus_sram_rd),
@@ -493,6 +549,7 @@ module DE1_TOP
    /*
     Initialize vibrato effect
     */
+   wire [1:0]            vibrato_available_options;
    wire                  vibrato_sram_rd;
    wire                  vibrato_done;
    wire [ADDR_WIDTH-1:0] vibrato_sram_offset;
@@ -503,12 +560,17 @@ module DE1_TOP
    wire [31:0]           vibrato_fp_datab;
    wire [2:0]            vibrato_fp_operation;
    wire                  vibrato_fp_clk_en;
+   wire [2:0]            vibrato_modfreq_option;
+   wire [2:0]            vibrato_delay_option;
 
    vibrato #(.DATA_WIDTH(DATA_WIDTH),
              .ADDR_WIDTH(ADDR_WIDTH)
              )
-   vib (.modfreq_control_key(current_selection == VIBRATO_CONTROL && rising_edge_button2),
+   vib (.available_options(vibrato_available_options),
+        .modfreq_control_key(current_selection == VIBRATO_CONTROL && rising_edge_button2),
         .delay_control_key(current_selection == VIBRATO_CONTROL && rising_edge_button3),
+        .modfreq_option_output(vibrato_modfreq_option),
+        .delay_option_output(vibrato_delay_option),
         .sinus_done(sinus_done_value),
         .sinus_result(sinus_result_value),
         .sinus_angle(vibrato_sinus_angle),
@@ -519,7 +581,7 @@ module DE1_TOP
         .sram_offset(vibrato_sram_offset),
         .clk(CLOCK_50),
         .rst(reset),
-        .cs(SW[3]),
+        .cs(SW[3]        ),
         .my_turn(state_left_prev == ECHO && state_left==VIBRATO),
         .done(vibrato_done),
         .data_out(vibrato_data_out),
@@ -534,12 +596,15 @@ module DE1_TOP
    /*
     Initialize echo effect
     */
+   wire                  echo_available_options;
    wire                  echo_should_save;
    wire                  echo_available;
    wire                  echo_sram_rd;
    wire [ADDR_WIDTH-1:0] echo_sram_offset;
    wire [DATA_WIDTH-1:0] echo_sram_data_out;
    wire                  echo_sram_wr;
+   wire [2:0]            echo_gain_option;
+   wire [2:0]            echo_offset_option;
    reg                   echo_cs;
    reg                   echo_my_turn;
    reg [DATA_WIDTH-1:0]  echo_data_in;
@@ -549,7 +614,10 @@ module DE1_TOP
    echo #(.DATA_WIDTH(DATA_WIDTH),
           .ADDR_WIDTH(ADDR_WIDTH),
           .SAMPLERATE(48000))
-   ech (.offset_control_key(current_selection == ECHO_CONTROL && rising_edge_button2),
+   ech (.offset_option_output(echo_offset_option),
+        .gain_option_output(echo_gain_option),
+        .available_options(echo_available_options),
+        .offset_control_key(current_selection == ECHO_CONTROL && rising_edge_button2),
         .gain_control_key(current_selection == ECHO_CONTROL && rising_edge_button3),
         .sram_data_in(sram_data_out),
         .sram_write_finish(sram_write_finish),
@@ -911,6 +979,69 @@ module DE1_TOP
       prev_button3 <= button3;
    end
 
+   reg [1:0] current_available_options;
+
+   always @(*) begin
+      casex(current_selection)
+        ECHO_CONTROL: begin
+           current_available_options <= echo_available_options;
+        end
+        VIBRATO_CONTROL: begin
+           current_available_options <= vibrato_available_options;
+        end
+        CHORUS_CONTROL: begin
+           current_available_options <= chorus_available_options;
+        end
+        TREMOLO_CONTROL: begin
+           current_available_options <= tremolo_available_options;
+        end
+        WAHWAH_CONTROL: begin
+           current_available_options <= wahwah_available_options;
+        end
+        DISTORTION_CONTROL: begin
+           current_available_options <= distortion_available_options;
+        end
+        default: begin
+        end
+      endcase
+   end
+
+   reg [2:0] first_option, second_option;
+
+   always @(*) begin
+      casex(current_selection)
+        ECHO_CONTROL: begin
+           first_option <= echo_offset_option;
+           second_option <= echo_gain_option;
+        end
+        VIBRATO_CONTROL: begin
+           first_option <= vibrato_modfreq_option;
+           second_option <= vibrato_delay_option;
+        end
+        CHORUS_CONTROL: begin
+           first_option <= 0;
+           second_option <= 0;
+        end
+        TREMOLO_CONTROL: begin
+           first_option <= tremolo_alpha_option;
+           second_option <= tremolo_modfreq_option;
+        end
+        WAHWAH_CONTROL: begin
+           first_option <= wahwah_freq_option;
+           second_option <= wahwah_delta_option;
+        end
+        DISTORTION_CONTROL: begin
+           first_option <= distortion_control;
+           second_option <= 0;
+        end
+        default: begin
+           first_option <= 0;
+           second_option <= 0;
+        end
+      endcase
+   end
+
+
    always @(*) begin
       current_selection_next <= current_selection;
 
@@ -938,7 +1069,12 @@ module DE1_TOP
    assign sinus_data_value = sinus_data_reg;
 
    assign LEDR[9:0] = current_selection;
-   assign LEDG[7:0] = echo_sram_offset;
+   assign LEDG[5] = current_available_options[0];
+   assign LEDG[7] = current_available_options[1];
+	assign HEX3 = digit_to_display(0);
+	assign HEX2 = digit_to_display(second_option);
+   assign HEX1 = digit_to_display(0);
+   assign HEX0 = digit_to_display(first_option);
 
    assign sram_data_in = sram_data_in_value;
    assign sram_offset = sram_offset_value;

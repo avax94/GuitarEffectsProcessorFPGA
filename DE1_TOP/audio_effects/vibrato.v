@@ -12,8 +12,11 @@ module vibrato
     )
    (
     /* control interface */
-    input modfreq_control_key,
-    input delay_control_key,
+    input                     modfreq_control_key,
+    input                     delay_control_key,
+    output [1:0]              available_options,
+    output [2:0]              modfreq_option_output,
+    output [2:0]              delay_option_output,
     /* smart_ram interface */
     input [DATA_WIDTH-1:0]    sram_data_in,
     input                     sram_read_finish,
@@ -342,8 +345,11 @@ module vibrato
    assign fp_operation = operation;
    assign fp_clk_en = clk_enFA;
 
+   assign modfreq_option_output = modfreq_option;
+   assign delay_option_output = delay_option;
    assign delay_int = delays_int[delay_option];
    assign delay_float = delays_float[delay_option];
+   assign available_options = 2'b11;
    assign sinus_angle = angle;
    assign sinus_clk_en = clk_en_sin;
    assign modfreq = modfreqs[modfreq_option];

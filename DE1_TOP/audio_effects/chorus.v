@@ -6,20 +6,21 @@ module chorus
     parameter N = 10
     )
    (
+    output [1:0]                  available_options,
     /* smart_ram interface */
-    input signed [DATA_WIDTH-1:0]    sram_data_in,
-    input                     sram_read_finish,
-    output                    sram_rd,
-    output [(ADDR_WIDTH-1):0] sram_offset,
+    input signed [DATA_WIDTH-1:0] sram_data_in,
+    input                         sram_read_finish,
+    output                        sram_rd,
+    output [(ADDR_WIDTH-1):0]     sram_offset,
     /* end */
 
-    input                     clk,
-    input                     rst,
-    input                     cs,
-    input                     my_turn,
-    input signed [DATA_WIDTH-1:0]    data_in,
-    output                    done,
-    output [(DATA_WIDTH-1):0] data_out
+    input                         clk,
+    input                         rst,
+    input                         cs,
+    input                         my_turn,
+    input signed [DATA_WIDTH-1:0] data_in,
+    output                        done,
+    output [(DATA_WIDTH-1):0]     data_out
     );
 
    function reg [ADDR_WIDTH-1:0] delay_to_off(input [31:0] dly); begin //ms;
@@ -128,6 +129,7 @@ module chorus
       endcase
    end
 
+   assign available_options = 2'b00;
    assign sram_offset = sr_offset;
    assign sram_rd = sr_rd;
    assign data_out = data_out_reg;

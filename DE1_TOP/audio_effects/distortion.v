@@ -10,6 +10,8 @@
 module distortion #(parameter DATA_WIDTH=16)
    (
     input                           control_key1,
+    output [1:0]                    available_options,
+    output [2:0]                    distortion_option_output,
     input                           clk,
     input                           rst,
     input                           cs,
@@ -106,6 +108,8 @@ module distortion #(parameter DATA_WIDTH=16)
       endcase // case (state)
    end
 
+   assign distortion_option_output = option_counter;
+   assign available_options = 2'b10;
    assign gain = gains[option_counter];
    assign data_out = clipped[DATA_WIDTH-1:0];
    assign done = state == DONE;

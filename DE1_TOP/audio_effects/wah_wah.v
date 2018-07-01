@@ -12,8 +12,11 @@ module wah_wah
     )
    (
     /* control interface */
-    input freq_control_key,
-    input delta_control_key,
+    input                     freq_control_key,
+    input                     delta_control_key,
+    output [1:0]              available_options,
+    output [2:0]              freq_option_output,
+    output [2:0]              delta_option_output,
     /* sinus interface */
     input                     sinus_done,
     input [31:0]              sinus_result,
@@ -408,12 +411,15 @@ module wah_wah
    assign min_freq = min_freqs[freq_option];
    assign max_freq = max_freqs[freq_option];
    assign delta = deltas[delta_option];
+   assign available_options = 2'b11;
 
    assign fp_dataa = dataa;
    assign fp_datab = datab;
    assign fp_operation = operation;
    assign fp_clk_en = clk_enFA;
 
+   assign freq_option_output = freq_option;
+   assign delta_option_output = delta_option;
    assign sinus_angle = angle;
    assign sinus_clk_en = clk_en_sin;
    assign st = current_frequency;

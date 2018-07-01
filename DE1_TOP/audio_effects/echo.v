@@ -10,6 +10,9 @@ module echo
     /* control signals */
     input                         offset_control_key,
     input                         gain_control_key,
+    output [1:0]                  available_options,
+    output [2:0]                  offset_option_output,
+    output [2:0]                  gain_option_output,
     /* smart_ram interface */
     input signed [DATA_WIDTH-1:0] sram_data_in,
     input                         sram_read_finish,
@@ -44,6 +47,7 @@ module echo
    reg signed [31:0]              gains [0:3];
    reg [2:0]                      offset_option_counter, offset_option_counter_next;
    reg [1:0]                      gain_option_counter, gain_option_counter_next;
+   reg                            last_changed_next, last_changed;
 
    /*
     states
@@ -89,6 +93,7 @@ module echo
       if (offset_control_key) begin
          // its ok to just always add 1 since we only use 3 bits in this register and we have 8 values
          offset_option_counter_next <= offset_option_counter + 1;
+         last_changed_next <= 1;
       end
 
       if (gain_control_key) begin
@@ -146,6 +151,11 @@ module echo
       sr_data_out <= sr_data_out_next;
    end
 
+
+   assign gain_option_output = gain_option_counter;
+   assign offset_option_output = offset_option_counter;
+
+   assign available_options = 2'b11;
    assign gain = gains[gain_option_counter];
    assign offset = offsets[offset_option_counter];
    assign available = state == PASSIVE;
