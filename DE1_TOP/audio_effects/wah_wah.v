@@ -11,6 +11,9 @@ module wah_wah
     parameter DATA_WIDTH=16
     )
    (
+    /* control interface */
+    input freq_control_key,
+    input delta_control_key,
     /* sinus interface */
     input                     sinus_done,
     input [31:0]              sinus_result,
@@ -28,7 +31,6 @@ module wah_wah
     input                     clk,
     input                     rst,
     input                     cs,
-    input [31:0]              delta,
 
     input                     my_turn,
     output                    done,
@@ -73,6 +75,8 @@ module wah_wah
     Helper variables
     */
    localparam PI = 32'b01000000010010010000111111011011, TWO_FLOAT = 32'b01000000000000000000000000000000, LESS = {29'b0, 1'b1, 2'b0}, GREATER = {30'b0, 1'b1, 1'b0}, DATA_WIDTH_DIFF = 32 - DATA_WIDTH;
+   reg [2:0]                  delta_option_next, delta_option;
+   reg [2:0]                  freq_option, freq_option_next;
    integer                    state, state_next;
    integer                    substate, substate_next;
    reg [31:0]                 result_wahwah;
@@ -84,36 +88,87 @@ module wah_wah
       input [2:0]  op;
       output [31:0] r;
       begin
-         if(started_action == 0)
-           begin
-              started_action <= 1;
-              dataa <= data1;
-              datab <= data2;
-              operation <= op;
-              clk_enFA <= 1;
-           end
+         if(started_action == 0) begin
+
+            started_action <= 1;
+            dataa <= data1;
+            datab <= data2;
+            operation <= op;
+            clk_enFA <= 1;
+         end
          else
            begin
-              if(fp_done == 1)
-                begin
-                   started_action <= 0;
-                   clk_enFA <= 0;
-                end
+              if(fp_done == 1) begin
+                 started_action <= 0;
+                 clk_enFA <= 0;
+              end
            end
 
          r = fp_result;
       end
    endtask
 
-   reg [31:0]           min_freq = 32'b00111100001010101010101010101011; // 500 / 48000
-   reg [31:0]           max_freq = 32'b00111101110101010101010101010101; // 5000 / 48000
-   reg [31:0]           current_frequency = 32'b00111100001010101010101010101011;
-   reg [31:0]           sin_val, F1;
-   reg [31:0]           yh, yb, yb_prev, yl, yl_prev;
-   reg [31:0]           input_float, cont1, cmp_result;
-   reg [2:0]            op, op_next;
+   reg [31:0] min_freqs [7:0];
+   reg [31:0] max_freqs [7:0];
+   reg [31:0] deltas [7:0];
+
+   wire [31:0] min_freq;
+   wire [31:0] max_freq;
+   wire [31:0] delta;
+   reg [31:0]  current_frequency = 32'b00111100001010101010101010101011;
+   reg [31:0]  sin_val, F1;
+   reg [31:0]  yh, yb, yb_prev, yl, yl_prev;
+   reg [31:0]  input_float, cont1, cmp_result;
+   reg [2:0]   op, op_next;
 
    initial begin
+      delta_option = 0;
+      delta_option_next = 0;
+      freq_option = 0;
+      freq_option_next = 0;
+
+      // 2000 / 48000 / 48000
+      deltas[0] = 32'b00110101011010010000010001010011;
+      // 3000 / 48000 / 48000
+      deltas[1] = 32'b00110101101011101100001100111110;
+      // 4000 / 48000 / 48000
+      deltas[2] = 32'b00110101111010010000010001010011;
+      // 5000 / 48000 / 48000
+      deltas[3] = 32'b00110110000100011010001010110100;
+      // 6000 / 48000 / 48000
+      deltas[4] = 32'b00110110001011101100001100111110;
+      // 7000 / 48000 / 48000
+      deltas[5] = 32'b00110110010010111110001110110101;
+      // 1000 / 48000 / 48000
+      deltas[6] = 32'b00110100111010010000010001010011;
+      // 500 / 48000 / 48000
+      deltas[7] = 32'b00110100011010010000010001010011;
+
+      // min = 500 / 48000 max = 5000 / 48000
+      min_freqs[0] = 32'b00111100001010101010101010101011;
+      max_freqs[0] = 32'b00111101110101010101010101010101;
+      // min = 450 / 48000 max = 5500 / 48000
+      min_freqs[1] = 32'b00111100000110011001100110011010;
+      max_freqs[1] = 32'b00111101111010101010101010101011;
+      // min = 400 / 48000 max = 6000 / 48000
+      min_freqs[2] = 32'b00111100000010001000100010001001;
+      max_freqs[2] = 32'b00111110000000000000000000000000;
+      // min = 350 / 48000 max = 6500 / 48000
+      min_freqs[3] = 32'b00111011111011101110111011101111;
+      max_freqs[3] = 32'b00111110000010101010101010101011;
+      // min = 300 / 48000 max = 7000 / 48000
+      min_freqs[4] = 32'b00111011110011001100110011001101;
+      max_freqs[4] = 32'b00111110000101010101010101010101;
+      // min = 250 / 48000 max = 7500 / 48000
+      min_freqs[5] = 32'b00111011101010101010101010101011;
+      max_freqs[5] = 32'b00111110001000000000000000000000;
+      // min = 600 / 48000 max = 4000 / 48000
+      min_freqs[6] = 32'b00111100010011001100110011001101;
+      max_freqs[6] = 32'b00111101101010101010101010101011;
+      // min = 1000 / 48000 max = 3000 / 48000
+      min_freqs[7] = 32'b00111100101010101010101010101011;
+      max_freqs[7] = 32'b00111101100000000000000000000000;
+
       state = PASSIVE;
       state_next = PASSIVE;
       substate_next = PASSIVE;
@@ -337,6 +392,22 @@ module wah_wah
         end
       endcase
    end
+
+   always @(*) begin
+      delta_option_next <= delta_option;
+      freq_option_next <= freq_option;
+
+      if (delta_control_key) begin
+         delta_option_next <= delta_option + 1;
+      end
+      if (freq_control_key) begin
+         freq_option_next <= freq_option + 1;
+      end
+   end
+
+   assign min_freq = min_freqs[freq_option];
+   assign max_freq = max_freqs[freq_option];
+   assign delta = deltas[delta_option];
 
    assign fp_dataa = dataa;
    assign fp_datab = datab;

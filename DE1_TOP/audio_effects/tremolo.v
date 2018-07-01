@@ -81,10 +81,10 @@ module tremolo #(
       state_next = CALCULATE_ANGLE;
       substate_next = PASSIVE;
       substate = PASSIVE;
-      modfreq_option = 0;
-      modfreq_option_next = 0;
-      alpha_option = 0;
-      alpha_option_next = 0;
+      modfreq_option = 2;
+      modfreq_option_next = 2;
+      alpha_option = 4;
+      alpha_option_next = 4;
 
       // 0.0
       alphas[0] = 32'b00000000000000000000000000000000;

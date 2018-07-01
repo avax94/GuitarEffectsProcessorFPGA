@@ -402,6 +402,8 @@ module DE1_TOP
              .DATA_WIDTH(DATA_WIDTH)
              )
    wahwah (
+           .freq_control_key(current_selection == WAHWAH_CONTROL && rising_edge_button2),
+           .delta_control_key(current_selection == WAHWAH_CONTROL && rising_edge_button3),
            .sinus_done(sinus_done_value),
            .sinus_result(sinus_result_value),
            .sinus_angle(wahwah_sinus_angle),
@@ -409,8 +411,6 @@ module DE1_TOP
            .cs(SW[6]),
            .my_turn(state_left_prev == TREMOLO && state_left == WAHWAH),
            .data_in(data_left_r),
-           // 2000 / (48000 * 48000)
-           .delta(32'b00110110100100011010001010100011),
            .done(wahwah_done),
            .data_out(wahwah_data_out),
            .clk(CLOCK_50),
